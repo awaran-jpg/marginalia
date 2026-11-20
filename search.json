@@ -1,0 +1,100 @@
+[
+  {
+    "objectID": "statistics.html",
+    "href": "statistics.html",
+    "title": "Reading Statistics",
+    "section": "",
+    "text": "Here we’ll explore my reading history using the visualization techniques from data science class."
+  },
+  {
+    "objectID": "statistics.html#books-finished",
+    "href": "statistics.html#books-finished",
+    "title": "Reading Statistics",
+    "section": "Books finished",
+    "text": "Books finished\nWe’ll summarize completed books by month and year."
+  },
+  {
+    "objectID": "statistics.html#pages-read",
+    "href": "statistics.html#pages-read",
+    "title": "Reading Statistics",
+    "section": "Pages read",
+    "text": "Pages read\nWe’ll visualize daily page totals and how they accumulate over time."
+  },
+  {
+    "objectID": "statistics.html#ratings-and-reading-patterns",
+    "href": "statistics.html#ratings-and-reading-patterns",
+    "title": "Reading Statistics",
+    "section": "Ratings and reading patterns",
+    "text": "Ratings and reading patterns\nWe’ll eventually explore rating distributions, book lengths, and other patterns using ggplot2."
+  },
+  {
+    "objectID": "pages.html",
+    "href": "pages.html",
+    "title": "Page Log",
+    "section": "",
+    "text": "This page will show how far I’ve read in each book and how many pages I’ve read on each date."
+  },
+  {
+    "objectID": "pages.html#daily-reading",
+    "href": "pages.html#daily-reading",
+    "title": "Page Log",
+    "section": "Daily reading",
+    "text": "Daily reading\nWe’ll create a reading_log.csv dataset with one row per book per logged date, recording the page reached.\nUsing dplyr, we’ll calculate pages read between updates. For accurate daily totals, we’ll distinguish starting page positions from pages actually read that day."
+  },
+  {
+    "objectID": "library.html",
+    "href": "library.html",
+    "title": "My Library",
+    "section": "",
+    "text": "This page will be a searchable catalog of my books, including titles, authors, reading status, dates, and ratings."
+  },
+  {
+    "objectID": "library.html#books",
+    "href": "library.html#books",
+    "title": "My Library",
+    "section": "Books",
+    "text": "Books\nWe’ll build the library from a books.csv dataset using R and the tidyverse.\nLater, we’ll make the table searchable and sortable, and add book covers if useful."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Home",
+    "section": "",
+    "text": "Marginalia is my personal reading diary: a place to keep track of the books I’ve read, record my thoughts, and follow how many pages I’m reading.\n\n\nThe books I’m currently reading will appear here.\n\n\n\nMy most recently finished books and short reviews will appear here.\n\n\n\nWe’ll add summary statistics here once we’ve created the reading datasets."
+  },
+  {
+    "objectID": "index.html#currently-reading",
+    "href": "index.html#currently-reading",
+    "title": "Home",
+    "section": "",
+    "text": "The books I’m currently reading will appear here."
+  },
+  {
+    "objectID": "index.html#recent-reads",
+    "href": "index.html#recent-reads",
+    "title": "Home",
+    "section": "",
+    "text": "My most recently finished books and short reviews will appear here."
+  },
+  {
+    "objectID": "index.html#at-a-glance",
+    "href": "index.html#at-a-glance",
+    "title": "Home",
+    "section": "",
+    "text": "We’ll add summary statistics here once we’ve created the reading datasets."
+  },
+  {
+    "objectID": "diary.html",
+    "href": "diary.html",
+    "title": "Reading Diary",
+    "section": "",
+    "text": "A chronological record of books I’ve finished, with my ratings, reviews, and reflections."
+  },
+  {
+    "objectID": "diary.html#recent-entries",
+    "href": "diary.html#recent-entries",
+    "title": "Reading Diary",
+    "section": "Recent entries",
+    "text": "Recent entries\nOnce our book data is ready, we’ll use R to display completed books here, ordered by their completion dates.\nFor now, this page is a placeholder for the diary we’ll build together."
+  }
+]
