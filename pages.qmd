@@ -1,0 +1,11 @@
+---
+title: "Page Log"
+---
+
+This page will show how far I've read in each book and how many pages I've read on each date.
+
+## Daily reading
+
+We'll create a `reading_log.csv` dataset with one row per book per logged date, recording the page reached.
+
+Using `dplyr`, we'll calculate pages read between updates. For accurate daily totals, we'll distinguish starting page positions from pages actually read that day.

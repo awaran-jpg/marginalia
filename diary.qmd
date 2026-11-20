@@ -1,0 +1,11 @@
+---
+title: "Reading Diary"
+---
+
+A chronological record of books I've finished, with my ratings, reviews, and reflections.
+
+## Recent entries
+
+Once our book data is ready, we'll use R to display completed books here, ordered by their completion dates.
+
+For now, this page is a placeholder for the diary we'll build together.

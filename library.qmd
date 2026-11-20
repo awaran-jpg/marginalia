@@ -1,0 +1,11 @@
+---
+title: "My Library"
+---
+
+This page will be a searchable catalog of my books, including titles, authors, reading status, dates, and ratings.
+
+## Books
+
+We'll build the library from a `books.csv` dataset using R and the tidyverse.
+
+Later, we'll make the table searchable and sortable, and add book covers if useful.

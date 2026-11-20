@@ -1,0 +1,23 @@
+project:
+  type: website
+
+website:
+  title: "Marginalia"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - href: library.qmd
+        text: Library
+      - href: diary.qmd
+        text: Diary
+      - href: pages.qmd
+        text: Page Log
+      - href: statistics.qmd
+        text: Statistics
+    search: true
+
+format:
+  html:
+    theme: cosmo
+    toc: false

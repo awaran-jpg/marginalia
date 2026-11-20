@@ -1,0 +1,17 @@
+---
+title: "Reading Statistics"
+---
+
+Here we'll explore my reading history using the visualization techniques from data science class.
+
+## Books finished
+
+We'll summarize completed books by month and year.
+
+## Pages read
+
+We'll visualize daily page totals and how they accumulate over time.
+
+## Ratings and reading patterns
+
+We'll eventually explore rating distributions, book lengths, and other patterns using `ggplot2`.

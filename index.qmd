@@ -1,0 +1,19 @@
+---
+title: "Home"
+---
+
+# Welcome to Marginalia
+
+Marginalia is my personal reading diary: a place to keep track of the books I've read, record my thoughts, and follow how many pages I'm reading.
+
+## Currently reading
+
+The books I'm currently reading will appear here.
+
+## Recent reads
+
+My most recently finished books and short reviews will appear here.
+
+## At a glance
+
+We'll add summary statistics here once we've created the reading datasets.
