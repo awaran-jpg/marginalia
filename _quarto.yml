@@ -1,5 +1,6 @@
 project:
   type: website
+  execute-dir: project
 
 website:
   title: "Marginalia"
@@ -9,8 +10,6 @@ website:
         text: Home
       - href: library.qmd
         text: Library
-      - href: diary.qmd
-        text: Diary
       - href: pages.qmd
         text: Page Log
       - href: statistics.qmd
@@ -20,4 +19,5 @@ website:
 format:
   html:
     theme: cosmo
+    css: styles.css
     toc: false

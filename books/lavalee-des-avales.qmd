@@ -1,0 +1,82 @@
+---
+title: "L'avalée des avalés"
+subtitle: "Réjean Ducharme"
+---
+
+```{r}
+#| include: false
+#| message: false
+
+library(tidyverse)
+
+# Load reusable functions
+source("R/reading_helpers.R")
+
+# Import datasets
+books <- read_csv(
+  "data/books.csv",
+  show_col_types = FALSE
+)
+
+reading_log <- read_csv(
+  "data/reading_log.csv",
+  col_types = cols(
+    book_id = col_character(),
+    date = col_date(),
+    page_reached = col_integer()
+  )
+)
+
+# Identify this book
+book_id <- "B001"
+
+# Retrieve its reading history
+book_history <- get_book_history(
+  books,
+  reading_log,
+  book_id
+)
+```
+
+```{r}
+#| echo: false
+
+book_header(
+  books,
+  reading_log,
+  book_id
+)
+```
+
+## My Reflections
+
+My reflections on the book will go here.
+
+## Reading History
+
+The following table records my reading progress through this book.
+
+```{r}
+#| echo: false
+#| results: asis
+
+if (nrow(book_history) > 0) {
+
+  book_history |>
+    select(date, pages_read, page_reached) |>
+    knitr::kable(
+      format = "html",
+      col.names = c(
+        "Date",
+        "Pages Read",
+        "Page Reached"
+      )
+    ) |>
+    cat()
+
+} else {
+
+  cat("No daily reading records are available for this book.")
+
+}
+```

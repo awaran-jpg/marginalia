@@ -1,0 +1,3 @@
+book_id,title,author,total_pages,status,date_started,date_finished,book_page,cover_id,baseline_page
+B001,L'avalée des avalés,Réjean Ducharme,343,Reading,2026-11-19,NA,books/lavalee-des-avales.qmd,967591,0
+B002,Volkswagen Blues,Jacques Poulin,221,Finished,2026-10-30,2026-11-18,books/volkswagen-blues.qmd,10820587,NA

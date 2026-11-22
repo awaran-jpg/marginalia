@@ -1,11 +1,86 @@
 ---
-title: "Page Log"
+title: "Reading Log"
 ---
 
-This page will show how far I've read in each book and how many pages I've read on each date.
+A chronological record of my reading activity, searchable by book and date.
 
-## Daily reading
+```{r}
+#| include: false
+#| message: false
 
-We'll create a `reading_log.csv` dataset with one row per book per logged date, recording the page reached.
+library(tidyverse)
+library(DT)
 
-Using `dplyr`, we'll calculate pages read between updates. For accurate daily totals, we'll distinguish starting page positions from pages actually read that day.
+# Load our reusable functions
+source("R/reading_helpers.R")
+
+# Import datasets
+books <- read_csv(
+  "data/books.csv",
+  show_col_types = FALSE
+)
+
+reading_log <- read_csv(
+  "data/reading_log.csv",
+  col_types = cols(
+    book_id = col_character(),
+    date = col_date(),
+    page_reached = col_integer()
+  )
+)
+
+# Calculate reading progress for all books
+book_progress <- calculate_book_progress(
+  books,
+  reading_log
+)
+
+# Identify dates without recorded reading
+empty_days <- tibble(
+  date = seq.Date(
+    min(book_progress$date),
+    max(book_progress$date),
+    by = "day"
+  )
+) |>
+  anti_join(
+    book_progress |> distinct(date),
+    by = "date"
+  ) |>
+  mutate(
+    title = "No reading logged",
+    page_reached = NA_integer_,
+    pages_read = 0L
+  )
+
+# Combine recorded reading and empty days
+display_log <- book_progress |>
+  select(date, title, pages_read, page_reached) |>
+  bind_rows(empty_days) |>
+  arrange(desc(date), title)
+```
+
+## Reading History
+
+The table below records my daily reading activity across all books. Days without recorded reading are included, and the entries can be searched and sorted.
+
+```{r}
+#| echo: false
+
+display_log |>
+  datatable(
+    rownames = FALSE,
+    colnames = c(
+      "Date",
+      "Book",
+      "Pages Read",
+      "Page Reached"
+    ),
+    options = list(
+      pageLength = 15,
+      searching = TRUE,
+      ordering = TRUE,
+      order = list(list(0, "desc"))
+    )
+  )
+```

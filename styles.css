@@ -1,0 +1,98 @@
+.reading-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 1rem;
+  margin: 1rem 0 2rem;
+}
+
+.reading-stat {
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 10px;
+  padding: 1.25rem;
+}
+
+.reading-stat h3 {
+  font-size: 2rem;
+  font-weight: 600;
+  margin: 0 0 0.4rem;
+}
+
+.reading-stat p {
+  color: #59636e;
+  margin-bottom: 0;
+}
+
+
+/* Book entries on the homepage */
+
+.book-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.5rem;
+  padding: 1.25rem 0;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.book-cover {
+  width: 110px;
+  height: auto;
+  border-radius: 4px;
+}
+
+.book-card h3 {
+  font-size: 1.2rem;
+  margin-top: 0;
+  margin-bottom: 0.4rem;
+}
+
+.book-card p {
+  margin-bottom: 0.5rem;
+}
+
+.book-card a {
+  text-decoration: none;
+}
+
+.book-card a:hover {
+  text-decoration: underline;
+}
+
+/* Individual book pages */
+
+.book-detail {
+  display: flex;
+  align-items: flex-start;
+  gap: 2rem;
+  margin: 1.5rem 0 2rem;
+}
+
+.book-detail-image {
+  flex: 0 0 30%;
+  max-width: 220px;
+}
+
+.book-detail-cover {
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+}
+
+.book-detail-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.book-detail-info h2 {
+  margin-top: 0;
+}
+
+@media (max-width: 600px) {
+  .book-detail {
+    flex-direction: column;
+  }
+
+  .book-detail-image {
+    width: 160px;
+  }
+}

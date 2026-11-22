@@ -1,11 +1,58 @@
+
 ---
 title: "My Library"
 ---
 
-This page will be a searchable catalog of my books, including titles, authors, reading status, dates, and ratings.
+A searchable catalog of books I have read or am currently reading, including information about the books and links to my personal reflections.
 
 ## Books
 
-We'll build the library from a `books.csv` dataset using R and the tidyverse.
+```{r}
+#| echo: false
+#| message: false
 
-Later, we'll make the table searchable and sortable, and add book covers if useful.
+library(tidyverse)
+library(DT)
+
+# Import the catalog
+books <- read_csv(
+  "data/books.csv",
+  show_col_types = FALSE
+)
+
+# Create clickable titles for books with individual pages
+library_table <- books |>
+  mutate(
+    title = if_else(
+      !is.na(book_page) & nzchar(book_page),
+      paste0(
+        '<a href="',
+        sub("\\.qmd$", ".html", book_page),
+        '">',
+        htmltools::htmlEscape(title),
+        '</a>'
+      ),
+      htmltools::htmlEscape(title)
+    )
+  ) |>
+  select(
+  title, author, total_pages, status,
+  date_started, date_finished
+)
+
+# Display the searchable catalog
+datatable(
+  library_table,
+  rownames = FALSE,
+  colnames = c(
+  "Title", "Author", "Pages",
+  "Status", "Date Started", "Date Finished"
+),
+  escape = 2:6,
+  options = list(
+    pageLength = 10,
+    searching = TRUE,
+    ordering = TRUE
+  )
+)
+```

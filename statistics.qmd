@@ -2,16 +2,326 @@
 title: "Reading Statistics"
 ---
 
-Here we'll explore my reading history using the visualization techniques from data science class.
+An overview of my reading activity, including completed books,
+daily reading habits, and longer-term trends.
 
-## Books finished
+```{r}
+#| include: false
+#| message: false
 
-We'll summarize completed books by month and year.
+library(tidyverse)
 
-## Pages read
+# Load reusable functions
+source("R/reading_helpers.R")
 
-We'll visualize daily page totals and how they accumulate over time.
+# Import datasets
+books <- read_csv(
+  "data/books.csv",
+  show_col_types = FALSE
+)
 
-## Ratings and reading patterns
+reading_log <- read_csv(
+  "data/reading_log.csv",
+  col_types = cols(
+    book_id = col_character(),
+    date = col_date(),
+    page_reached = col_integer()
+  )
+)
 
-We'll eventually explore rating distributions, book lengths, and other patterns using `ggplot2`.
+# Calculate individual book progress
+book_progress <- calculate_book_progress(
+  books,
+  reading_log
+)
+
+# Aggregate reading across books
+daily_reading <- book_progress |>
+  group_by(date) |>
+  summarise(
+    pages_read = if (anyNA(pages_read)) {
+      NA_integer_
+    } else {
+      sum(pages_read)
+    },
+    .groups = "drop"
+  ) |>
+  complete(
+    date = seq.Date(
+      min(date),
+      max(date),
+      by = "day"
+    ),
+    fill = list(pages_read = 0L)
+  ) |>
+  arrange(date)
+
+# Summary statistics
+books_finished <- sum(
+  books$status == "Finished",
+  na.rm = TRUE
+)
+
+books_reading <- sum(
+  books$status == "Reading",
+  na.rm = TRUE
+)
+
+# Pages in completed books with known lengths
+completed_pages <- books |>
+  filter(
+    status == "Finished",
+    !is.na(total_pages)
+  ) |>
+  summarise(
+    pages = sum(total_pages),
+    .groups = "drop"
+  ) |>
+  pull(pages)
+
+# Pages recorded through daily logging
+total_pages <- sum(
+  daily_reading$pages_read,
+  na.rm = TRUE
+)
+
+reading_days <- sum(
+  daily_reading$pages_read > 0,
+  na.rm = TRUE
+)
+
+calendar_days <- nrow(daily_reading)
+
+average_daily <- if (calendar_days > 0) {
+  round(total_pages / calendar_days, 1)
+} else {
+  NA_real_
+}
+
+average_reading_day <- if (reading_days > 0) {
+  round(total_pages / reading_days, 1)
+} else {
+  NA_real_
+}
+
+# Most recent 30 days of recorded history
+recent_reading <- daily_reading |>
+  filter(
+    date >= max(date) - 29
+  )
+
+# Determine the months covered by our records
+recorded_dates <- c(
+  reading_log$date,
+  books$date_finished
+)
+
+recorded_dates <- recorded_dates[
+  !is.na(recorded_dates)
+]
+
+# Include all intervening months, up to 12
+month_sequence <- seq.Date(
+  from = lubridate::floor_date(
+    min(recorded_dates), "month"
+  ),
+  to = lubridate::floor_date(
+    max(recorded_dates), "month"
+  ),
+  by = "month"
+) |>
+  tail(12)
+
+# Choose readable labels for monthly charts
+month_breaks <- unique(c(
+  month_sequence[
+    seq(
+      1,
+      length(month_sequence),
+      by = if (length(month_sequence) > 6) 2 else 1
+    )
+  ],
+  tail(month_sequence, 1)
+))
+
+# Monthly pages read
+monthly_reading <- tibble(
+  month = month_sequence
+) |>
+  left_join(
+    daily_reading |>
+      mutate(
+        month = lubridate::floor_date(date, "month")
+      ) |>
+      group_by(month) |>
+      summarise(
+        pages_read = sum(
+          pages_read,
+          na.rm = TRUE
+        ),
+        .groups = "drop"
+      ),
+    by = "month"
+  ) |>
+  mutate(
+    pages_read = replace_na(pages_read, 0L)
+  )
+
+# Books completed by month
+completed_by_month <- tibble(
+  month = month_sequence
+) |>
+  left_join(
+    books |>
+      filter(
+        status == "Finished",
+        !is.na(date_finished)
+      ) |>
+      mutate(
+        month = lubridate::floor_date(
+          date_finished, "month"
+        )
+      ) |>
+      count(
+        month,
+        name = "books_finished"
+      ),
+    by = "month"
+  ) |>
+  mutate(
+    books_finished = replace_na(
+      books_finished,
+      0L
+    )
+  )
+```
+
+## Reading Overview
+
+- **Currently reading:** `{r} books_reading`
+- **Books completed:** `{r} books_finished`
+- **Pages in completed books:** `{r} completed_pages`
+- **Pages logged by date:** `{r} total_pages`
+- **Days with reading:** `{r} reading_days`
+- **Average pages per calendar day:** `{r} average_daily`
+- **Average pages per reading day:** `{r} average_reading_day`
+
+Daily reading statistics cover the period from my first
+recorded reading date through my latest logged date.
+Pages in completed books are reported separately from
+daily page logs to avoid double-counting.
+
+## Recent Reading Activity
+
+Pages read per day over the most recent 30 days of
+recorded reading history.
+
+```{r}
+#| echo: false
+#| warning: false
+
+date_breaks <- if (nrow(recent_reading) <= 7) {
+  recent_reading$date
+} else {
+  seq.Date(
+    from = min(recent_reading$date),
+    to = max(recent_reading$date),
+    by = "1 week"
+  )
+}
+
+ggplot(
+  recent_reading,
+  aes(x = date, y = pages_read)
+) +
+  geom_col(
+    fill = "#4C7087",
+    width = 0.8
+  ) +
+  scale_x_date(
+    breaks = date_breaks,
+    date_labels = "%b %d"
+  ) +
+  labs(
+    x = "Date",
+    y = "Pages Read"
+  ) +
+  theme_minimal()
+```
+
+## Monthly Reading
+
+Total pages read per month, covering the months for
+which reading records are available, up to 12 months.
+
+```{r}
+#| echo: false
+#| warning: false
+
+ggplot(
+  monthly_reading,
+  aes(x = month, y = pages_read)
+) +
+  geom_col(
+    fill = "#4C7087",
+    width = 22
+  ) +
+  scale_x_date(
+    breaks = month_breaks,
+    date_labels = "%b %Y",
+    expand = expansion(add = c(18, 18))
+  ) +
+  labs(
+    x = "Month",
+    y = "Pages Read"
+  ) +
+  theme_minimal() +
+  theme(
+    axis.text.x = element_text(
+      angle = 30,
+      hjust = 1
+    )
+  )
+```
+
+## Books Completed by Month
+
+Number of books finished each month, covering the
+months for which records are available, up to 12 months.
+
+```{r}
+#| echo: false
+#| warning: false
+
+ggplot(
+  completed_by_month,
+  aes(x = month, y = books_finished)
+) +
+  geom_col(
+    fill = "#4C7087",
+    width = 22
+  ) +
+  scale_x_date(
+    breaks = month_breaks,
+    date_labels = "%b %Y",
+    expand = expansion(add = c(18, 18))
+  ) +
+  scale_y_continuous(
+    breaks = seq(
+      0,
+      max(1, completed_by_month$books_finished),
+      by = 1
+    )
+  ) +
+  labs(
+    x = "Month",
+    y = "Books Completed"
+  ) +
+  theme_minimal() +
+  theme(
+    axis.text.x = element_text(
+      angle = 30,
+      hjust = 1
+    )
+  )
+```
