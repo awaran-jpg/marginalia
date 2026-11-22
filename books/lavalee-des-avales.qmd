@@ -56,27 +56,13 @@ My reflections on the book will go here.
 
 The following table records my reading progress through this book.
 
+
 ```{r}
 #| echo: false
-#| results: asis
 
-if (nrow(book_history) > 0) {
-
-  book_history |>
-    select(date, pages_read, page_reached) |>
-    knitr::kable(
-      format = "html",
-      col.names = c(
-        "Date",
-        "Pages Read",
-        "Page Reached"
-      )
-    ) |>
-    cat()
-
-} else {
-
-  cat("No daily reading records are available for this book.")
-
-}
+book_history_table(
+  books,
+  reading_log,
+  book_id
+)
 ```

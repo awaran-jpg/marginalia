@@ -1,58 +1,105 @@
-
 ---
-title: "My Library"
+title: "Library"
 ---
-
-A searchable catalog of books I have read or am currently reading, including information about the books and links to my personal reflections.
-
-## Books
 
 ```{r}
 #| echo: false
 #| message: false
+#| warning: false
 
 library(tidyverse)
 library(DT)
 
-# Import the catalog
+# Import the book catalog
 books <- read_csv(
   "data/books.csv",
   show_col_types = FALSE
 )
 
-# Create clickable titles for books with individual pages
-library_table <- books |>
+# --------------------------------------------------
+# Sort books by reading status and dates
+# --------------------------------------------------
+
+books <- books |>
   mutate(
-    title = if_else(
-      !is.na(book_page) & nzchar(book_page),
-      paste0(
-        '<a href="',
-        sub("\\.qmd$", ".html", book_page),
-        '">',
-        htmltools::htmlEscape(title),
-        '</a>'
-      ),
-      htmltools::htmlEscape(title)
+    date_started = as.Date(date_started),
+    date_finished = as.Date(date_finished),
+
+    # Unfinished books appear before finished books
+    unfinished = status != "Finished",
+
+    # Use the relevant date for each book
+    sorting_date = if_else(
+      unfinished,
+      date_started,
+      date_finished
     )
   ) |>
-  select(
-  title, author, total_pages, status,
-  date_started, date_finished
-)
+  arrange(
+    desc(unfinished),
+    desc(sorting_date)
+  )
 
-# Display the searchable catalog
-datatable(
+# --------------------------------------------------
+# Prepare clickable book titles
+# --------------------------------------------------
+
+library_table <- books |>
+  mutate(
+    title_link = map2_chr(
+      title,
+      book_page,
+      function(book_title, page) {
+
+        if (is.na(page) || page == "") {
+          return(as.character(
+            htmltools::htmlEscape(book_title)
+          ))
+        }
+
+        # Convert the Quarto source path to its HTML path
+        page_url <- str_replace(
+          page,
+          "\\.qmd$",
+          ".html"
+        )
+
+        as.character(
+          htmltools::tags$a(
+            href = page_url,
+            book_title
+          )
+        )
+      }
+    )
+  ) |>
+  transmute(
+    Title = title_link,
+    Author = author,
+    Pages = total_pages,
+    Status = status,
+    `Date Started` = as.character(date_started),
+    `Date Finished` = as.character(date_finished)
+  )
+
+# --------------------------------------------------
+# Display the interactive library
+# --------------------------------------------------
+
+DT::datatable(
   library_table,
+
   rownames = FALSE,
-  colnames = c(
-  "Title", "Author", "Pages",
-  "Status", "Date Started", "Date Finished"
-),
+
+  # Allow HTML links in the Title column
   escape = 2:6,
+
   options = list(
     pageLength = 10,
-    searching = TRUE,
-    ordering = TRUE
-  )
+    order = list(),
+    autoWidth = TRUE
+  ),
+
+  filter = "none"
 )
 ```

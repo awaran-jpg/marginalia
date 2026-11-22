@@ -203,3 +203,44 @@ book_header <- function(books, reading_log, id) {
   )
 
 }
+
+
+# --------------------------------------------------
+# 5. Generate an individual book's reading history
+# --------------------------------------------------
+
+book_history_table <- function(books, reading_log, id) {
+
+  # Retrieve the book's reading records
+  history <- get_book_history(
+    books,
+    reading_log,
+    id
+  )
+
+  # Handle books without daily reading records
+  if (nrow(history) == 0) {
+    return(
+      htmltools::tags$p(
+        "No daily reading records are available for this book."
+      )
+    )
+  }
+
+  # Prepare the reading history table
+  table <- history |>
+    select(date, pages_read, page_reached) |>
+    knitr::kable(
+      format = "html",
+      col.names = c(
+        "Date",
+        "Pages Read",
+        "Page Reached"
+      )
+    )
+
+  # Return the table as HTML
+  htmltools::HTML(
+    paste(table, collapse = "\n")
+  )
+}
