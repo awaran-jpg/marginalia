@@ -4,97 +4,160 @@
     "href": "statistics.html",
     "title": "Reading Statistics",
     "section": "",
-    "text": "Here we’ll explore my reading history using the visualization techniques from data science class."
+    "text": "An overview of my reading activity, including completed books, daily reading habits, and longer-term trends."
   },
   {
-    "objectID": "statistics.html#books-finished",
-    "href": "statistics.html#books-finished",
+    "objectID": "statistics.html#reading-overview",
+    "href": "statistics.html#reading-overview",
     "title": "Reading Statistics",
-    "section": "Books finished",
-    "text": "Books finished\nWe’ll summarize completed books by month and year."
+    "section": "Reading Overview",
+    "text": "Reading Overview\n\nCurrently reading: 1\nBooks completed: 3\nPages in completed books: 909\nPages logged by date: 66\nDays with reading: 2\nAverage pages per calendar day: 22\nAverage pages per reading day: 33\n\nDaily reading statistics cover the period from my first recorded reading date through my latest logged date. Pages in completed books are reported separately from daily page logs to avoid double-counting."
   },
   {
-    "objectID": "statistics.html#pages-read",
-    "href": "statistics.html#pages-read",
+    "objectID": "statistics.html#recent-reading-activity",
+    "href": "statistics.html#recent-reading-activity",
     "title": "Reading Statistics",
-    "section": "Pages read",
-    "text": "Pages read\nWe’ll visualize daily page totals and how they accumulate over time."
+    "section": "Recent Reading Activity",
+    "text": "Recent Reading Activity\nPages read per day over the most recent 30 days of recorded reading history."
   },
   {
-    "objectID": "statistics.html#ratings-and-reading-patterns",
-    "href": "statistics.html#ratings-and-reading-patterns",
+    "objectID": "statistics.html#monthly-reading",
+    "href": "statistics.html#monthly-reading",
     "title": "Reading Statistics",
-    "section": "Ratings and reading patterns",
-    "text": "Ratings and reading patterns\nWe’ll eventually explore rating distributions, book lengths, and other patterns using ggplot2."
+    "section": "Monthly Reading",
+    "text": "Monthly Reading\nTotal pages read per month, covering the months for which reading records are available, up to 12 months."
   },
   {
-    "objectID": "pages.html",
-    "href": "pages.html",
-    "title": "Page Log",
-    "section": "",
-    "text": "This page will show how far I’ve read in each book and how many pages I’ve read on each date."
-  },
-  {
-    "objectID": "pages.html#daily-reading",
-    "href": "pages.html#daily-reading",
-    "title": "Page Log",
-    "section": "Daily reading",
-    "text": "Daily reading\nWe’ll create a reading_log.csv dataset with one row per book per logged date, recording the page reached.\nUsing dplyr, we’ll calculate pages read between updates. For accurate daily totals, we’ll distinguish starting page positions from pages actually read that day."
-  },
-  {
-    "objectID": "library.html",
-    "href": "library.html",
-    "title": "My Library",
-    "section": "",
-    "text": "This page will be a searchable catalog of my books, including titles, authors, reading status, dates, and ratings."
-  },
-  {
-    "objectID": "library.html#books",
-    "href": "library.html#books",
-    "title": "My Library",
-    "section": "Books",
-    "text": "Books\nWe’ll build the library from a books.csv dataset using R and the tidyverse.\nLater, we’ll make the table searchable and sortable, and add book covers if useful."
+    "objectID": "statistics.html#books-completed-by-month",
+    "href": "statistics.html#books-completed-by-month",
+    "title": "Reading Statistics",
+    "section": "Books Completed by Month",
+    "text": "Books Completed by Month\nNumber of books finished each month, covering the months for which records are available, up to 12 months."
   },
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "Home",
+    "title": "Marginalia",
     "section": "",
-    "text": "Marginalia is my personal reading diary: a place to keep track of the books I’ve read, record my thoughts, and follow how many pages I’m reading.\n\n\nThe books I’m currently reading will appear here.\n\n\n\nMy most recently finished books and short reviews will appear here.\n\n\n\nWe’ll add summary statistics here once we’ve created the reading datasets."
+    "text": "A personal record of books, reading, and reflections."
+  },
+  {
+    "objectID": "index.html#reading-overview",
+    "href": "index.html#reading-overview",
+    "title": "Marginalia",
+    "section": "Reading Overview",
+    "text": "Reading Overview\n\n\n1\nCurrently reading\n\n\n3\nBooks completed\n\n\n66\nPages logged"
   },
   {
     "objectID": "index.html#currently-reading",
     "href": "index.html#currently-reading",
-    "title": "Home",
-    "section": "",
-    "text": "The books I’m currently reading will appear here."
+    "title": "Marginalia",
+    "section": "Currently Reading",
+    "text": "Currently Reading\n\n\n\n\n\n\n\n\nL'avalée des avalés\n\nRéjean Ducharme\nPage 66 of 343 (19.2%)"
   },
   {
-    "objectID": "index.html#recent-reads",
-    "href": "index.html#recent-reads",
-    "title": "Home",
-    "section": "",
-    "text": "My most recently finished books and short reviews will appear here."
+    "objectID": "index.html#recently-completed",
+    "href": "index.html#recently-completed",
+    "title": "Marginalia",
+    "section": "Recently Completed",
+    "text": "Recently Completed\n\n\n\n\n\n\n\n\nVolkswagen Blues\n\nJacques Poulin\nFinished: November 18, 2026\n\n\n\n\n\n\n\n\nThe Argumentative Indian: Writings on Indian History, Culture and Identity\n\nAmartya Sen\nFinished: October 28, 2026\n\n\n\n\n\n\n\n\nSilence\n\nShūsaku Endō\nFinished: September 25, 2026"
   },
   {
-    "objectID": "index.html#at-a-glance",
-    "href": "index.html#at-a-glance",
-    "title": "Home",
+    "objectID": "books/volkswagen-blues.html",
+    "href": "books/volkswagen-blues.html",
+    "title": "Volkswagen Blues",
     "section": "",
-    "text": "We’ll add summary statistics here once we’ve created the reading datasets."
+    "text": "Author: \nJacques Poulin\n\n\nStatus: \nFinished\n\n\nTotal pages: \n221\n\n\nDate started: \nOctober 30, 2026\n\n\nDate finished: \nNovember 18, 2026"
   },
   {
-    "objectID": "diary.html",
-    "href": "diary.html",
-    "title": "Reading Diary",
-    "section": "",
-    "text": "A chronological record of books I’ve finished, with my ratings, reviews, and reflections."
+    "objectID": "books/volkswagen-blues.html#my-reflections",
+    "href": "books/volkswagen-blues.html#my-reflections",
+    "title": "Volkswagen Blues",
+    "section": "My Reflections",
+    "text": "My Reflections\nMy reflections on the book will go here."
   },
   {
-    "objectID": "diary.html#recent-entries",
-    "href": "diary.html#recent-entries",
-    "title": "Reading Diary",
-    "section": "Recent entries",
-    "text": "Recent entries\nOnce our book data is ready, we’ll use R to display completed books here, ordered by their completion dates.\nFor now, this page is a placeholder for the diary we’ll build together."
+    "objectID": "books/volkswagen-blues.html#reading-history",
+    "href": "books/volkswagen-blues.html#reading-history",
+    "title": "Volkswagen Blues",
+    "section": "Reading History",
+    "text": "Reading History\nNo daily reading records are available for this book."
+  },
+  {
+    "objectID": "books/B004.html",
+    "href": "books/B004.html",
+    "title": "The Argumentative Indian: Writings on Indian History, Culture and Identity",
+    "section": "",
+    "text": "Author: \nAmartya Sen\n\n\nStatus: \nFinished\n\n\nTotal pages: \n432\n\n\nDate started: \nSeptember 26, 2026\n\n\nDate finished: \nOctober 28, 2026"
+  },
+  {
+    "objectID": "books/B004.html#my-reflections",
+    "href": "books/B004.html#my-reflections",
+    "title": "The Argumentative Indian: Writings on Indian History, Culture and Identity",
+    "section": "My Reflections",
+    "text": "My Reflections\nWrite your reflections here."
+  },
+  {
+    "objectID": "books/B004.html#reading-history",
+    "href": "books/B004.html#reading-history",
+    "title": "The Argumentative Indian: Writings on Indian History, Culture and Identity",
+    "section": "Reading History",
+    "text": "Reading History\n\n\nNo daily reading records are available for this book."
+  },
+  {
+    "objectID": "books/B003.html",
+    "href": "books/B003.html",
+    "title": "Silence",
+    "section": "",
+    "text": "Author: \nShūsaku Endō\n\n\nStatus: \nFinished\n\n\nTotal pages: \n256\n\n\nDate started: \nSeptember 12, 2026\n\n\nDate finished: \nSeptember 25, 2026"
+  },
+  {
+    "objectID": "books/B003.html#my-reflections",
+    "href": "books/B003.html#my-reflections",
+    "title": "Silence",
+    "section": "My Reflections",
+    "text": "My Reflections\nWrite your reflections here."
+  },
+  {
+    "objectID": "books/B003.html#reading-history",
+    "href": "books/B003.html#reading-history",
+    "title": "Silence",
+    "section": "Reading History",
+    "text": "Reading History\n\n\nNo daily reading records are available for this book."
+  },
+  {
+    "objectID": "books/lavalee-des-avales.html",
+    "href": "books/lavalee-des-avales.html",
+    "title": "L’avalée des avalés",
+    "section": "",
+    "text": "Author: \nRéjean Ducharme\n\n\nStatus: \nReading\n\n\nTotal pages: \n343\n\n\nDate started: \nNovember 19, 2026\n\n\nDate finished: \nNot recorded\n\n\nCurrent page: \n66\n\n\nProgress: \n19.2%"
+  },
+  {
+    "objectID": "books/lavalee-des-avales.html#my-reflections",
+    "href": "books/lavalee-des-avales.html#my-reflections",
+    "title": "L’avalée des avalés",
+    "section": "My Reflections",
+    "text": "My Reflections\nMy reflections on the book will go here."
+  },
+  {
+    "objectID": "books/lavalee-des-avales.html#reading-history",
+    "href": "books/lavalee-des-avales.html#reading-history",
+    "title": "L’avalée des avalés",
+    "section": "Reading History",
+    "text": "Reading History\nThe following table records my reading progress through this book.\n\n\n\n\n\nDate\nPages Read\nPage Reached\n\n\n\n\n2026-11-19\n34\n34\n\n\n2026-11-21\n32\n66"
+  },
+  {
+    "objectID": "pages.html",
+    "href": "pages.html",
+    "title": "Reading Log",
+    "section": "",
+    "text": "A chronological record of my reading activity, searchable by book and date."
+  },
+  {
+    "objectID": "pages.html#reading-history",
+    "href": "pages.html#reading-history",
+    "title": "Reading Log",
+    "section": "Reading History",
+    "text": "Reading History\nThe table below records my daily reading activity across all books. Days without recorded reading are included, and the entries can be searched and sorted."
   }
 ]

@@ -1,0 +1,189 @@
+.reading-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 1rem;
+  margin: 1rem 0 2rem;
+}
+
+.reading-stat {
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 10px;
+  padding: 1.25rem;
+}
+
+.reading-stat h3 {
+  font-size: 2rem;
+  font-weight: 600;
+  margin: 0 0 0.4rem;
+}
+
+.reading-stat p {
+  color: #59636e;
+  margin-bottom: 0;
+}
+
+
+/* Book entries on the homepage */
+
+.book-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.5rem;
+  padding: 1.25rem 0;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.book-cover {
+  width: 110px;
+  height: auto;
+  border-radius: 4px;
+}
+
+.book-card h3 {
+  font-size: 1.2rem;
+  margin-top: 0;
+  margin-bottom: 0.4rem;
+}
+
+.book-card p {
+  margin-bottom: 0.5rem;
+}
+
+.book-card a {
+  text-decoration: none;
+}
+
+.book-card a:hover {
+  text-decoration: underline;
+}
+
+/* Individual book pages */
+
+.book-detail {
+  display: flex;
+  align-items: flex-start;
+  gap: 2rem;
+  margin: 1.5rem 0 2rem;
+}
+
+.book-detail-image {
+  flex: 0 0 30%;
+  max-width: 220px;
+}
+
+.book-detail-cover {
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+}
+
+.book-detail-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.book-detail-info h2 {
+  margin-top: 0;
+}
+
+@media (max-width: 600px) {
+  .book-detail {
+    flex-direction: column;
+  }
+
+  .book-detail-image {
+    width: 160px;
+  }
+}
+
+
+/* ---------------------------------------------
+   Dark mode adjustments
+   --------------------------------------------- */
+
+/* Book cards and statistics cards */
+body.quarto-dark .book-card,
+body.quarto-dark .reading-stat {
+  background-color: #24272d;
+  color: #f0f0f0;
+  border-color: #454b54;
+}
+
+/* Links inside book cards */
+body.quarto-dark .book-card a {
+  color: #a9c8f5;
+}
+
+/* Borders and separators */
+body.quarto-dark .book-detail {
+  border-color: #454b54;
+}
+
+/* Smooth transitions between themes */
+.book-card,
+.reading-stat {
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+
+/* ---------------------------------------------
+   Dark mode: interactive DT tables
+   --------------------------------------------- */
+
+/* Table background and text */
+body.quarto-dark .dataTables_wrapper,
+body.quarto-dark .dataTables_wrapper table.dataTable,
+body.quarto-dark .dataTables_wrapper table.dataTable thead th,
+body.quarto-dark .dataTables_wrapper table.dataTable tbody tr,
+body.quarto-dark .dataTables_wrapper table.dataTable tbody td {
+  color: #f0f0f0 !important;
+  background-color: #222222 !important;
+  border-color: #454545 !important;
+}
+
+/* Table controls, labels, and page information */
+body.quarto-dark .dataTables_wrapper label,
+body.quarto-dark .dataTables_wrapper .dataTables_info,
+body.quarto-dark .dataTables_wrapper .dataTables_length,
+body.quarto-dark .dataTables_wrapper .dataTables_filter {
+  color: #f0f0f0 !important;
+}
+
+/* Search fields and dropdown menus */
+body.quarto-dark .dataTables_wrapper input,
+body.quarto-dark .dataTables_wrapper select {
+  color: #f0f0f0 !important;
+  background-color: #303030 !important;
+  border: 1px solid #555555 !important;
+}
+
+/* Pagination controls */
+body.quarto-dark .dataTables_wrapper
+.dataTables_paginate .paginate_button {
+  color: #f0f0f0 !important;
+  background: transparent !important;
+  border-color: transparent !important;
+}
+
+body.quarto-dark .dataTables_wrapper
+.dataTables_paginate .paginate_button.current {
+  color: #ffffff !important;
+  background: #454545 !important;
+  border: 1px solid #666666 !important;
+}
+
+/* Book links inside tables */
+body.quarto-dark .dataTables_wrapper
+table.dataTable a {
+  color: #9dc5f5 !important;
+}
+
+/* Regular reading-history tables */
+body.quarto-dark table:not(.dataTable) {
+  color: #f0f0f0;
+  border-color: #454545;
+}
