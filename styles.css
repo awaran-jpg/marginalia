@@ -1,70 +1,361 @@
+
+/* ==================================================
+   MARGINALIA
+   Design system
+   ================================================== */
+
+/* --------------------------------------------------
+   1. Color palette
+   -------------------------------------------------- */
+
+body.quarto-light,
+body:not(.quarto-dark) {
+  --m-bg: #f8f6f2;
+  --m-surface: #ffffff;
+  --m-surface-soft: #f2efe9;
+  --m-text: #2d342f;
+  --m-muted: #657069;
+  --m-border: #e5dfd6;
+  --m-accent: #4f6b59;
+  --m-progress-bg: #e1e7dd;
+  --m-shadow: 0 8px 28px rgba(35, 41, 36, 0.06);
+}
+
+body.quarto-dark {
+  --m-bg: #181d1b;
+  --m-surface: #242b27;
+  --m-surface-soft: #202622;
+  --m-text: #f0efe9;
+  --m-muted: #b2bbb3;
+  --m-border: #39443c;
+  --m-accent: #a8c1aa;
+  --m-progress-bg: #3b493e;
+  --m-shadow: 0 8px 28px rgba(0, 0, 0, 0.12);
+}
+
+/* --------------------------------------------------
+   2. Global typography and page styling
+   -------------------------------------------------- */
+
+body {
+  background-color: var(--m-bg);
+  color: var(--m-text);
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+}
+
+main.content {
+  line-height: 1.7;
+}
+
+h1,
+h2,
+h3,
+.navbar-brand {
+  font-family:
+    "Iowan Old Style",
+    Baskerville,
+    Georgia,
+    serif;
+}
+
+h1,
+h2,
+h3 {
+  letter-spacing: -0.025em;
+}
+
+h1.title,
+.quarto-title .title {
+  font-size: clamp(2.7rem, 5vw, 4.2rem);
+  line-height: 1.12;
+  font-weight: 500;
+  margin-bottom: 0.6rem;
+}
+
+.quarto-title .subtitle {
+  color: var(--m-muted);
+  font-size: 1.1rem;
+}
+
+main.content h2 {
+  font-size: 1.75rem;
+  font-weight: 500;
+  margin-top: 2.8rem;
+  margin-bottom: 1.2rem;
+}
+
+.navbar-brand {
+  font-size: 1.4rem;
+  letter-spacing: -0.02em;
+}
+
+/* --------------------------------------------------
+   3. Homepage introduction
+   -------------------------------------------------- */
+
+.home-intro {
+  max-width: 670px;
+  margin: 1.2rem 0 2.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--m-border);
+}
+
+.home-intro p {
+  color: var(--m-muted);
+  font-size: 1.08rem;
+  line-height: 1.8;
+  margin-bottom: 0.9rem;
+}
+
+.home-intro .home-link {
+  display: inline-block;
+  color: var(--m-accent);
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-decoration: none;
+  border-bottom: 1px solid var(--m-accent);
+  padding-bottom: 2px;
+  margin-top: 0.2rem;
+}
+
+.home-intro .home-link:hover {
+  opacity: 0.75;
+}
+
+/* --------------------------------------------------
+   4. Reading overview statistics
+   -------------------------------------------------- */
+
 .reading-stats {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
   gap: 1rem;
-  margin: 1rem 0 2rem;
+  margin: 1.25rem 0 2.5rem;
 }
 
 .reading-stat {
-  background-color: #f8f9fa;
-  border: 1px solid #dee2e6;
-  border-radius: 10px;
-  padding: 1.25rem;
+  background: var(--m-surface);
+  border: 1px solid var(--m-border);
+  border-radius: 14px;
+  padding: 1.5rem;
+  box-shadow: var(--m-shadow);
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.reading-stat:hover {
+  transform: translateY(-2px);
+  border-color: var(--m-accent);
 }
 
 .reading-stat h3 {
-  font-size: 2rem;
-  font-weight: 600;
-  margin: 0 0 0.4rem;
+  color: var(--m-text);
+  font-size: clamp(2rem, 4vw, 2.7rem);
+  font-weight: 500;
+  line-height: 1.1;
+  margin: 0 0 0.7rem;
 }
 
 .reading-stat p {
-  color: #59636e;
-  margin-bottom: 0;
+  color: var(--m-muted);
+  font-size: 0.88rem;
+  margin: 0;
 }
 
+/* --------------------------------------------------
+   5. Book card containers
+   -------------------------------------------------- */
 
-/* Book entries on the homepage */
+.featured-book-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+.recent-book-grid {
+  display: grid;
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+/* --------------------------------------------------
+   6. Shared book card styles
+   -------------------------------------------------- */
 
 .book-card {
-  display: flex;
-  align-items: flex-start;
+  display: grid;
+  align-items: center;
   gap: 1.5rem;
-  padding: 1.25rem 0;
-  border-bottom: 1px solid #dee2e6;
+  min-width: 0;
+  padding: 1.25rem;
+  background: var(--m-surface);
+  border: 1px solid var(--m-border);
+  border-radius: 16px;
+  box-shadow: var(--m-shadow);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.book-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--m-accent);
+}
+
+.book-card-media {
+  min-width: 0;
 }
 
 .book-cover {
-  width: 110px;
+  display: block;
+  width: 100%;
   height: auto;
-  border-radius: 4px;
+  border-radius: 5px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.14);
+}
+
+.book-cover-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  padding: 0.75rem;
+  background: var(--m-surface-soft);
+  color: var(--m-muted);
+  text-align: center;
+  font-size: 0.8rem;
+  border-radius: 5px;
+}
+
+.book-card-content {
+  min-width: 0;
+}
+
+.book-card-eyebrow {
+  margin: 0 0 0.55rem;
+  color: var(--m-accent);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
 }
 
 .book-card h3 {
-  font-size: 1.2rem;
-  margin-top: 0;
-  margin-bottom: 0.4rem;
+  color: var(--m-text);
+  font-size: 1.3rem;
+  font-weight: 500;
+  line-height: 1.3;
+  margin: 0 0 0.5rem;
 }
 
-.book-card p {
-  margin-bottom: 0.5rem;
-}
-
-.book-card a {
+.book-card h3 a {
+  color: inherit;
   text-decoration: none;
 }
 
-.book-card a:hover {
-  text-decoration: underline;
+.book-card h3 a:hover {
+  color: var(--m-accent);
 }
 
-/* Individual book pages */
+.book-card-author {
+  color: var(--m-muted);
+  margin: 0 0 0.9rem;
+  font-size: 0.95rem;
+}
+
+.book-card-meta {
+  color: var(--m-muted);
+  font-size: 0.85rem;
+  margin: 0;
+}
+
+/* --------------------------------------------------
+   7. Featured currently-reading cards
+   -------------------------------------------------- */
+
+.book-card--featured {
+  grid-template-columns:
+    minmax(110px, 155px) minmax(0, 1fr);
+  padding: 1.6rem;
+  gap: 2rem;
+}
+
+.book-card--featured h3 {
+  font-size: clamp(1.4rem, 3vw, 1.9rem);
+}
+
+/* --------------------------------------------------
+   8. Recently completed cards
+   -------------------------------------------------- */
+
+.book-card--compact {
+  grid-template-columns:
+    95px minmax(0, 1fr);
+  gap: 1.15rem;
+}
+
+.book-card--compact h3 {
+  font-size: 1.15rem;
+}
+
+/* --------------------------------------------------
+   9. Reading progress indicators
+   -------------------------------------------------- */
+
+.book-progress {
+  margin-top: 1.1rem;
+  max-width: 400px;
+}
+
+.book-progress-track {
+  width: 100%;
+  height: 7px;
+  background: var(--m-progress-bg);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.book-progress-fill {
+  height: 100%;
+  background: var(--m-accent);
+  border-radius: inherit;
+}
+
+.book-progress-label {
+  margin: 0.6rem 0 0;
+  color: var(--m-muted);
+  font-size: 0.85rem;
+}
+
+.empty-state {
+  padding: 1.5rem;
+  border: 1px dashed var(--m-border);
+  border-radius: 12px;
+  color: var(--m-muted);
+}
+
+/* --------------------------------------------------
+   10. Individual book pages
+   -------------------------------------------------- */
 
 .book-detail {
   display: flex;
   align-items: flex-start;
   gap: 2rem;
-  margin: 1.5rem 0 2rem;
+  margin: 1.5rem 0 2.5rem;
+  padding: 1.7rem;
+  background: var(--m-surface);
+  border: 1px solid var(--m-border);
+  border-radius: 16px;
+  box-shadow: var(--m-shadow);
 }
 
 .book-detail-image {
@@ -73,9 +364,11 @@
 }
 
 .book-detail-cover {
+  display: block;
   width: 100%;
   height: auto;
-  border-radius: 4px;
+  border-radius: 5px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.14);
 }
 
 .book-detail-info {
@@ -84,106 +377,124 @@
 }
 
 .book-detail-info h2 {
-  margin-top: 0;
+  margin-top: 0 !important;
+  margin-bottom: 1rem;
 }
 
-@media (max-width: 600px) {
-  .book-detail {
-    flex-direction: column;
-  }
-
-  .book-detail-image {
-    width: 160px;
-  }
+.book-detail-info p {
+  margin-bottom: 0.65rem;
+  font-size: 0.95rem;
+  line-height: 1.6;
 }
 
-
-/* ---------------------------------------------
-   Dark mode adjustments
-   --------------------------------------------- */
-
-/* Book cards and statistics cards */
-body.quarto-dark .book-card,
-body.quarto-dark .reading-stat {
-  background-color: #24272d;
-  color: #f0f0f0;
-  border-color: #454b54;
+.book-detail-info strong {
+  color: var(--m-text);
 }
 
-/* Links inside book cards */
-body.quarto-dark .book-card a {
-  color: #a9c8f5;
-}
+/* --------------------------------------------------
+   11. Dark mode: interactive DT tables
+   -------------------------------------------------- */
 
-/* Borders and separators */
-body.quarto-dark .book-detail {
-  border-color: #454b54;
-}
-
-/* Smooth transitions between themes */
-.book-card,
-.reading-stat {
-  transition:
-    background-color 0.2s ease,
-    color 0.2s ease,
-    border-color 0.2s ease;
-}
-
-
-/* ---------------------------------------------
-   Dark mode: interactive DT tables
-   --------------------------------------------- */
-
-/* Table background and text */
 body.quarto-dark .dataTables_wrapper,
 body.quarto-dark .dataTables_wrapper table.dataTable,
 body.quarto-dark .dataTables_wrapper table.dataTable thead th,
 body.quarto-dark .dataTables_wrapper table.dataTable tbody tr,
 body.quarto-dark .dataTables_wrapper table.dataTable tbody td {
-  color: #f0f0f0 !important;
-  background-color: #222222 !important;
-  border-color: #454545 !important;
+  color: var(--m-text) !important;
+  background-color: var(--m-surface) !important;
+  border-color: var(--m-border) !important;
 }
 
-/* Table controls, labels, and page information */
 body.quarto-dark .dataTables_wrapper label,
 body.quarto-dark .dataTables_wrapper .dataTables_info,
 body.quarto-dark .dataTables_wrapper .dataTables_length,
 body.quarto-dark .dataTables_wrapper .dataTables_filter {
-  color: #f0f0f0 !important;
+  color: var(--m-text) !important;
 }
 
-/* Search fields and dropdown menus */
 body.quarto-dark .dataTables_wrapper input,
 body.quarto-dark .dataTables_wrapper select {
-  color: #f0f0f0 !important;
-  background-color: #303030 !important;
-  border: 1px solid #555555 !important;
+  color: var(--m-text) !important;
+  background: var(--m-surface-soft) !important;
+  border: 1px solid var(--m-border) !important;
 }
 
-/* Pagination controls */
 body.quarto-dark .dataTables_wrapper
 .dataTables_paginate .paginate_button {
-  color: #f0f0f0 !important;
+  color: var(--m-text) !important;
   background: transparent !important;
   border-color: transparent !important;
 }
 
 body.quarto-dark .dataTables_wrapper
 .dataTables_paginate .paginate_button.current {
-  color: #ffffff !important;
-  background: #454545 !important;
-  border: 1px solid #666666 !important;
+  color: var(--m-text) !important;
+  background: var(--m-surface-soft) !important;
+  border: 1px solid var(--m-border) !important;
 }
 
-/* Book links inside tables */
 body.quarto-dark .dataTables_wrapper
 table.dataTable a {
-  color: #9dc5f5 !important;
+  color: var(--m-accent) !important;
 }
 
-/* Regular reading-history tables */
 body.quarto-dark table:not(.dataTable) {
-  color: #f0f0f0;
-  border-color: #454545;
+  color: var(--m-text);
+  border-color: var(--m-border);
+}
+
+/* --------------------------------------------------
+   12. Responsive layouts
+   -------------------------------------------------- */
+
+@media (max-width: 800px) {
+  .recent-book-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+
+  .reading-stats {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+
+  .reading-stat {
+    padding: 1.1rem;
+  }
+
+  .book-card--featured {
+    grid-template-columns:
+      105px minmax(0, 1fr);
+    gap: 1.1rem;
+    padding: 1.1rem;
+  }
+
+  .book-card--compact {
+    grid-template-columns:
+      85px minmax(0, 1fr);
+  }
+
+  .book-card h3 {
+    font-size: 1.1rem;
+  }
+
+  .book-detail {
+    flex-direction: column;
+    gap: 1.25rem;
+    padding: 1.25rem;
+  }
+
+  .book-detail-image {
+    width: 155px;
+    max-width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .book-card,
+  .reading-stat {
+    transition: none;
+  }
 }
