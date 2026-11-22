@@ -4,42 +4,49 @@
     "href": "statistics.html",
     "title": "Reading Statistics",
     "section": "",
-    "text": "An overview of my reading activity, including completed books, daily reading habits, and longer-term trends."
+    "text": "An overview of my reading activity, from individual reading sessions to longer-term trends."
   },
   {
     "objectID": "statistics.html#reading-overview",
     "href": "statistics.html#reading-overview",
     "title": "Reading Statistics",
     "section": "Reading Overview",
-    "text": "Reading Overview\n\nCurrently reading: 1\nBooks completed: 3\nPages in completed books: 909\nPages logged by date: 66\nDays with reading: 2\nAverage pages per calendar day: 22\nAverage pages per reading day: 33\n\nDaily reading statistics cover the period from my first recorded reading date through my latest logged date. Pages in completed books are reported separately from daily page logs to avoid double-counting."
+    "text": "Reading Overview\n\n\n1\nCurrently reading\n\n\n3\nBooks completed\n\n\n909\nPages in completed books\n\n\n66\nPages logged by date"
+  },
+  {
+    "objectID": "statistics.html#reading-habits",
+    "href": "statistics.html#reading-habits",
+    "title": "Reading Statistics",
+    "section": "Reading Habits",
+    "text": "Reading Habits\n\n\n2\nDays with logged reading\n\n\n22\nAvg. pages per calendar day\n\n\n33\nAvg. pages per reading day\n\n\n\nDaily averages are calculated from the first to the latest recorded reading date. Dates without entries are treated as zero for these calculations, although an unlogged day does not necessarily mean no reading occurred.\nCompleted-book page counts and daily page logs are separate measures and should not be added together."
   },
   {
     "objectID": "statistics.html#recent-reading-activity",
     "href": "statistics.html#recent-reading-activity",
     "title": "Reading Statistics",
     "section": "Recent Reading Activity",
-    "text": "Recent Reading Activity\nPages read per day over the most recent 30 days of recorded reading history."
+    "text": "Recent Reading Activity\nPages recorded each day within the most recent 30 days of available reading history."
   },
   {
     "objectID": "statistics.html#monthly-reading",
     "href": "statistics.html#monthly-reading",
     "title": "Reading Statistics",
     "section": "Monthly Reading",
-    "text": "Monthly Reading\nTotal pages read per month, covering the months for which reading records are available, up to 12 months."
+    "text": "Monthly Reading\nTotal pages recorded in daily reading logs each month, covering up to the most recent twelve months in the dataset."
   },
   {
     "objectID": "statistics.html#books-completed-by-month",
     "href": "statistics.html#books-completed-by-month",
     "title": "Reading Statistics",
     "section": "Books Completed by Month",
-    "text": "Books Completed by Month\nNumber of books finished each month, covering the months for which records are available, up to 12 months."
+    "text": "Books Completed by Month\nNumber of books finished in each month, based on the completion dates recorded in the Library."
   },
   {
     "objectID": "index.html",
     "href": "index.html",
     "title": "Marginalia",
     "section": "",
-    "text": "A record of what I’m reading, what I’ve finished, and what I thought along the way.\nExplore the library"
+    "text": "A record of what I’m reading, what I’ve finished, and what I thought along the way."
   },
   {
     "objectID": "index.html#reading-at-a-glance",
@@ -60,14 +67,14 @@
     "href": "index.html#recently-completed",
     "title": "Marginalia",
     "section": "Recently Completed",
-    "text": "Recently Completed\n\n\n\n\n\n\n\n\n\n\nCOMPLETED\n\nVolkswagen Blues\n\nJacques Poulin\nFinished November 18, 2026\n\n\n\n\n\n\n\n\n\nCOMPLETED\n\nThe Argumentative Indian: Writings on Indian History, Culture and Identity\n\nAmartya Sen\nFinished October 28, 2026\n\n\n\n\n\n\n\n\n\nCOMPLETED\n\nSilence\n\nShūsaku Endō\nFinished September 25, 2026"
+    "text": "Recently Completed\n\n\n\n\n\n\n\n\n\n\nCOMPLETED\n\nVolkswagen Blues\n\nJacques Poulin\nFinished November 18, 2026\n\n\n\n\n\n\n\n\n\nCOMPLETED\n\nThe Argumentative Indian: Writings on Indian History, Culture and Identity\n\nAmartya Sen\nFinished October 28, 2026\n\n\n\n\n\n\n\n\n\nCOMPLETED\n\nSilence\n\nShūsaku Endō\nFinished September 25, 2026\n\n\n\n\n\n\nView the full library"
   },
   {
     "objectID": "books/volkswagen-blues.html",
     "href": "books/volkswagen-blues.html",
     "title": "Volkswagen Blues",
     "section": "",
-    "text": "Author: \nJacques Poulin\n\n\nStatus: \nFinished\n\n\nTotal pages: \n221\n\n\nDate started: \nOctober 30, 2026\n\n\nDate finished: \nNovember 18, 2026"
+    "text": "READING DETAILS\n\n\nStatus\nFinished\n\n\nLength\n221 pages\n\n\nStarted\nOctober 30, 2026\n\n\nFinished\nNovember 18, 2026"
   },
   {
     "objectID": "books/volkswagen-blues.html#my-reflections",
@@ -77,18 +84,11 @@
     "text": "My Reflections\nMy reflections on the book will go here."
   },
   {
-    "objectID": "books/volkswagen-blues.html#reading-history",
-    "href": "books/volkswagen-blues.html#reading-history",
-    "title": "Volkswagen Blues",
-    "section": "Reading History",
-    "text": "Reading History\nNo daily reading records are available for this book."
-  },
-  {
     "objectID": "books/B004.html",
     "href": "books/B004.html",
     "title": "The Argumentative Indian: Writings on Indian History, Culture and Identity",
     "section": "",
-    "text": "Author: \nAmartya Sen\n\n\nStatus: \nFinished\n\n\nTotal pages: \n432\n\n\nDate started: \nSeptember 26, 2026\n\n\nDate finished: \nOctober 28, 2026"
+    "text": "READING DETAILS\n\n\nStatus\nFinished\n\n\nLength\n432 pages\n\n\nStarted\nSeptember 26, 2026\n\n\nFinished\nOctober 28, 2026"
   },
   {
     "objectID": "books/B004.html#my-reflections",
@@ -102,14 +102,21 @@
     "href": "books/B004.html#reading-history",
     "title": "The Argumentative Indian: Writings on Indian History, Culture and Identity",
     "section": "Reading History",
-    "text": "Reading History\n\n\nNo daily reading records are available for this book."
+    "text": "Reading History"
+  },
+  {
+    "objectID": "library.html",
+    "href": "library.html",
+    "title": "Library",
+    "section": "",
+    "text": "A catalogue of books read, in progress, and still to come.\nSearch by title or author, or sort the collection using the table headings."
   },
   {
     "objectID": "books/B003.html",
     "href": "books/B003.html",
     "title": "Silence",
     "section": "",
-    "text": "Author: \nShūsaku Endō\n\n\nStatus: \nFinished\n\n\nTotal pages: \n256\n\n\nDate started: \nSeptember 12, 2026\n\n\nDate finished: \nSeptember 25, 2026"
+    "text": "READING DETAILS\n\n\nStatus\nFinished\n\n\nLength\n256 pages\n\n\nStarted\nSeptember 12, 2026\n\n\nFinished\nSeptember 25, 2026"
   },
   {
     "objectID": "books/B003.html#my-reflections",
@@ -123,14 +130,14 @@
     "href": "books/B003.html#reading-history",
     "title": "Silence",
     "section": "Reading History",
-    "text": "Reading History\n\n\nNo daily reading records are available for this book."
+    "text": "Reading History"
   },
   {
     "objectID": "books/lavalee-des-avales.html",
     "href": "books/lavalee-des-avales.html",
     "title": "L’avalée des avalés",
     "section": "",
-    "text": "Author: \nRéjean Ducharme\n\n\nStatus: \nReading\n\n\nTotal pages: \n343\n\n\nDate started: \nNovember 19, 2026\n\n\nDate finished: \nNot recorded\n\n\nCurrent page: \n66\n\n\nProgress: \n19.2%"
+    "text": "READING DETAILS\n\n\nStatus\nReading\n\n\nLength\n343 pages\n\n\nStarted\nNovember 19, 2026\n\n\nFinished\nNot recorded\n\n\nLast recorded page\n66\n\n\nReading progress\n19.2%"
   },
   {
     "objectID": "books/lavalee-des-avales.html#my-reflections",
@@ -158,6 +165,6 @@
     "href": "pages.html#reading-history",
     "title": "Reading Log",
     "section": "Reading History",
-    "text": "Reading History\nThe table below records my daily reading activity across all books. Days without recorded reading are included, and the entries can be searched and sorted."
+    "text": "Reading History\nThe table records dated reading entries across all books. Dates without entries are shown between the earliest and latest recorded reading dates. A missing entry does not necessarily mean that no reading occurred."
   }
 ]

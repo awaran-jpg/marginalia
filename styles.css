@@ -498,3 +498,1002 @@ body.quarto-dark table:not(.dataTable) {
     transition: none;
   }
 }
+
+
+/* ==================================================
+   MARGINALIA — HOMEPAGE POLISH
+   ================================================== */
+
+/* --------------------------------------------------
+   1. Forest-green navigation
+   -------------------------------------------------- */
+
+body.quarto-light {
+  --m-navbar-bg: #304a40;
+}
+
+body.quarto-dark {
+  --m-navbar-bg: #20372e;
+}
+
+#quarto-header .navbar {
+  background-color: var(--m-navbar-bg) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+
+  --bs-navbar-color: #e7ebe5;
+  --bs-navbar-hover-color: #ffffff;
+  --bs-navbar-active-color: #ffffff;
+  --bs-navbar-brand-color: #f3f2ed;
+  --bs-navbar-brand-hover-color: #ffffff;
+}
+
+#quarto-header .navbar .navbar-brand {
+  font-family: "Iowan Old Style", Baskerville, Georgia, serif;
+  font-size: 1.45rem;
+  font-weight: 500;
+  letter-spacing: -0.025em;
+  color: #f3f2ed !important;
+}
+
+#quarto-header .navbar .nav-link {
+  color: #e1e8e1 !important;
+  font-size: 0.95rem;
+  transition: color 0.2s ease;
+}
+
+#quarto-header .navbar .nav-link:hover,
+#quarto-header .navbar .nav-link:focus {
+  color: #ffffff !important;
+}
+
+#quarto-header .navbar .nav-link.active {
+  color: #ffffff !important;
+  font-weight: 600;
+}
+
+#quarto-header .navbar .quarto-navigation-tool,
+#quarto-header .navbar .bi {
+  color: #f0f2ed !important;
+}
+
+/* --------------------------------------------------
+   2. More consistent completed-book covers
+   -------------------------------------------------- */
+
+.book-card--compact {
+  grid-template-columns: 98px minmax(0, 1fr);
+}
+
+.book-card--compact .book-card-media {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 98px;
+  min-height: 152px;
+}
+
+.book-card--compact .book-cover {
+  display: block;
+  width: 100%;
+  height: 150px;
+
+  /* Preserve the entire cover without cropping */
+  object-fit: contain;
+  object-position: center;
+
+  box-shadow: none;
+  filter: drop-shadow(
+    0 4px 6px rgba(0, 0, 0, 0.14)
+  );
+}
+
+.book-card--compact .book-cover-placeholder {
+  min-height: 150px;
+}
+
+/* --------------------------------------------------
+   3. Refine homepage vertical spacing
+   -------------------------------------------------- */
+
+.home-intro {
+  margin-top: 0.8rem;
+  margin-bottom: 1.25rem;
+  padding-bottom: 1.2rem;
+}
+
+main.content #reading-at-a-glance h2 {
+  margin-top: 1.8rem;
+}
+
+#reading-at-a-glance .reading-stats {
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+}
+
+/* --------------------------------------------------
+   4. Full-library link
+   -------------------------------------------------- */
+
+.home-section-footer {
+  margin-top: 1.25rem;
+  text-align: right;
+}
+
+.home-section-footer a {
+  display: inline-block;
+  color: var(--m-accent);
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-decoration: none;
+  border-bottom: 1px solid var(--m-accent);
+  padding-bottom: 3px;
+}
+
+.home-section-footer a::after {
+  content: " →";
+}
+
+.home-section-footer a:hover {
+  opacity: 0.75;
+}
+
+/* --------------------------------------------------
+   5. Responsive adjustments
+   -------------------------------------------------- */
+
+@media (max-width: 600px) {
+
+  .book-card--compact {
+    grid-template-columns: 85px minmax(0, 1fr);
+  }
+
+  .book-card--compact .book-card-media {
+    width: 85px;
+    min-height: 130px;
+  }
+
+  .book-card--compact .book-cover {
+    height: 130px;
+  }
+
+  .book-card--compact .book-cover-placeholder {
+    min-height: 130px;
+  }
+
+  .home-section-footer {
+    text-align: left;
+  }
+
+  .reading-stats {
+    gap: 0.75rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #quarto-header .navbar .nav-link {
+    transition: none;
+  }
+}
+
+
+/* ==================================================
+   MARGINALIA — INDIVIDUAL BOOK PAGE POLISH
+   ================================================== */
+
+/* --------------------------------------------------
+   1. Refined book information panel
+   -------------------------------------------------- */
+
+.book-detail {
+  display: grid;
+  grid-template-columns:
+    minmax(150px, 190px) minmax(0, 1fr);
+  align-items: center;
+  gap: 2.5rem;
+
+  padding: 1.8rem;
+  margin: 1.5rem 0 2.5rem;
+
+  background: var(--m-surface);
+  border: 1px solid var(--m-border);
+  border-radius: 16px;
+  box-shadow: var(--m-shadow);
+}
+
+/* Book cover */
+
+.book-detail-image {
+  width: 100%;
+  max-width: 190px;
+}
+
+.book-detail-cover {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
+
+  box-shadow:
+    0 6px 18px rgba(0, 0, 0, 0.15);
+}
+
+/* Information column */
+
+.book-detail-info {
+  min-width: 0;
+}
+
+/* Small section label */
+
+.book-detail-eyebrow {
+  margin: 0 0 1.4rem !important;
+
+  color: var(--m-accent);
+  font-size: 0.72rem !important;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+/* Metadata grid */
+
+.book-detail-grid {
+  display: grid;
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  column-gap: 1.5rem;
+  row-gap: 1.4rem;
+
+  padding: 0;
+  margin: 0;
+}
+
+/* Individual metadata field */
+
+.book-detail-field {
+  min-width: 0;
+}
+
+.book-detail-field dt {
+  margin: 0 0 0.4rem;
+
+  color: var(--m-muted);
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.book-detail-field dd {
+  margin: 0;
+
+  color: var(--m-text);
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.5;
+  overflow-wrap: break-word;
+}
+
+/* --------------------------------------------------
+   2. Long-form reflections
+   -------------------------------------------------- */
+
+/* Keep reflections at a comfortable reading width */
+
+#my-reflections > p,
+#my-reflections > blockquote,
+#my-reflections > ul,
+#my-reflections > ol {
+  max-width: 68ch;
+}
+
+/* Literary body typography */
+
+#my-reflections > p {
+  font-family:
+    "Iowan Old Style",
+    Baskerville,
+    Georgia,
+    serif;
+
+  font-size: 1.1rem;
+  line-height: 1.9;
+
+  margin-bottom: 1.45rem;
+}
+
+/* Quotations from books */
+
+#my-reflections blockquote {
+  margin: 1.8rem 0;
+  padding: 0.5rem 0 0.5rem 1.5rem;
+
+  border-left: 3px solid var(--m-accent);
+
+  color: var(--m-muted);
+  font-family:
+    "Iowan Old Style",
+    Baskerville,
+    Georgia,
+    serif;
+  font-size: 1.08rem;
+  line-height: 1.8;
+}
+
+/* Links inside reflections */
+
+#my-reflections a {
+  color: var(--m-accent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+/* --------------------------------------------------
+   3. Responsive book pages
+   -------------------------------------------------- */
+
+@media (max-width: 650px) {
+
+  .book-detail {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    padding: 1.3rem;
+  }
+
+  .book-detail-image {
+    max-width: 155px;
+  }
+
+  .book-detail-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+    gap: 1.3rem;
+  }
+
+  #my-reflections > p {
+    font-size: 1.05rem;
+    line-height: 1.8;
+  }
+}
+
+@media (max-width: 400px) {
+
+  .book-detail-grid {
+    grid-template-columns: 1fr;
+    gap: 1.1rem;
+  }
+
+}
+
+
+/* ==================================================
+   MARGINALIA — READING HISTORY
+   ================================================== */
+
+/* --------------------------------------------------
+   1. Hide sections without reading records
+   -------------------------------------------------- */
+
+.reading-history-empty-marker {
+  display: none;
+}
+
+/* Hide the heading and section when no records exist */
+#reading-history:has(.reading-history-empty-marker) {
+  display: none;
+}
+
+/* --------------------------------------------------
+   2. Reading history table
+   -------------------------------------------------- */
+
+#reading-history .cell-output-display {
+  overflow-x: auto;
+}
+
+#reading-history table {
+  width: 100%;
+  margin-top: 1rem;
+
+  color: var(--m-text);
+  background-color: var(--m-surface);
+
+  border: 1px solid var(--m-border);
+
+  /* Integrate with Bootstrap table styling */
+  --bs-table-bg: var(--m-surface);
+  --bs-table-color: var(--m-text);
+  --bs-table-border-color: var(--m-border);
+}
+
+/* Column headings */
+
+#reading-history table thead th {
+  color: var(--m-muted);
+  background-color: var(--m-surface-soft);
+
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* Cells */
+
+#reading-history table th,
+#reading-history table td {
+  padding: 0.85rem 1rem;
+  border-bottom: 1px solid var(--m-border);
+}
+
+/* Align numeric columns */
+
+#reading-history table th:nth-child(n+2),
+#reading-history table td:nth-child(n+2) {
+  text-align: right;
+}
+
+/* Last row */
+
+#reading-history table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Subtle row highlighting */
+
+#reading-history table tbody tr:hover {
+  --bs-table-bg: var(--m-surface-soft);
+}
+
+/* --------------------------------------------------
+   3. Mobile readability
+   -------------------------------------------------- */
+
+@media (max-width: 600px) {
+
+  #reading-history table th,
+  #reading-history table td {
+    padding: 0.7rem;
+    font-size: 0.85rem;
+  }
+
+}
+
+
+/* ==================================================
+   MARGINALIA — LIBRARY DESIGN
+   ================================================== */
+
+/* Library introduction */
+
+.library-intro {
+  max-width: 680px;
+  margin: 0.5rem 0 1.8rem;
+}
+
+.library-intro p {
+  color: var(--m-muted);
+  line-height: 1.75;
+  margin-bottom: 0.5rem;
+}
+
+/* Search interface */
+
+.library-page .dataTables_filter {
+  margin-bottom: 1.2rem;
+}
+
+.library-page .dataTables_filter label {
+  color: var(--m-muted);
+  font-size: 0.9rem;
+}
+
+.library-page .dataTables_filter input {
+  background: var(--m-surface);
+  color: var(--m-text);
+  border: 1px solid var(--m-border);
+  border-radius: 8px;
+  padding: 0.5rem 0.75rem;
+}
+
+.library-page .dataTables_filter input:focus {
+  outline: 2px solid var(--m-accent);
+  outline-offset: 2px;
+}
+
+/* Main table */
+
+.library-page table.dataTable {
+  width: 100% !important;
+  background: var(--m-surface);
+  color: var(--m-text);
+  border: 1px solid var(--m-border);
+}
+
+.library-page table.dataTable thead th {
+  color: var(--m-muted);
+  background: var(--m-surface-soft);
+  border-bottom: 1px solid var(--m-border);
+
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+
+  padding: 0.9rem;
+}
+
+.library-page table.dataTable tbody td {
+  padding: 0.9rem;
+  vertical-align: middle;
+  border-bottom: 1px solid var(--m-border);
+}
+
+/* Light and dark row hover */
+
+.library-page table.dataTable tbody tr:hover td,
+body.quarto-dark .library-page
+.dataTables_wrapper table.dataTable tbody tr:hover td {
+  background-color: var(--m-surface-soft) !important;
+}
+
+/* Book cover and title */
+
+.library-book-link {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+
+  min-width: 220px;
+  color: var(--m-text);
+  text-decoration: none;
+}
+
+.library-book-link:hover {
+  color: var(--m-accent);
+}
+
+.library-cover {
+  display: block;
+  flex-shrink: 0;
+
+  width: 45px;
+  height: 68px;
+
+  object-fit: contain;
+  object-position: center;
+
+  border-radius: 3px;
+}
+
+.library-cover-fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex: 0 0 45px;
+  height: 68px;
+
+  background: var(--m-surface-soft);
+  color: var(--m-muted);
+
+  text-align: center;
+  font-size: 0.6rem;
+  border-radius: 3px;
+}
+
+.library-book-title {
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.45;
+}
+
+/* Status labels */
+
+.library-status {
+  display: inline-block;
+  padding: 0.3rem 0.65rem;
+
+  border: 1px solid var(--m-border);
+  border-radius: 999px;
+
+  background: var(--m-surface-soft);
+  color: var(--m-muted);
+
+  font-size: 0.75rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.library-status--reading {
+  color: var(--m-accent);
+  border-color: var(--m-accent);
+  background: var(--m-surface);
+}
+
+.library-status--finished {
+  color: var(--m-muted);
+}
+
+/* Information and pagination */
+
+.library-page .dataTables_info {
+  color: var(--m-muted) !important;
+  font-size: 0.85rem;
+}
+
+.library-page .dataTables_paginate {
+  margin-top: 0.7rem;
+}
+
+/* Dark mode links */
+
+body.quarto-dark .library-page
+table.dataTable .library-book-link {
+  color: var(--m-text) !important;
+}
+
+body.quarto-dark .library-page
+table.dataTable .library-book-link:hover {
+  color: var(--m-accent) !important;
+}
+
+/* Responsive adjustments */
+
+@media (max-width: 600px) {
+
+  .library-page table.dataTable tbody td {
+    padding: 0.7rem;
+    font-size: 0.85rem;
+  }
+
+  .library-book-link {
+    min-width: 170px;
+    gap: 0.65rem;
+  }
+
+  .library-cover {
+    width: 38px;
+    height: 58px;
+  }
+
+  .library-cover-fallback {
+    flex-basis: 38px;
+    height: 58px;
+  }
+
+  .library-book-title {
+    font-size: 0.98rem;
+  }
+
+}
+
+
+/* ==================================================
+   MARGINALIA — READING STATISTICS
+   ================================================== */
+
+/* Introduction */
+
+.stats-intro {
+  max-width: 690px;
+  margin: 0.5rem 0 2rem;
+}
+
+.stats-intro p {
+  color: var(--m-muted);
+  font-size: 1.05rem;
+  line-height: 1.75;
+}
+
+/* --------------------------------------------------
+   Primary statistics
+   -------------------------------------------------- */
+
+.stats-summary-grid {
+  display: grid;
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin: 1.25rem 0 2rem;
+}
+
+.stats-summary-card {
+  padding: 1.6rem;
+  background: var(--m-surface);
+  border: 1px solid var(--m-border);
+  border-radius: 14px;
+  box-shadow: var(--m-shadow);
+}
+
+.stats-summary-card h3 {
+  color: var(--m-text);
+  font-family:
+    "Iowan Old Style",
+    Baskerville,
+    Georgia,
+    serif;
+
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  font-weight: 500;
+  line-height: 1.1;
+
+  margin: 0 0 0.75rem;
+}
+
+.stats-summary-card p {
+  color: var(--m-muted);
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+/* --------------------------------------------------
+   Secondary reading averages
+   -------------------------------------------------- */
+
+.stats-average-grid {
+  display: grid;
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  margin: 1.25rem 0 1.5rem;
+}
+
+.stats-average-card {
+  padding: 1.3rem;
+  background: var(--m-surface-soft);
+  border: 1px solid var(--m-border);
+  border-radius: 12px;
+}
+
+.stats-average-card h3 {
+  color: var(--m-text);
+  font-family:
+    "Iowan Old Style",
+    Baskerville,
+    Georgia,
+    serif;
+
+  font-size: 1.9rem;
+  font-weight: 500;
+  line-height: 1.2;
+  margin: 0 0 0.55rem;
+}
+
+.stats-average-card p {
+  color: var(--m-muted);
+  font-size: 0.82rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* --------------------------------------------------
+   Methodology notes
+   -------------------------------------------------- */
+
+.stats-note {
+  max-width: 760px;
+  padding: 0.9rem 1.2rem;
+  margin: 1.5rem 0 2rem;
+
+  border-left: 3px solid var(--m-accent);
+  background: var(--m-surface-soft);
+
+  color: var(--m-muted);
+}
+
+.stats-note p {
+  font-size: 0.88rem;
+  line-height: 1.7;
+  margin-bottom: 0.7rem;
+}
+
+.stats-note p:last-child {
+  margin-bottom: 0;
+}
+
+/* --------------------------------------------------
+   Charts
+   -------------------------------------------------- */
+
+.stats-chart {
+  width: 100%;
+  margin: 1.1rem 0 2.3rem;
+}
+
+.stats-chart .cell-output-display {
+  width: 100%;
+}
+
+.stats-chart img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto;
+}
+
+.stats-empty {
+  color: var(--m-muted);
+  font-style: italic;
+  padding: 1.2rem 0;
+}
+
+/* Show only the chart matching the selected theme */
+
+body:not(.quarto-dark) .stats-chart--dark {
+  display: none !important;
+}
+
+body.quarto-dark .stats-chart--light {
+  display: none !important;
+}
+
+/* --------------------------------------------------
+   Responsive adjustments
+   -------------------------------------------------- */
+
+@media (max-width: 650px) {
+
+  .stats-summary-grid {
+    gap: 0.75rem;
+  }
+
+  .stats-summary-card {
+    padding: 1.15rem;
+  }
+
+  .stats-summary-card h3 {
+    font-size: 2.1rem;
+  }
+
+  .stats-average-grid {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  .stats-average-card {
+    padding: 1rem 1.2rem;
+  }
+
+  .stats-average-card h3 {
+    font-size: 1.65rem;
+  }
+
+  .stats-chart {
+    margin-bottom: 1.7rem;
+  }
+}
+
+
+/* ==================================================
+   MARGINALIA — READING LOG
+   ================================================== */
+
+.reading-log-intro {
+  max-width: 690px;
+  margin: 0.5rem 0 1.8rem;
+}
+
+.reading-log-intro p {
+  color: var(--m-muted);
+  line-height: 1.75;
+}
+
+/* Search controls */
+
+.reading-log-page .dataTables_filter {
+  margin-bottom: 1.2rem;
+}
+
+.reading-log-page .dataTables_filter label {
+  color: var(--m-muted);
+  font-size: 0.9rem;
+}
+
+.reading-log-page .dataTables_filter input {
+  background: var(--m-surface);
+  color: var(--m-text);
+  border: 1px solid var(--m-border);
+  border-radius: 8px;
+  padding: 0.5rem 0.75rem;
+}
+
+.reading-log-page .dataTables_filter input:focus {
+  outline: 2px solid var(--m-accent);
+  outline-offset: 2px;
+}
+
+/* Table */
+
+.reading-log-page table.dataTable {
+  width: 100% !important;
+  background: var(--m-surface);
+  color: var(--m-text);
+  border: 1px solid var(--m-border);
+}
+
+.reading-log-page table.dataTable thead th {
+  color: var(--m-muted);
+  background: var(--m-surface-soft);
+  border-bottom: 1px solid var(--m-border);
+  padding: 0.9rem;
+
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.reading-log-page table.dataTable tbody td {
+  padding: 0.9rem;
+  vertical-align: middle;
+  border-bottom: 1px solid var(--m-border);
+}
+
+/* Numeric columns */
+
+.reading-log-page table.dataTable
+tbody td:nth-child(n+3) {
+  text-align: right;
+}
+
+/* Book links */
+
+.log-book-link {
+  color: var(--m-text);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.log-book-link:hover {
+  color: var(--m-accent);
+  text-decoration: underline;
+}
+
+body.quarto-dark .reading-log-page
+table.dataTable .log-book-link {
+  color: var(--m-text) !important;
+}
+
+body.quarto-dark .reading-log-page
+table.dataTable .log-book-link:hover {
+  color: var(--m-accent) !important;
+}
+
+/* Dates without records */
+
+.log-unrecorded {
+  color: var(--m-muted);
+  font-style: italic;
+}
+
+/* Subtle row highlighting */
+
+.reading-log-page table.dataTable tbody tr:hover td,
+body.quarto-dark .reading-log-page
+.dataTables_wrapper table.dataTable tbody tr:hover td {
+  background-color: var(--m-surface-soft) !important;
+}
+
+/* Pagination and record count */
+
+.reading-log-page .dataTables_info {
+  color: var(--m-muted) !important;
+  font-size: 0.85rem;
+}
+
+.reading-log-page .dataTables_paginate {
+  margin-top: 0.7rem;
+}
+
+/* Mobile */
+
+@media (max-width: 600px) {
+  .reading-log-page table.dataTable tbody td {
+    padding: 0.7rem;
+    font-size: 0.85rem;
+  }
+}
+
