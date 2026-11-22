@@ -1,0 +1,41 @@
+---
+title: "Annihilation"
+subtitle: "Michel Houellebecq"
+---
+
+```{r}
+#| include: false
+#| message: false
+
+library(tidyverse)
+source("R/reading_helpers.R")
+
+books <- read_csv("data/books.csv", show_col_types = FALSE)
+
+reading_log <- read_csv(
+  "data/reading_log.csv",
+  col_types = cols(
+    book_id = col_character(),
+    date = col_date(),
+    page_reached = col_integer()
+  )
+)
+
+book_id <- "B011"
+```
+
+```{r}
+#| echo: false
+book_header(books, reading_log, book_id)
+```
+
+## My Reflections
+
+Write your reflections here.
+
+## Reading History
+
+```{r}
+#| echo: false
+book_history_table(books, reading_log, book_id)
+```

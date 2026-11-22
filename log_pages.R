@@ -1,5 +1,7 @@
 library(tidyverse)
 
+source("R/reading_helpers.R")
+
 # --------------------------------------------------
 # 1. Record daily reading progress
 # --------------------------------------------------
@@ -323,3 +325,55 @@ record_progress_by_title <- function(
     finish = finish
   )
 }
+
+
+# --------------------------------------------------
+# 4. Display recent reading sessions
+# --------------------------------------------------
+
+show_recent_reading <- function(n = 10L) {
+
+  # Validate the number of entries requested
+  if (
+    length(n) != 1 ||
+    !is.numeric(n) ||
+    is.na(n) ||
+    n <= 0 ||
+    n %% 1 != 0
+  ) {
+    stop("n must be a positive whole number.")
+  }
+
+  # Load the book catalog
+  books <- read_csv(
+    "data/books.csv",
+    show_col_types = FALSE
+  )
+
+  # Load the reading log
+  reading_log <- read_csv(
+    "data/reading_log.csv",
+    col_types = cols(
+      book_id = col_character(),
+      date = col_date(),
+      page_reached = col_integer()
+    )
+  )
+
+  # Calculate pages read using our shared helper
+  recent_reading <- calculate_book_progress(
+    books,
+    reading_log
+  ) |>
+    arrange(desc(date), book_id) |>
+    select(
+      Date = date,
+      Book = title,
+      `Pages Read` = pages_read,
+      `Page Reached` = page_reached
+    )
+
+  # Return the most recent entries
+  head(recent_reading, n)
+}
+

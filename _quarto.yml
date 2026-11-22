@@ -1,6 +1,8 @@
 project:
   type: website
   execute-dir: project
+  resources:
+    - "images/**"
 
 website:
   title: "Marginalia"

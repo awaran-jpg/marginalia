@@ -1,20 +1,29 @@
 ---
 title: "Reading Log"
+toc: false
 ---
 
+::: {.reading-log-intro}
+
 A chronological record of my reading activity, searchable by book and date.
+
+:::
 
 ```{r}
 #| include: false
 #| message: false
+#| warning: false
 
 library(tidyverse)
 library(DT)
+library(htmltools)
 
-# Load our reusable functions
 source("R/reading_helpers.R")
 
+# --------------------------------------------------
 # Import datasets
+# --------------------------------------------------
+
 books <- read_csv(
   "data/books.csv",
   show_col_types = FALSE
@@ -29,58 +38,171 @@ reading_log <- read_csv(
   )
 )
 
-# Calculate reading progress for all books
+# --------------------------------------------------
+# Calculate recorded reading progress
+# --------------------------------------------------
+
 book_progress <- calculate_book_progress(
   books,
   reading_log
 )
 
-# Identify dates without recorded reading
-empty_days <- tibble(
-  date = seq.Date(
-    min(book_progress$date),
-    max(book_progress$date),
-    by = "day"
-  )
-) |>
-  anti_join(
-    book_progress |> distinct(date),
-    by = "date"
+logged_entries <- book_progress |>
+  left_join(
+    books |>
+      select(book_id, book_page),
+    by = "book_id"
   ) |>
-  mutate(
-    title = "No reading logged",
-    page_reached = NA_integer_,
-    pages_read = 0L
+  select(
+    date,
+    title,
+    pages_read,
+    page_reached,
+    book_page
   )
 
-# Combine recorded reading and empty days
-display_log <- book_progress |>
-  select(date, title, pages_read, page_reached) |>
-  bind_rows(empty_days) |>
-  arrange(desc(date), title)
+# --------------------------------------------------
+# Identify dates without reading records
+# --------------------------------------------------
+
+if (nrow(book_progress) > 0) {
+
+  empty_days <- tibble(
+    date = seq.Date(
+      min(book_progress$date),
+      max(book_progress$date),
+      by = "day"
+    )
+  ) |>
+    anti_join(
+      book_progress |> distinct(date),
+      by = "date"
+    ) |>
+    mutate(
+      title = "No entry recorded",
+      pages_read = NA_integer_,
+      page_reached = NA_integer_,
+      book_page = NA_character_
+    )
+
+} else {
+
+  empty_days <- tibble(
+    date = as.Date(character()),
+    title = character(),
+    pages_read = integer(),
+    page_reached = integer(),
+    book_page = character()
+  )
+
+}
+
+# --------------------------------------------------
+# Generate clickable book titles
+# --------------------------------------------------
+
+make_log_link <- function(title, page) {
+
+  if (title == "No entry recorded") {
+
+    return(
+      as.character(
+        tags$span(
+          class = "log-unrecorded",
+          "No entry recorded"
+        )
+      )
+    )
+
+  }
+
+  if (is.na(page) || !nzchar(page)) {
+
+    return(
+      as.character(htmlEscape(title))
+    )
+
+  }
+
+  page_url <- str_replace(
+    page,
+    "\\.qmd$",
+    ".html"
+  )
+
+  as.character(
+    tags$a(
+      href = page_url,
+      class = "log-book-link",
+      title
+    )
+  )
+
+}
+
+# --------------------------------------------------
+# Prepare the display table
+# --------------------------------------------------
+
+display_log <- bind_rows(
+  logged_entries,
+  empty_days
+) |>
+  arrange(desc(date), title) |>
+  mutate(
+    book_display = map2_chr(
+      title,
+      book_page,
+      make_log_link
+    )
+  ) |>
+  transmute(
+    Date = as.character(date),
+    Book = book_display,
+    `Pages Read` = pages_read,
+    `Page Reached` = page_reached
+  )
 ```
 
 ## Reading History
 
-The table below records my daily reading activity across all books. Days without recorded reading are included, and the entries can be searched and sorted.
+The table records dated reading entries across all books. Dates without entries are shown between the earliest and latest recorded reading dates. A missing entry does not necessarily mean that no reading occurred.
+
+::: {.reading-log-page}
 
 ```{r}
 #| echo: false
 
-display_log |>
-  datatable(
-    rownames = FALSE,
-    colnames = c(
-      "Date",
-      "Book",
-      "Pages Read",
-      "Page Reached"
+DT::datatable(
+  display_log,
+
+  rownames = FALSE,
+
+  # Allow clickable titles in the Book column
+  escape = c(1, 3, 4),
+
+  class = "hover",
+
+  options = list(
+    pageLength = 15,
+    lengthChange = FALSE,
+    searching = TRUE,
+    ordering = TRUE,
+
+    # Newest dates first
+    order = list(
+      list(0, "desc")
     ),
-    options = list(
-      pageLength = 15,
-      searching = TRUE,
-      ordering = TRUE,
-      order = list(list(0, "desc"))
+
+    autoWidth = FALSE,
+    scrollX = TRUE,
+
+    language = list(
+      search = "Search log:",
+      emptyTable = "No reading entries yet."
     )
   )
+)
 ```
+
+:::

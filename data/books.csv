@@ -1,5 +1,12 @@
-book_id,title,author,total_pages,status,date_started,date_finished,book_page,cover_id,baseline_page
-B001,L'avalée des avalés,Réjean Ducharme,343,Reading,2026-11-19,NA,books/lavalee-des-avales.qmd,967591,0
-B002,Volkswagen Blues,Jacques Poulin,221,Finished,2026-10-30,2026-11-18,books/volkswagen-blues.qmd,10820587,NA
-B003,Silence,Shūsaku Endō,256,Finished,2026-09-12,2026-09-25,books/B003.qmd,6601656,NA
-B004,"The Argumentative Indian: Writings on Indian History, Culture and Identity",Amartya Sen,432,Finished,2026-09-26,2026-10-28,books/B004.qmd,452472,NA
+book_id,title,author,total_pages,status,date_started,date_finished,book_page,cover_id,baseline_page,cover_file
+B001,L'avalée des avalés,Réjean Ducharme,343,Reading,2026-11-19,NA,books/lavalee-des-avales.qmd,967591,0,NA
+B002,Volkswagen Blues,Jacques Poulin,221,Finished,2026-10-30,2026-11-18,books/volkswagen-blues.qmd,10820587,NA,NA
+B003,Silence,Shūsaku Endō,256,Finished,2026-09-12,2026-09-25,books/B003.qmd,6601656,NA,NA
+B004,"The Argumentative Indian: Writings on Indian History, Culture and Identity",Amartya Sen,432,Finished,2026-09-26,2026-10-28,books/B004.qmd,452472,NA,NA
+B005,The Gay Place,Billy Lee Brammer,NA,Want to Read,NA,NA,books/B005.qmd,156399,NA,NA
+B006,What We Talk About When We Talk About Love,Raymond Carver,NA,Want to Read,NA,NA,books/B006.qmd,914747,NA,NA
+B007,Brooklyn,Colm Tóibín,NA,Want to Read,NA,NA,books/B007.qmd,5722548,NA,NA
+B008,The Sailor Who Fell from Grace with the Sea,Yukio Mishima,NA,Want to Read,NA,NA,books/B008.qmd,7401807,NA,NA
+B009,The Cold Millions,Jess Walter,NA,Want to Read,NA,NA,books/B009.qmd,10096955,NA,NA
+B010,"Cry, the Beloved Country",Alan Paton,NA,Want to Read,NA,NA,books/B010.qmd,12661723,NA,NA
+B011,Annihilation,Michel Houellebecq,NA,Want to Read,NA,NA,books/B011.qmd,NA,NA,images/9780374608422.jpg.avif

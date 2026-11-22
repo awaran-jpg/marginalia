@@ -52,29 +52,33 @@ book_header(
 
 My reflections on the book will go here.
 
-## Reading History
 
 ```{r}
 #| echo: false
 #| results: asis
 
-if (nrow(book_history) > 0) {
+# Retrieve this book's reading records
+history <- get_book_history(
+  books,
+  reading_log,
+  book_id
+)
 
-  book_history |>
-    select(date, pages_read, page_reached) |>
-    knitr::kable(
-      format = "html",
-      col.names = c(
-        "Date",
-        "Pages Read",
-        "Page Reached"
+# Display the section only when records exist
+if (nrow(history) > 0) {
+
+  cat("## Reading History\n\n")
+
+  cat(
+    as.character(
+      book_history_table(
+        books,
+        reading_log,
+        book_id
       )
-    ) |>
-    cat()
-
-} else {
-
-  cat("No daily reading records are available for this book.")
+    ),
+    "\n"
+  )
 
 }
 ```

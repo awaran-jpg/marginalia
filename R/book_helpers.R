@@ -1,6 +1,9 @@
 library(tidyverse)
 
-# Add a new book to the Marginalia catalog
+# --------------------------------------------------
+# 1. Add a new book to the catalog
+# --------------------------------------------------
+
 add_book <- function(
     title,
     author,
@@ -10,22 +13,25 @@ add_book <- function(
     date_finished = as.Date(NA),
     cover_id = NA_integer_,
     baseline_page = NA_integer_,
-    save = FALSE
+    save = FALSE,
+    cover_file = NA_character_
 ) {
 
-  # Load the existing catalog
   books <- read_csv(
     "data/books.csv",
     show_col_types = FALSE
   )
 
+  # Support catalogs created before local covers
+  if (!"cover_file" %in% names(books)) {
+    books$cover_file <- NA_character_
+  }
 
-  # Standardize titles and authors for comparison
   normalize_text <- function(x) {
     str_to_lower(str_squish(x))
   }
 
-  # Check whether the book already exists
+  # Prevent duplicate books
   duplicate <- (
     normalize_text(books$title) == normalize_text(title) &
       normalize_text(books$author) == normalize_text(author)
@@ -34,18 +40,23 @@ add_book <- function(
   if (any(duplicate, na.rm = TRUE)) {
 
     if (save) {
-      stop("This book is already in the catalog. Nothing was saved.")
+      stop(
+        "This book is already in the catalog. Nothing was saved."
+      )
     } else {
-      warning("This book is already in the catalog. Preview only.")
+      warning(
+        "This book is already in the catalog. Preview only."
+      )
     }
 
   }
 
-
-  # Validate reading status
+  # Validate status
   valid_statuses <- c(
-    "Want to Read", "Reading",
-    "Finished", "Abandoned"
+    "Want to Read",
+    "Reading",
+    "Finished",
+    "Abandoned"
   )
 
   if (!status %in% valid_statuses) {
@@ -53,24 +64,47 @@ add_book <- function(
   }
 
   # Validate page count
-  if (!is.na(total_pages) &&
-      (total_pages <= 0 || total_pages %% 1 != 0)) {
+  if (
+    !is.na(total_pages) &&
+    (
+      total_pages <= 0 ||
+      total_pages %% 1 != 0
+    )
+  ) {
     stop("Total pages must be a positive whole number.")
+  }
+
+  # Validate local cover
+  if (
+    length(cover_file) != 1L ||
+    !is.character(cover_file) ||
+    (
+      !is.na(cover_file) &&
+      !file.exists(cover_file)
+    )
+  ) {
+    stop(
+      "Cover file must be NA or an existing file."
+    )
   }
 
   # Convert dates
   date_started <- as.Date(date_started)
   date_finished <- as.Date(date_finished)
 
-  if (!is.na(date_started) &&
-      !is.na(date_finished) &&
-      date_finished < date_started) {
-    stop("Finishing date cannot precede starting date.")
+  if (
+    !is.na(date_started) &&
+    !is.na(date_finished) &&
+    date_finished < date_started
+  ) {
+    stop(
+      "Finishing date cannot precede starting date."
+    )
   }
 
-  # Generate the next available book ID
+  # Generate next book ID
   existing_ids <- as.integer(
-    stringr::str_remove(books$book_id, "^B")
+    str_remove(books$book_id, "^B")
   )
 
   next_number <- if (length(existing_ids) == 0) {
@@ -81,7 +115,7 @@ add_book <- function(
 
   new_id <- sprintf("B%03d", next_number)
 
-  # Construct the new book record
+  # Construct book record
   new_book <- tibble(
     book_id = new_id,
     title = title,
@@ -90,54 +124,68 @@ add_book <- function(
     status = status,
     date_started = date_started,
     date_finished = date_finished,
-    book_page = paste0("books/", new_id, ".qmd"),
+    book_page = paste0(
+      "books/",
+      new_id,
+      ".qmd"
+    ),
     cover_id = as.integer(cover_id),
-    baseline_page = as.integer(baseline_page)
+    baseline_page = as.integer(baseline_page),
+    cover_file = cover_file
   )
 
-  # Save only when explicitly requested
+  # Save only when requested
   if (save) {
 
-    # Check that the page does not already exist
     if (file.exists(new_book$book_page[[1]])) {
-      stop("A book page with this ID already exists.")
+      stop(
+        "A book page with this ID already exists."
+      )
     }
 
-    # Generate the individual book page
     create_book_page(new_book)
 
-    # Add the book to the catalog
-    books <- bind_rows(books, new_book)
+    books <- bind_rows(
+      books,
+      new_book
+    )
 
-    write_csv(books, "data/books.csv")
+    write_csv(
+      books,
+      "data/books.csv"
+    )
 
     message("Book added: ", new_id)
   }
-
 
   return(new_book)
 }
 
 
-# Search Open Library for book information
-search_open_library <- function(title, author = NULL) {
+# --------------------------------------------------
+# 2. Search Open Library
+# --------------------------------------------------
 
-  # Construct the API request
+search_open_library <- function(
+    title,
+    author = NULL
+) {
+
   url <- paste0(
     "https://openlibrary.org/search.json?title=",
     URLencode(title, reserved = TRUE)
   )
 
-  # Add an author filter if supplied
   if (!is.null(author)) {
+
     url <- paste0(
       url,
       "&author=",
       URLencode(author, reserved = TRUE)
     )
+
   }
 
-  # Request only the fields we need
   url <- paste0(
     url,
     "&fields=key,title,author_name,",
@@ -145,29 +193,34 @@ search_open_library <- function(title, author = NULL) {
     "&limit=10"
   )
 
-  # Retrieve and parse the JSON response
   results <- jsonlite::fromJSON(url)
 
-  # Handle searches with no matches
   if (nrow(results$docs) == 0) {
+
     message("No matching books found.")
     return(tibble())
+
   }
 
-  # Return a tidy table of possible matches
   results$docs |>
     as_tibble() |>
-    select(any_of(c(
-      "title",
-      "author_name",
-      "first_publish_year",
-      "cover_i",
-      "key"
-    )))
+    select(
+      any_of(
+        c(
+          "title",
+          "author_name",
+          "first_publish_year",
+          "cover_i",
+          "key"
+        )
+      )
+    )
 }
 
 
-# Create a book entry from an Open Library search result
+# --------------------------------------------------
+# 3. Add a book from Open Library results
+# --------------------------------------------------
 
 add_book_from_search <- function(
     results,
@@ -176,29 +229,30 @@ add_book_from_search <- function(
     save = FALSE
 ) {
 
-  # Check that the selected row exists
-  if (length(row) != 1 ||
-      is.na(row) ||
-      row < 1 ||
-      row > nrow(results) ||
-      row %% 1 != 0) {
+  if (
+    length(row) != 1 ||
+    is.na(row) ||
+    row < 1 ||
+    row > nrow(results) ||
+    row %% 1 != 0
+  ) {
     stop("Invalid search result selection.")
   }
 
-  # Retrieve the selected book
   selected <- results[row, ]
 
-  # Extract its author
   author <- selected$author_name[[1]][1]
 
-  # Extract its cover identifier
-  cover_id <- if ("cover_i" %in% names(selected)) {
-    as.integer(selected$cover_i[[1]])
+  cover_id <- if (
+    "cover_i" %in% names(selected)
+  ) {
+    as.integer(
+      selected$cover_i[[1]]
+    )
   } else {
     NA_integer_
   }
 
-  # Use our existing function
   add_book(
     title = selected$title[[1]],
     author = author,
@@ -209,38 +263,46 @@ add_book_from_search <- function(
 }
 
 
-# Automatically generate a Quarto page for a new book
+# --------------------------------------------------
+# 4. Generate an individual book page
+# --------------------------------------------------
 
 create_book_page <- function(book) {
 
-  # Retrieve the book's information
   id <- book$book_id[[1]]
   title <- book$title[[1]]
   author <- book$author[[1]]
   path <- book$book_page[[1]]
 
-  # Prevent accidental overwriting
+  # Prevent overwriting existing reflections
   if (file.exists(path)) {
-    stop("A page already exists at: ", path)
+    stop(
+      "A page already exists at: ",
+      path
+    )
   }
 
-  # Ensure the books directory exists
   dir.create(
     dirname(path),
     recursive = TRUE,
     showWarnings = FALSE
   )
 
-  # Construct the Quarto document
   content <- c(
     "---",
     paste0(
       "title: ",
-      jsonlite::toJSON(title, auto_unbox = TRUE)
+      jsonlite::toJSON(
+        title,
+        auto_unbox = TRUE
+      )
     ),
     paste0(
       "subtitle: ",
-      jsonlite::toJSON(author, auto_unbox = TRUE)
+      jsonlite::toJSON(
+        author,
+        auto_unbox = TRUE
+      )
     ),
     "---",
     "",
@@ -262,7 +324,11 @@ create_book_page <- function(book) {
     "  )",
     ")",
     "",
-    paste0('book_id <- "', id, '"'),
+    paste0(
+      'book_id <- "',
+      id,
+      '"'
+    ),
     "```",
     "",
     "```{r}",
@@ -282,10 +348,523 @@ create_book_page <- function(book) {
     "```"
   )
 
-  # Write the Quarto file
-  writeLines(content, path, useBytes = TRUE)
+  writeLines(
+    content,
+    path,
+    useBytes = TRUE
+  )
 
-  message("Created book page: ", path)
+  message(
+    "Created book page: ",
+    path
+  )
+
+  invisible(path)
+}
+
+
+# --------------------------------------------------
+# 5. Edit an existing book
+# --------------------------------------------------
+
+edit_book <- function(
+    id,
+    title = NULL,
+    author = NULL,
+    total_pages = NULL,
+    status = NULL,
+    date_started = NULL,
+    date_finished = NULL,
+    cover_id = NULL,
+    baseline_page = NULL,
+    save = FALSE,
+    cover_file = NULL
+) {
+
+  books <- read_csv(
+    "data/books.csv",
+    show_col_types = FALSE
+  )
+
+  # Support older catalogs
+  if (!"cover_file" %in% names(books)) {
+    books$cover_file <- NA_character_
+  }
+
+  # Identify book
+  if (
+    length(id) != 1 ||
+    is.na(id)
+  ) {
+    stop("Please provide one valid book ID.")
+  }
+
+  index <- which(
+    books$book_id == id
+  )
+
+  if (length(index) != 1) {
+    stop(
+      "Book ID not found or not unique."
+    )
+  }
+
+  book <- books[index, ]
+
+  # Validate numerical fields
+  check_number <- function(
+    x,
+    field,
+    minimum
+  ) {
+
+    if (
+      length(x) != 1 ||
+      (
+        !is.na(x) &&
+        (
+          !is.numeric(x) ||
+          !is.finite(x) ||
+          x < minimum ||
+          x %% 1 != 0
+        )
+      )
+    ) {
+      stop(
+        field,
+        " must be a valid whole number."
+      )
+    }
+
+    as.integer(x)
+  }
+
+  # Validate dates
+  check_date <- function(
+    x,
+    field
+  ) {
+
+    if (length(x) != 1) {
+      stop(
+        field,
+        " must contain one date."
+      )
+    }
+
+    tryCatch(
+      as.Date(x),
+      error = function(e) {
+        stop(
+          "Invalid ",
+          field,
+          "."
+        )
+      }
+    )
+  }
+
+  # --------------------------------------------------
+  # Apply requested changes
+  # --------------------------------------------------
+
+  if (!is.null(title)) {
+
+    if (
+      length(title) != 1 ||
+      !is.character(title) ||
+      is.na(title) ||
+      !nzchar(str_squish(title))
+    ) {
+      stop(
+        "Title must be a nonempty string."
+      )
+    }
+
+    book$title <- str_squish(title)
+  }
+
+  if (!is.null(author)) {
+
+    if (
+      length(author) != 1 ||
+      !is.character(author) ||
+      is.na(author) ||
+      !nzchar(str_squish(author))
+    ) {
+      stop(
+        "Author must be a nonempty string."
+      )
+    }
+
+    book$author <- str_squish(author)
+  }
+
+  if (!is.null(total_pages)) {
+
+    book$total_pages <- check_number(
+      total_pages,
+      "Total pages",
+      1
+    )
+
+  }
+
+  if (!is.null(status)) {
+
+    valid_statuses <- c(
+      "Want to Read",
+      "Reading",
+      "Finished",
+      "Abandoned"
+    )
+
+    if (
+      length(status) != 1 ||
+      is.na(status) ||
+      !status %in% valid_statuses
+    ) {
+      stop("Invalid reading status.")
+    }
+
+    book$status <- status
+  }
+
+  if (!is.null(date_started)) {
+
+    book$date_started <- check_date(
+      date_started,
+      "starting date"
+    )
+
+  }
+
+  if (!is.null(date_finished)) {
+
+    book$date_finished <- check_date(
+      date_finished,
+      "finishing date"
+    )
+
+  }
+
+  if (!is.null(cover_id)) {
+
+    book$cover_id <- check_number(
+      cover_id,
+      "Cover ID",
+      1
+    )
+
+  }
+
+  if (!is.null(baseline_page)) {
+
+    book$baseline_page <- check_number(
+      baseline_page,
+      "Baseline page",
+      0
+    )
+
+  }
+
+  # Local cover: NA removes the local override
+  if (!is.null(cover_file)) {
+
+    if (
+      length(cover_file) != 1L ||
+      !is.character(cover_file) ||
+      (
+        !is.na(cover_file) &&
+        !file.exists(cover_file)
+      )
+    ) {
+      stop(
+        "Cover file must be NA or an existing file."
+      )
+    }
+
+    book$cover_file <- cover_file
+  }
+
+  # --------------------------------------------------
+  # Validate the updated record
+  # --------------------------------------------------
+
+  normalize <- function(x) {
+    str_to_lower(str_squish(x))
+  }
+
+  other_books <- books[-index, ]
+
+  duplicate <- (
+    normalize(other_books$title) ==
+      normalize(book$title[[1]]) &
+      normalize(other_books$author) ==
+      normalize(book$author[[1]])
+  )
+
+  if (any(duplicate, na.rm = TRUE)) {
+    stop(
+      "Another book already has this title and author."
+    )
+  }
+
+  # Check date order
+  if (
+    !is.na(book$date_started[[1]]) &&
+    !is.na(book$date_finished[[1]]) &&
+    book$date_finished[[1]] <
+    book$date_started[[1]]
+  ) {
+    stop(
+      "Finishing date cannot precede starting date."
+    )
+  }
+
+  # Check completion status
+  if (
+    book$status[[1]] == "Finished" &&
+    is.na(book$date_finished[[1]])
+  ) {
+    stop(
+      "Finished books must have a finishing date."
+    )
+  }
+
+  if (
+    book$status[[1]] != "Finished" &&
+    !is.na(book$date_finished[[1]])
+  ) {
+    stop(
+      "Only finished books can have a finishing date."
+    )
+  }
+
+  # Check baseline against total pages
+  if (
+    !is.na(book$baseline_page[[1]]) &&
+    !is.na(book$total_pages[[1]]) &&
+    book$baseline_page[[1]] >
+    book$total_pages[[1]]
+  ) {
+    stop(
+      "Baseline page exceeds total pages."
+    )
+  }
+
+  # --------------------------------------------------
+  # Protect existing reading history
+  # --------------------------------------------------
+
+  reading_log <- read_csv(
+    "data/reading_log.csv",
+    col_types = cols(
+      book_id = col_character(),
+      date = col_date(),
+      page_reached = col_integer()
+    )
+  )
+
+  history <- reading_log |>
+    filter(book_id == id)
+
+  if (nrow(history) > 0) {
+
+    if (
+      !is.na(book$total_pages[[1]]) &&
+      any(
+        history$page_reached >
+        book$total_pages[[1]],
+        na.rm = TRUE
+      )
+    ) {
+      stop(
+        "Total pages cannot be below recorded progress."
+      )
+    }
+
+    if (
+      !is.na(book$baseline_page[[1]]) &&
+      any(
+        history$page_reached <
+        book$baseline_page[[1]],
+        na.rm = TRUE
+      )
+    ) {
+      stop(
+        "Baseline page cannot exceed recorded progress."
+      )
+    }
+
+    if (
+      !is.na(book$date_started[[1]]) &&
+      any(
+        history$date <
+        book$date_started[[1]],
+        na.rm = TRUE
+      )
+    ) {
+      stop(
+        "Starting date conflicts with reading history."
+      )
+    }
+
+    if (
+      !is.na(book$date_finished[[1]]) &&
+      any(
+        history$date >
+        book$date_finished[[1]],
+        na.rm = TRUE
+      )
+    ) {
+      stop(
+        "Finishing date conflicts with reading history."
+      )
+    }
+
+  }
+
+  # --------------------------------------------------
+  # Save changes
+  # --------------------------------------------------
+
+  if (save) {
+
+    metadata_changed <- (
+      book$title[[1]] !=
+        books$title[[index]] ||
+        book$author[[1]] !=
+        books$author[[index]]
+    )
+
+    if (metadata_changed) {
+      update_book_page_metadata(book)
+    }
+
+    books[index, ] <- book
+
+    write_csv(
+      books,
+      "data/books.csv"
+    )
+
+    message(
+      "Book updated: ",
+      id
+    )
+
+  } else {
+
+    message(
+      "Preview only. No changes saved."
+    )
+
+  }
+
+  return(book)
+}
+
+
+# --------------------------------------------------
+# 6. Update book page title and author
+# --------------------------------------------------
+
+update_book_page_metadata <- function(book) {
+
+  path <- book$book_page[[1]]
+
+  if (
+    is.na(path) ||
+    !file.exists(path)
+  ) {
+    stop(
+      "The book's Quarto page could not be found."
+    )
+  }
+
+  lines <- readLines(
+    path,
+    warn = FALSE
+  )
+
+  if (
+    length(lines) < 3 ||
+    trimws(lines[1]) != "---"
+  ) {
+    stop(
+      "The book page does not have valid YAML front matter."
+    )
+  }
+
+  end_yaml <- which(
+    trimws(lines) == "---"
+  )
+
+  end_yaml <- end_yaml[
+    end_yaml > 1
+  ][1]
+
+  if (is.na(end_yaml)) {
+    stop(
+      "Could not find the end of the YAML front matter."
+    )
+  }
+
+  yaml_lines <- seq.int(
+    2,
+    end_yaml - 1
+  )
+
+  title_line <- yaml_lines[
+    grepl(
+      "^title\\s*:",
+      lines[yaml_lines]
+    )
+  ]
+
+  subtitle_line <- yaml_lines[
+    grepl(
+      "^subtitle\\s*:",
+      lines[yaml_lines]
+    )
+  ]
+
+  if (
+    length(title_line) != 1 ||
+    length(subtitle_line) != 1
+  ) {
+    stop(
+      "Expected one title and one subtitle field."
+    )
+  }
+
+  lines[title_line] <- paste0(
+    "title: ",
+    jsonlite::toJSON(
+      book$title[[1]],
+      auto_unbox = TRUE
+    )
+  )
+
+  lines[subtitle_line] <- paste0(
+    "subtitle: ",
+    jsonlite::toJSON(
+      book$author[[1]],
+      auto_unbox = TRUE
+    )
+  )
+
+  writeLines(
+    lines,
+    path,
+    useBytes = TRUE
+  )
+
+  message(
+    "Updated book page metadata: ",
+    path
+  )
 
   invisible(path)
 }

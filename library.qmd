@@ -1,105 +1,295 @@
 ---
 title: "Library"
+toc: false
 ---
 
+::: {.library-intro}
+
+A collection of books I've read, am reading, and hope to read.
+
+Browse my reading history or explore the books on my reading wishlist.
+
+:::
+
 ```{r}
-#| echo: false
+#| include: false
 #| message: false
 #| warning: false
 
 library(tidyverse)
 library(DT)
+library(htmltools)
 
+# --------------------------------------------------
 # Import the book catalog
+# --------------------------------------------------
+
 books <- read_csv(
   "data/books.csv",
   show_col_types = FALSE
-)
-
-# --------------------------------------------------
-# Sort books by reading status and dates
-# --------------------------------------------------
-
-books <- books |>
+) |>
   mutate(
     date_started = as.Date(date_started),
-    date_finished = as.Date(date_finished),
+    date_finished = as.Date(date_finished)
+  )
 
-    # Unfinished books appear before finished books
-    unfinished = status != "Finished",
+if (!"cover_file" %in% names(books)) {
+  books$cover_file <- NA_character_
+}
 
-    # Use the relevant date for each book
+# --------------------------------------------------
+# Separate reading history and wishlist
+# --------------------------------------------------
+
+reading_books <- books |>
+  filter(status != "Want to Read") |>
+  mutate(
+    status_order = case_when(
+      status == "Reading" ~ 1L,
+      status == "Finished" ~ 2L,
+      TRUE ~ 3L
+    ),
     sorting_date = if_else(
-      unfinished,
-      date_started,
-      date_finished
+      status == "Finished",
+      date_finished,
+      date_started
     )
   ) |>
   arrange(
-    desc(unfinished),
-    desc(sorting_date)
+    status_order,
+    desc(sorting_date),
+    title
   )
 
+wishlist_books <- books |>
+  filter(status == "Want to Read") |>
+  arrange(title)
+
 # --------------------------------------------------
-# Prepare clickable book titles
+# Generate book cells with cover thumbnails
 # --------------------------------------------------
 
-library_table <- books |>
+make_book_cell <- function(
+    title,
+    page,
+    cover_id,
+    cover_file
+) {
+
+  # Prefer local images, then Open Library
+  cover_url <- if (
+    !is.na(cover_file) &&
+    nzchar(cover_file)
+  ) {
+
+    cover_file
+
+  } else if (!is.na(cover_id)) {
+
+    paste0(
+      "https://covers.openlibrary.org/b/id/",
+      cover_id,
+      "-M.jpg"
+    )
+
+  } else {
+
+    NA_character_
+
+  }
+
+  # Generate the cover or placeholder
+  cover <- if (!is.na(cover_url)) {
+
+    tags$img(
+      src = cover_url,
+      alt = paste("Cover of", title),
+      class = "library-cover",
+      loading = "lazy"
+    )
+
+  } else {
+
+    tags$span(
+      class = "library-cover-fallback",
+      "No cover"
+    )
+
+  }
+
+  title_element <- tags$span(
+    class = "library-book-title",
+    title
+  )
+
+  # Link only books in the reading library
+  if (!is.na(page) && nzchar(page)) {
+
+    page_url <- str_replace(
+      page,
+      "\\.qmd$",
+      ".html"
+    )
+
+    cell <- tags$a(
+      href = page_url,
+      class = "library-book-link",
+      cover,
+      title_element
+    )
+
+  } else {
+
+    cell <- tags$div(
+      class = "library-book-link",
+      cover,
+      title_element
+    )
+
+  }
+
+  as.character(cell)
+}
+
+
+# --------------------------------------------------
+# Generate reading-status labels
+# --------------------------------------------------
+
+make_status <- function(status) {
+
+  status_class <- str_to_lower(status) |>
+    str_replace_all("[^a-z]+", "-")
+
+  as.character(
+    tags$span(
+      class = paste(
+        "library-status",
+        paste0("library-status--", status_class)
+      ),
+      status
+    )
+  )
+}
+
+# --------------------------------------------------
+# Prepare the main Reading Library table
+# --------------------------------------------------
+
+reading_table <- reading_books |>
   mutate(
-    title_link = map2_chr(
-      title,
-      book_page,
-      function(book_title, page) {
-
-        if (is.na(page) || page == "") {
-          return(as.character(
-            htmltools::htmlEscape(book_title)
-          ))
-        }
-
-        # Convert the Quarto source path to its HTML path
-        page_url <- str_replace(
-          page,
-          "\\.qmd$",
-          ".html"
-        )
-
-        as.character(
-          htmltools::tags$a(
-            href = page_url,
-            book_title
-          )
-        )
-      }
+    book_display = pmap_chr(
+      list(title, book_page, cover_id, cover_file),
+      make_book_cell
+    ),
+    status_display = map_chr(
+      status,
+      make_status
     )
   ) |>
   transmute(
-    Title = title_link,
+    Book = book_display,
     Author = author,
     Pages = total_pages,
-    Status = status,
-    `Date Started` = as.character(date_started),
-    `Date Finished` = as.character(date_finished)
+    Status = status_display,
+    `Date Started` = replace_na(
+      as.character(date_started),
+      "—"
+    ),
+    `Date Finished` = replace_na(
+      as.character(date_finished),
+      "—"
+    )
   )
 
 # --------------------------------------------------
-# Display the interactive library
+# Prepare the Want to Read table
 # --------------------------------------------------
 
+wishlist_table <- wishlist_books |>
+  mutate(
+    book_display = pmap_chr(
+      list(
+        title,
+        rep(NA_character_, n()),
+        cover_id,
+        cover_file
+      ),
+      make_book_cell
+    )
+  ) |>
+  transmute(
+    Book = book_display,
+    Author = author
+  )
+```
+
+## Reading Library
+
+Books I'm currently reading, have finished, or have set aside.
+
+::: {.library-page}
+
+```{r}
+#| echo: false
+
 DT::datatable(
-  library_table,
+  reading_table,
 
   rownames = FALSE,
 
-  # Allow HTML links in the Title column
-  escape = 2:6,
+  escape = c(2, 3, 5, 6),
+
+  class = "hover",
 
   options = list(
     pageLength = 10,
+    lengthChange = FALSE,
     order = list(),
-    autoWidth = TRUE
-  ),
+    autoWidth = FALSE,
+    scrollX = TRUE,
 
-  filter = "none"
+    language = list(
+      search = "Search books:",
+      emptyTable = "No books recorded yet."
+    )
+  )
 )
 ```
+
+:::
+
+## Want to Read
+
+Books I'd like to read in the future.
+
+::: {.library-page}
+
+```{r}
+#| echo: false
+
+DT::datatable(
+  wishlist_table,
+
+  rownames = FALSE,
+
+  escape = 2,
+
+  class = "hover",
+
+  options = list(
+    pageLength = 10,
+    lengthChange = FALSE,
+    order = list(),
+    autoWidth = FALSE,
+    scrollX = TRUE,
+
+    language = list(
+      search = "Search wishlist:",
+      emptyTable = "No books on the wishlist yet."
+    )
+  )
+)
+```
+
+:::

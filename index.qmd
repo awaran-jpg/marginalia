@@ -1,30 +1,51 @@
 ---
 title: "Marginalia"
+subtitle: "A personal reading journal"
+toc: false
 ---
 
-A personal record of books, reading, and reflections.
+::: {.home-intro}
+
+A record of what I'm reading, what I've finished, and what I thought along the way.
+
+:::
 
 ```{r}
 #| include: false
 #| message: false
+#| warning: false
 
 library(tidyverse)
 library(htmltools)
 
 source("R/reading_helpers.R")
 
-# Import our datasets
+# --------------------------------------------------
+# Import the datasets
+# --------------------------------------------------
+
 books <- read_csv(
   "data/books.csv",
   show_col_types = FALSE
-)
+) |>
+  mutate(
+    date_started = as.Date(date_started),
+    date_finished = as.Date(date_finished)
+  )
 
 reading_log <- read_csv(
   "data/reading_log.csv",
-  show_col_types = FALSE
+  col_types = cols(
+    book_id = col_character(),
+    date = col_date(),
+    page_reached = col_integer()
+  )
 )
 
-# Find the most recently recorded page for each book
+# --------------------------------------------------
+# Retrieve the latest recorded progress
+# --------------------------------------------------
+
 latest_progress <- reading_log |>
   group_by(book_id) |>
   arrange(date, .by_group = TRUE) |>
@@ -32,104 +53,259 @@ latest_progress <- reading_log |>
   ungroup() |>
   select(book_id, page_reached)
 
-# Join progress information to the book catalog
 home_books <- books |>
-  left_join(latest_progress, by = "book_id")
+  left_join(latest_progress, by = "book_id") |>
+  mutate(
+    current_page = coalesce(
+      page_reached,
+      baseline_page
+    )
+  )
 
+# --------------------------------------------------
 # Calculate summary statistics
-books_finished <- sum(books$status == "Finished", na.rm = TRUE)
+# --------------------------------------------------
 
-books_reading <- sum(books$status == "Reading", na.rm = TRUE)
+books_finished <- sum(
+  books$status == "Finished",
+  na.rm = TRUE
+)
+
+books_reading <- sum(
+  books$status == "Reading",
+  na.rm = TRUE
+)
 
 pages_logged <- calculate_book_progress(
-  books, reading_log
+  books,
+  reading_log
 ) |>
-  summarise(total = sum(pages_read, na.rm = TRUE)) |>
+  summarise(
+    total = sum(pages_read, na.rm = TRUE)
+  ) |>
   pull(total)
 
-# Create a reusable book card
-book_card <- function(b) {
+# --------------------------------------------------
+# Generate an individual book card
+# --------------------------------------------------
 
-  link <- if (!is.na(b$book_page)) {
-    sub("\\.qmd$", ".html", b$book_page)
+book_card <- function(b, variant = "compact") {
+
+  book_title <- b$title[[1]]
+  author <- b$author[[1]]
+  status <- b$status[[1]]
+  total_pages <- b$total_pages[[1]]
+  current_page <- b$current_page[[1]]
+
+  # Determine the link to the book page
+  page_path <- b$book_page[[1]]
+
+  link <- if (
+    is.na(page_path) || !nzchar(page_path)
+  ) {
+    NA_character_
   } else {
-    "#"
+    sub("\\.qmd$", ".html", page_path)
   }
 
-  cover <- if (!is.na(b$cover_id)) {
-    paste0(
-      "https://covers.openlibrary.org/b/id/",
-      b$cover_id,
-      "-M.jpg"
-    )
-  } else {
-    NULL
+  # Make content clickable when a page exists
+  make_link <- function(content) {
+    if (is.na(link)) {
+      content
+    } else {
+      tags$a(href = link, content)
+    }
   }
 
-  details <- if (b$status == "Reading" &&
-                 !is.na(b$page_reached) &&
-                 !is.na(b$total_pages)) {
-    paste0(
-      "Page ", b$page_reached,
-      " of ", b$total_pages,
-      " (", round(100 * b$page_reached / b$total_pages, 1),
-      "%)"
+  # Retrieve the cover from Open Library
+  cover <- if (!is.na(b$cover_id[[1]])) {
+
+    tags$img(
+      src = paste0(
+        "https://covers.openlibrary.org/b/id/",
+        b$cover_id[[1]],
+        "-L.jpg"
+      ),
+      alt = paste("Cover of", book_title),
+      class = "book-cover",
+      loading = "lazy"
     )
-  } else if (b$status == "Finished") {
-    paste(
-      "Finished:",
-      if (is.na(b$date_finished)) {
-        "Date not recorded"
-      } else {
-        format(b$date_finished, "%B %d, %Y")
-      }
-    )
+
   } else {
-    b$status
+
+    tags$div(
+      class = "book-cover-placeholder",
+      "Cover unavailable"
+    )
   }
 
-tags$div(
-  class = "book-card",
+  # --------------------------------------------------
+  # Create progress information
+  # --------------------------------------------------
 
-    tags$a(
-      href = link,
-      if (!is.null(cover)) {
-        tags$img(
-          src = cover,
-          alt = paste("Cover of", b$title),
-          class = "book-cover"
+  details <- NULL
+
+  if (
+    status == "Reading" &&
+    !is.na(current_page) &&
+    !is.na(total_pages) &&
+    total_pages > 0
+  ) {
+
+    progress <- round(
+      100 * current_page / total_pages,
+      1
+    )
+
+    progress <- max(0, min(100, progress))
+
+    details <- tags$div(
+      class = "book-progress",
+
+      tags$div(
+        class = "book-progress-track",
+        role = "progressbar",
+        `aria-label` = paste(
+          "Reading progress for",
+          book_title
+        ),
+        `aria-valuenow` = as.character(progress),
+        `aria-valuemin` = "0",
+        `aria-valuemax` = "100",
+
+        tags$div(
+          class = "book-progress-fill",
+          style = paste0(
+            "width: ", progress, "%;"
+          )
         )
-      }
+      ),
+
+      tags$p(
+        class = "book-progress-label",
+        paste0(
+          "Page ", current_page,
+          " of ", total_pages,
+          " · ", progress, "%"
+        )
+      )
+    )
+
+  } else if (status == "Reading") {
+
+    details <- tags$p(
+      class = "book-card-meta",
+      "Reading progress not yet logged"
+    )
+
+  } else if (status == "Finished") {
+
+    finished <- b$date_finished[[1]]
+
+    finished_text <- if (is.na(finished)) {
+      "Completion date not recorded"
+    } else {
+      paste(
+        "Finished",
+        format(finished, "%B %d, %Y")
+      )
+    }
+
+    details <- tags$p(
+      class = "book-card-meta",
+      finished_text
+    )
+
+  } else {
+
+    details <- tags$p(
+      class = "book-card-meta",
+      status
+    )
+  }
+
+  # --------------------------------------------------
+  # Construct the card
+  # --------------------------------------------------
+
+  tags$article(
+    class = paste(
+      "book-card",
+      paste0("book-card--", variant)
     ),
 
     tags$div(
-      tags$h3(tags$a(href = link, b$title)),
-      tags$p(b$author),
-      tags$p(details)
+      class = "book-card-media",
+      make_link(cover)
+    ),
+
+    tags$div(
+      class = "book-card-content",
+
+      tags$p(
+        class = "book-card-eyebrow",
+        if (status == "Reading") {
+          "CURRENTLY READING"
+        } else if (status == "Finished") {
+          "COMPLETED"
+        } else {
+          toupper(status)
+        }
+      ),
+
+      tags$h3(
+        make_link(book_title)
+      ),
+
+      tags$p(
+        class = "book-card-author",
+        author
+      ),
+
+      details
     )
   )
 }
 
-# Display a group of book cards
+# --------------------------------------------------
+# Display groups of books
+# --------------------------------------------------
 
-show_books <- function(data) {
+show_books <- function(data, variant = "compact") {
 
   if (nrow(data) == 0) {
-    return(tags$p("No books to display yet."))
+    return(
+      tags$p(
+        class = "empty-state",
+        "No books to display yet."
+      )
+    )
   }
 
   cards <- lapply(
     seq_len(nrow(data)),
-    function(i) book_card(data[i, ])
+    function(i) {
+      book_card(data[i, ], variant)
+    }
   )
 
-  do.call(htmltools::tagList, cards)
-}
+  container_class <- if (variant == "featured") {
+    "featured-book-list"
+  } else {
+    "recent-book-grid"
+  }
 
+  do.call(
+    tags$div,
+    c(
+      list(class = container_class),
+      cards
+    )
+  )
+}
 ```
 
-
-## Reading Overview
+## Reading at a Glance
 
 :::: {.reading-stats}
 
@@ -166,7 +342,8 @@ Pages logged
 
 home_books |>
   filter(status == "Reading") |>
-  show_books()
+  arrange(desc(date_started)) |>
+  show_books(variant = "featured")
 ```
 
 
@@ -179,6 +356,11 @@ home_books |>
   filter(status == "Finished") |>
   arrange(desc(date_finished)) |>
   slice_head(n = 5) |>
-  show_books()
+  show_books(variant = "compact")
 ```
 
+::: {.home-section-footer}
+
+[View the full library](library.html)
+
+:::
