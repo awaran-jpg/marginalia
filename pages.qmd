@@ -185,7 +185,11 @@ DT::datatable(
 
   options = list(
     pageLength = 15,
-    lengthChange = FALSE,
+    lengthChange = TRUE,
+    lengthMenu = list(
+      c(10, 15, 25, 50, 100, -1),
+      c("10", "15", "25", "50", "100", "All")
+    ),
     searching = TRUE,
     ordering = TRUE,
 
