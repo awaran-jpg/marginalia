@@ -11,14 +11,14 @@
     "href": "statistics.html#reading-overview",
     "title": "Reading Statistics",
     "section": "Reading Overview",
-    "text": "Reading Overview\n\n\n1\nCurrently reading\n\n\n3\nBooks completed\n\n\n909\nPages in completed books\n\n\n110\nPages logged by date"
+    "text": "Reading Overview\n\n\n1\nCurrently reading\n\n\n3\nBooks completed\n\n\n909\nPages in completed books\n\n\n126\nPages logged by date"
   },
   {
     "objectID": "statistics.html#reading-habits",
     "href": "statistics.html#reading-habits",
     "title": "Reading Statistics",
     "section": "Reading Habits",
-    "text": "Reading Habits\n\n\n3\nDays with logged reading\n\n\n27.5\nAvg. pages per calendar day\n\n\n36.7\nAvg. pages per reading day\n\n\n\nDaily averages are calculated from the first to the latest recorded reading date. Dates without entries are treated as zero for these calculations, although an unlogged day does not necessarily mean no reading occurred.\nCompleted-book page counts and daily page logs are separate measures and should not be added together."
+    "text": "Reading Habits\n\n\n4\nDays with logged reading\n\n\n25.2\nAvg. pages per calendar day\n\n\n31.5\nAvg. pages per reading day\n\n\n\nDaily averages are calculated from the first to the latest recorded reading date. Dates without entries are treated as zero for these calculations, although an unlogged day does not necessarily mean no reading occurred.\nCompleted-book page counts and daily page logs are separate measures and should not be added together."
   },
   {
     "objectID": "statistics.html#recent-reading-activity",
@@ -53,14 +53,14 @@
     "href": "index.html#reading-at-a-glance",
     "title": "Marginalia",
     "section": "Reading at a Glance",
-    "text": "Reading at a Glance\n\n\n1\nCurrently reading\n\n\n3\nBooks completed\n\n\n110\nPages logged"
+    "text": "Reading at a Glance\n\n\n1\nCurrently reading\n\n\n3\nBooks completed\n\n\n126\nPages logged"
   },
   {
     "objectID": "index.html#currently-reading",
     "href": "index.html#currently-reading",
     "title": "Marginalia",
     "section": "Currently Reading",
-    "text": "Currently Reading\n\n\n\n\n\n\n\n\n\n\nCURRENTLY READING\n\nL'avalée des avalés\n\nRéjean Ducharme\n\n\n\n\nPage 110 of 343 · 32.1%"
+    "text": "Currently Reading\n\n\n\n\n\n\n\n\n\n\nCURRENTLY READING\n\nL'avalée des avalés\n\nRéjean Ducharme\n\n\n\n\nPage 126 of 343 · 36.7%"
   },
   {
     "objectID": "index.html#recently-completed",
@@ -277,7 +277,7 @@
     "href": "books/lavalee-des-avales.html",
     "title": "L’avalée des avalés",
     "section": "",
-    "text": "READING DETAILS\n\n\nStatus\nReading\n\n\nLength\n343 pages\n\n\nStarted\nNovember 19, 2026\n\n\nFinished\nNot recorded\n\n\nLast recorded page\n110\n\n\nReading progress\n32.1%"
+    "text": "READING DETAILS\n\n\nStatus\nReading\n\n\nLength\n343 pages\n\n\nStarted\nNovember 19, 2026\n\n\nFinished\nNot recorded\n\n\nLast recorded page\n126\n\n\nReading progress\n36.7%"
   },
   {
     "objectID": "books/lavalee-des-avales.html#my-reflections",
@@ -291,7 +291,7 @@
     "href": "books/lavalee-des-avales.html#reading-history",
     "title": "L’avalée des avalés",
     "section": "Reading History",
-    "text": "Reading History\nThe following table records my reading progress through this book.\n\n\n\n\n\nDate\nPages Read\nPage Reached\n\n\n\n\n2026-11-19\n34\n34\n\n\n2026-11-21\n32\n66\n\n\n2026-11-22\n44\n110"
+    "text": "Reading History\nThe following table records my reading progress through this book.\n\n\n\n\n\nDate\nPages Read\nPage Reached\n\n\n\n\n2026-11-19\n34\n34\n\n\n2026-11-21\n32\n66\n\n\n2026-11-22\n44\n110\n\n\n2026-11-23\n16\n126"
   },
   {
     "objectID": "books/B008.html",
