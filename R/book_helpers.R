@@ -391,25 +391,54 @@ edit_book <- function(
     books$cover_file <- NA_character_
   }
 
-  # Identify book
+
+  # Identify book by ID or title
   if (
-    length(id) != 1 ||
-    is.na(id)
+    length(id) != 1L ||
+    !is.character(id) ||
+    is.na(id) ||
+    !nzchar(str_squish(id))
   ) {
-    stop("Please provide one valid book ID.")
+    stop("Please provide a valid book ID or title.")
   }
 
+  normalize_lookup <- function(x) {
+    str_to_lower(str_squish(x))
+  }
+
+  # First attempt to match the book ID
   index <- which(
-    books$book_id == id
+    normalize_lookup(books$book_id) ==
+      normalize_lookup(id)
   )
 
-  if (length(index) != 1) {
+  # If no ID matches, search by title
+  if (length(index) == 0L) {
+
+    index <- which(
+      normalize_lookup(books$title) ==
+        normalize_lookup(id)
+    )
+
+  }
+
+  # Handle missing or ambiguous matches
+  if (length(index) == 0L) {
+    stop("No book found matching: ", id)
+  }
+
+  if (length(index) > 1L) {
     stop(
-      "Book ID not found or not unique."
+      "Multiple books match this title. ",
+      "Please use the unique book ID."
     )
   }
 
+  # Retain the canonical ID for internal operations
+  id <- books$book_id[[index]]
+
   book <- books[index, ]
+
 
   # Validate numerical fields
   check_number <- function(
