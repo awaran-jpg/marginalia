@@ -1497,3 +1497,144 @@ body.quarto-dark .reading-log-page
   }
 }
 
+
+/* Marginalia — Language selector */
+
+#languages-button.btn-primary {
+  background-color: var(--m-navbar-bg) !important;
+  color: #e7ebe5 !important;
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
+  border-radius: 6px;
+  box-shadow: none !important;
+}
+
+#languages-button.btn-primary:hover,
+#languages-button.btn-primary.show,
+#languages-button.btn-primary:active {
+  background-color: rgba(255, 255, 255, 0.09) !important;
+  color: #ffffff !important;
+}
+
+#languages-links {
+  background: var(--m-surface) !important;
+  border-color: var(--m-border);
+}
+
+#languages-links .dropdown-item {
+  color: var(--m-text);
+}
+
+#languages-links .dropdown-item:hover,
+#languages-links .dropdown-item:focus {
+  background: var(--m-surface-soft);
+  color: var(--m-accent);
+}
+
+/* ==================================================
+   MARGINALIA — BILINGUAL TYPOGRAPHY AND SPACING
+   ================================================== */
+
+/* French homepage spacing */
+
+main.content #mes-lectures-en-bref h2 {
+  margin-top: 1.8rem;
+}
+
+#mes-lectures-en-bref .reading-stats {
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+}
+
+/* Literary reflections in both languages */
+
+:is(
+  #my-reflections,
+  #mes-réflexions,
+  #mes-reflexions
+) :is(p, blockquote, ul, ol) {
+  max-width: 68ch;
+}
+
+:is(
+  #my-reflections,
+  #mes-réflexions,
+  #mes-reflexions
+) p {
+  font-family:
+    "Iowan Old Style",
+    Baskerville,
+    Georgia,
+    serif;
+
+  font-size: 1.1rem;
+  line-height: 1.9;
+  margin-bottom: 1.45rem;
+}
+
+/* Literary quotations */
+
+:is(
+  #my-reflections,
+  #mes-réflexions,
+  #mes-reflexions
+) blockquote {
+  margin: 1.8rem 0;
+  padding: 0.5rem 0 0.5rem 1.5rem;
+
+  border-left: 3px solid var(--m-accent);
+  color: var(--m-muted);
+
+  font-family:
+    "Iowan Old Style",
+    Baskerville,
+    Georgia,
+    serif;
+
+  font-size: 1.08rem;
+  line-height: 1.8;
+}
+
+:is(
+  #my-reflections,
+  #mes-réflexions,
+  #mes-reflexions
+) blockquote p {
+  font-size: inherit;
+  line-height: inherit;
+  margin-bottom: 0.75rem;
+}
+
+:is(
+  #my-reflections,
+  #mes-réflexions,
+  #mes-reflexions
+) blockquote p:last-child {
+  margin-bottom: 0;
+}
+
+/* Links within reflections */
+
+:is(
+  #my-reflections,
+  #mes-réflexions,
+  #mes-reflexions
+) a {
+  color: var(--m-accent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+/* Mobile literary typography */
+
+@media (max-width: 650px) {
+
+  :is(
+    #my-reflections,
+    #mes-réflexions,
+    #mes-reflexions
+  ) p {
+    font-size: 1.05rem;
+    line-height: 1.8;
+  }
+
+}
