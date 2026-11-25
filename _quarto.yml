@@ -6,18 +6,9 @@ project:
 
 website:
   title: "Marginalia"
+  site-url: https://awaran-jpg.github.io/marginalia/
   navbar:
-    left:
-      - href: index.qmd
-        text: Home
-      - href: library.qmd
-        text: Library
-      - href: pages.qmd
-        text: Page Log
-      - href: statistics.qmd
-        text: Statistics
     search: true
-
 
 format:
   html:
@@ -27,3 +18,17 @@ format:
     css: styles.css
     toc: false
     respect-user-color-scheme: true
+
+babelquarto:
+  languagelinks: navbar
+  languagecodes:
+    - name: fr
+      text: Français
+    - name: en
+      text: English
+  mainlanguage: 'en'
+  languages: ['fr']
+
+title-fr: "Marginalia"
+
+lang: en

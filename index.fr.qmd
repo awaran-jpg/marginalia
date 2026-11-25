@@ -1,0 +1,86 @@
+---
+title: "Marginalia"
+subtitle: "Un carnet de lecture personnel"
+toc: false
+---
+
+::: {.home-intro}
+
+J'y rassemble mes lectures, mes impressions au fil des pages et les livres que j'ai le goût de lire prochainement.
+
+:::
+
+```{r}
+#| include: false
+#| message: false
+#| warning: false
+
+source("R/reading_helpers.R")
+source("R/home_helpers.R")
+
+lang <- "fr"
+
+home <- prepare_home()
+
+labels <- home_summary_labels(home, lang)
+```
+
+## Mes lectures en bref
+
+:::: {.reading-stats}
+
+::: {.reading-stat}
+
+### `{r} m_number(home$books_reading, lang)`
+
+`{r} labels$reading`
+
+:::
+
+::: {.reading-stat}
+
+### `{r} m_number(home$books_finished, lang)`
+
+`{r} labels$finished`
+
+:::
+
+::: {.reading-stat}
+
+### `{r} m_number(home$pages_logged, lang)`
+
+`{r} labels$pages`
+
+:::
+
+::::
+
+## En cours de lecture
+
+```{r}
+#| echo: false
+
+show_home_books(
+  home$currently_reading,
+  lang = lang,
+  variant = "featured"
+)
+```
+
+## Dernières lectures
+
+```{r}
+#| echo: false
+
+show_home_books(
+  home$recently_completed,
+  lang = lang,
+  variant = "compact"
+)
+```
+
+::: {.home-section-footer}
+
+[Voir toute la bibliothèque](library.html)
+
+:::

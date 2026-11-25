@@ -31,7 +31,17 @@ book_header(books, reading_log, book_id)
 
 ## My Reflections
 
-Write your reflections here.
+```{r}
+#| echo: false
+#| results: asis
+
+source("R/reflection_helpers.R")
+
+book_reflections(
+  book_id,
+  lang = "en"
+)
+```
 
 ## Reading History
 

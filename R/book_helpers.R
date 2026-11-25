@@ -1,5 +1,7 @@
 library(tidyverse)
 
+source("R/book_page_helpers.R")
+source("R/reflection_helpers.R")
 # --------------------------------------------------
 # 1. Add a new book to the catalog
 # --------------------------------------------------
@@ -134,17 +136,66 @@ add_book <- function(
     cover_file = cover_file
   )
 
+
+
   # Save only when requested
   if (save) {
 
-    if (file.exists(new_book$book_page[[1]])) {
+    en_path <- new_book$book_page[[1]]
+    fr_path <- french_book_path(en_path)
+    ref_path <- reflection_path(new_id)
+
+    # Protect all existing files
+    new_paths <- c(
+      en_path,
+      fr_path,
+      ref_path
+    )
+
+    if (any(file.exists(new_paths))) {
       stop(
-        "A book page with this ID already exists."
+        "A book page or reflection file ",
+        "with this ID already exists."
       )
     }
 
-    create_book_page(new_book)
+    # Create both pages and the shared reflection
+    tryCatch(
+      {
 
+        create_book_page(new_book)
+
+        create_french_book_page(
+          new_book,
+          save = TRUE
+        )
+
+        create_reflection_file(
+          new_id,
+          save = TRUE
+        )
+
+      },
+
+      error = function(e) {
+
+        created_paths <- new_paths[
+          file.exists(new_paths)
+        ]
+
+        if (length(created_paths) > 0) {
+          unlink(created_paths)
+        }
+
+        stop(
+          "Could not create book files: ",
+          conditionMessage(e),
+          call. = FALSE
+        )
+      }
+    )
+
+    # Update the shared catalog
     books <- bind_rows(
       books,
       new_book
@@ -155,7 +206,12 @@ add_book <- function(
       "data/books.csv"
     )
 
-    message("Book added: ", new_id)
+    message(
+      "Book added: ",
+      new_id,
+      " (bilingual pages and shared reflection created)"
+    )
+
   }
 
   return(new_book)
@@ -336,11 +392,25 @@ create_book_page <- function(book) {
     "book_header(books, reading_log, book_id)",
     "```",
     "",
+
     "## My Reflections",
     "",
-    "Write your reflections here.",
+
+    "```{r}",
+    "#| echo: false",
+    "#| results: asis",
     "",
+
+    'source("R/reflection_helpers.R")',
+    "",
+
+    'book_reflections(book_id, lang = "en")',
+
+    "```",
+    "",
+
     "## Reading History",
+
     "",
     "```{r}",
     "#| echo: false",
@@ -795,105 +865,138 @@ edit_book <- function(
 }
 
 
+
 # --------------------------------------------------
-# 6. Update book page title and author
+# 6. Update bilingual book page metadata
 # --------------------------------------------------
 
 update_book_page_metadata <- function(book) {
 
-  path <- book$book_page[[1]]
+  en_path <- book$book_page[[1]]
+  fr_path <- french_book_path(en_path)
 
+  paths <- c(
+    en = en_path,
+    fr = fr_path
+  )
+
+  # Verify that both pages exist
   if (
-    is.na(path) ||
-    !file.exists(path)
+    anyNA(paths) ||
+    !all(file.exists(paths))
   ) {
     stop(
-      "The book's Quarto page could not be found."
+      "One or both book pages could not be found."
     )
   }
 
-  lines <- readLines(
-    path,
-    warn = FALSE
-  )
+  # Prepare updated metadata
+  prepare_metadata <- function(path) {
 
-  if (
-    length(lines) < 3 ||
-    trimws(lines[1]) != "---"
-  ) {
-    stop(
-      "The book page does not have valid YAML front matter."
+    lines <- readLines(
+      path,
+      warn = FALSE,
+      encoding = "UTF-8"
     )
+
+    if (
+      length(lines) < 3 ||
+      trimws(lines[1]) != "---"
+    ) {
+      stop(
+        "Invalid YAML front matter in: ",
+        path
+      )
+    }
+
+    end_yaml <- which(
+      trimws(lines) == "---"
+    )
+
+    end_yaml <- end_yaml[
+      end_yaml > 1
+    ][1]
+
+    if (
+      is.na(end_yaml) ||
+      end_yaml <= 2L
+    ) {
+      stop(
+        "Could not identify YAML metadata in: ",
+        path
+      )
+    }
+
+    yaml_lines <- seq.int(
+      2,
+      end_yaml - 1
+    )
+
+    title_line <- yaml_lines[
+      grepl(
+        "^title\\s*:",
+        lines[yaml_lines]
+      )
+    ]
+
+    subtitle_line <- yaml_lines[
+      grepl(
+        "^subtitle\\s*:",
+        lines[yaml_lines]
+      )
+    ]
+
+    if (
+      length(title_line) != 1 ||
+      length(subtitle_line) != 1
+    ) {
+      stop(
+        "Expected one title and one subtitle in: ",
+        path
+      )
+    }
+
+    # Replace only title and subtitle
+    lines[title_line] <- paste0(
+      "title: ",
+      jsonlite::toJSON(
+        book$title[[1]],
+        auto_unbox = TRUE
+      )
+    )
+
+    lines[subtitle_line] <- paste0(
+      "subtitle: ",
+      jsonlite::toJSON(
+        book$author[[1]],
+        auto_unbox = TRUE
+      )
+    )
+
+    lines
   }
 
-  end_yaml <- which(
-    trimws(lines) == "---"
+  # Validate both pages before writing
+  updated_pages <- lapply(
+    paths,
+    prepare_metadata
   )
 
-  end_yaml <- end_yaml[
-    end_yaml > 1
-  ][1]
+  # Save updated pages
+  for (i in seq_along(paths)) {
 
-  if (is.na(end_yaml)) {
-    stop(
-      "Could not find the end of the YAML front matter."
+    writeLines(
+      enc2utf8(updated_pages[[i]]),
+      paths[[i]],
+      useBytes = TRUE
     )
+
+    message(
+      "Updated book page metadata: ",
+      paths[[i]]
+    )
+
   }
 
-  yaml_lines <- seq.int(
-    2,
-    end_yaml - 1
-  )
-
-  title_line <- yaml_lines[
-    grepl(
-      "^title\\s*:",
-      lines[yaml_lines]
-    )
-  ]
-
-  subtitle_line <- yaml_lines[
-    grepl(
-      "^subtitle\\s*:",
-      lines[yaml_lines]
-    )
-  ]
-
-  if (
-    length(title_line) != 1 ||
-    length(subtitle_line) != 1
-  ) {
-    stop(
-      "Expected one title and one subtitle field."
-    )
-  }
-
-  lines[title_line] <- paste0(
-    "title: ",
-    jsonlite::toJSON(
-      book$title[[1]],
-      auto_unbox = TRUE
-    )
-  )
-
-  lines[subtitle_line] <- paste0(
-    "subtitle: ",
-    jsonlite::toJSON(
-      book$author[[1]],
-      auto_unbox = TRUE
-    )
-  )
-
-  writeLines(
-    lines,
-    path,
-    useBytes = TRUE
-  )
-
-  message(
-    "Updated book page metadata: ",
-    path
-  )
-
-  invisible(path)
+  invisible(paths)
 }

@@ -14,154 +14,11 @@ A chronological record of my reading activity, searchable by book and date.
 #| message: false
 #| warning: false
 
-library(tidyverse)
-library(DT)
-library(htmltools)
-
+source("R/localization_helpers.R")
 source("R/reading_helpers.R")
+source("R/page_log_helpers.R")
 
-# --------------------------------------------------
-# Import datasets
-# --------------------------------------------------
-
-books <- read_csv(
-  "data/books.csv",
-  show_col_types = FALSE
-)
-
-reading_log <- read_csv(
-  "data/reading_log.csv",
-  col_types = cols(
-    book_id = col_character(),
-    date = col_date(),
-    page_reached = col_integer()
-  )
-)
-
-# --------------------------------------------------
-# Calculate recorded reading progress
-# --------------------------------------------------
-
-book_progress <- calculate_book_progress(
-  books,
-  reading_log
-)
-
-logged_entries <- book_progress |>
-  left_join(
-    books |>
-      select(book_id, book_page),
-    by = "book_id"
-  ) |>
-  select(
-    date,
-    title,
-    pages_read,
-    page_reached,
-    book_page
-  )
-
-# --------------------------------------------------
-# Identify dates without reading records
-# --------------------------------------------------
-
-if (nrow(book_progress) > 0) {
-
-  empty_days <- tibble(
-    date = seq.Date(
-      min(book_progress$date),
-      max(book_progress$date),
-      by = "day"
-    )
-  ) |>
-    anti_join(
-      book_progress |> distinct(date),
-      by = "date"
-    ) |>
-    mutate(
-      title = "No entry recorded",
-      pages_read = NA_integer_,
-      page_reached = NA_integer_,
-      book_page = NA_character_
-    )
-
-} else {
-
-  empty_days <- tibble(
-    date = as.Date(character()),
-    title = character(),
-    pages_read = integer(),
-    page_reached = integer(),
-    book_page = character()
-  )
-
-}
-
-# --------------------------------------------------
-# Generate clickable book titles
-# --------------------------------------------------
-
-make_log_link <- function(title, page) {
-
-  if (title == "No entry recorded") {
-
-    return(
-      as.character(
-        tags$span(
-          class = "log-unrecorded",
-          "No entry recorded"
-        )
-      )
-    )
-
-  }
-
-  if (is.na(page) || !nzchar(page)) {
-
-    return(
-      as.character(htmlEscape(title))
-    )
-
-  }
-
-  page_url <- str_replace(
-    page,
-    "\\.qmd$",
-    ".html"
-  )
-
-  as.character(
-    tags$a(
-      href = page_url,
-      class = "log-book-link",
-      title
-    )
-  )
-
-}
-
-# --------------------------------------------------
-# Prepare the display table
-# --------------------------------------------------
-
-display_log <- bind_rows(
-  logged_entries,
-  empty_days
-) |>
-  arrange(desc(date), title) |>
-  mutate(
-    book_display = map2_chr(
-      title,
-      book_page,
-      make_log_link
-    )
-  ) |>
-  transmute(
-    Date = as.character(date),
-    Book = book_display,
-    `Pages Read` = pages_read,
-    `Page Reached` = page_reached
-  )
+page_log <- prepare_page_log()
 ```
 
 ## Reading History
@@ -173,39 +30,9 @@ The table records dated reading entries across all books. Dates without entries 
 ```{r}
 #| echo: false
 
-DT::datatable(
-  display_log,
-
-  rownames = FALSE,
-
-  # Allow clickable titles in the Book column
-  escape = c(1, 3, 4),
-
-  class = "hover",
-
-  options = list(
-    pageLength = 15,
-    lengthChange = TRUE,
-    lengthMenu = list(
-      c(10, 15, 25, 50, 100, -1),
-      c("10", "15", "25", "50", "100", "All")
-    ),
-    searching = TRUE,
-    ordering = TRUE,
-
-    # Newest dates first
-    order = list(
-      list(0, "desc")
-    ),
-
-    autoWidth = FALSE,
-    scrollX = TRUE,
-
-    language = list(
-      search = "Search log:",
-      emptyTable = "No reading entries yet."
-    )
-  )
+render_page_log(
+  page_log,
+  lang = "en"
 )
 ```
 

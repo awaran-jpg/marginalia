@@ -1,0 +1,59 @@
+---
+title: "Bibliothèque"
+toc: false
+---
+
+::: {.library-intro}
+
+Les livres que j'ai lus, ceux que je lis en ce moment et ceux que j'ai le goût de découvrir.
+
+On y retrouve mes lectures passées et présentes, ainsi que les ouvrages que je compte lire éventuellement.
+
+:::
+
+```{r}
+#| include: false
+#| message: false
+#| warning: false
+
+source("R/localization_helpers.R")
+source("R/library_helpers.R")
+
+library_data <- prepare_library(lang = "fr")
+```
+
+## Mes lectures
+
+Les livres que je suis en train de lire, que j'ai terminés ou que j'ai mis de côté.
+
+::: {.library-page}
+
+```{r}
+#| echo: false
+
+render_library_table(
+  library_data$reading,
+  lang = "fr",
+  type = "reading"
+)
+```
+
+:::
+
+## À lire
+
+Les livres que j'ai le goût de lire un de ces jours.
+
+::: {.library-page}
+
+```{r}
+#| echo: false
+
+render_library_table(
+  library_data$wishlist,
+  lang = "fr",
+  type = "wishlist"
+)
+```
+
+:::

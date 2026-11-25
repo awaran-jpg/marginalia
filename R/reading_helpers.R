@@ -1,37 +1,34 @@
+
 library(tidyverse)
+
+source("R/localization_helpers.R")
+
+# ==================================================
+# MARGINALIA — READING HELPERS
+# English / Français québécois
+# ==================================================
+
 
 # --------------------------------------------------
 # 1. Calculate reading progress across books
 # --------------------------------------------------
 
-calculate_book_progress <- function(
-    books,
-    reading_log
-) {
+calculate_book_progress <- function(books, reading_log) {
 
   reading_log |>
     left_join(
       books |>
-        select(
-          book_id,
-          title,
-          baseline_page
-        ),
+        select(book_id, title, baseline_page),
       by = "book_id"
     ) |>
     group_by(book_id) |>
-    arrange(
-      date,
-      .by_group = TRUE
-    ) |>
+    arrange(date, .by_group = TRUE) |>
     mutate(
       previous_page = coalesce(
         lag(page_reached),
         as.integer(baseline_page)
       ),
-      pages_read = (
-        page_reached - previous_page
-      )
+      pages_read = page_reached - previous_page
     ) |>
     ungroup()
 }
@@ -41,18 +38,13 @@ calculate_book_progress <- function(
 # 2. Retrieve an individual book
 # --------------------------------------------------
 
-get_book <- function(
-    books,
-    id
-) {
+get_book <- function(books, id) {
 
   book <- books |>
     filter(book_id == id)
 
   if (nrow(book) != 1) {
-    stop(
-      "Expected exactly one matching book."
-    )
+    stop("Expected exactly one matching book.")
   }
 
   return(book)
@@ -63,11 +55,7 @@ get_book <- function(
 # 3. Retrieve an individual book's reading history
 # --------------------------------------------------
 
-get_book_history <- function(
-    books,
-    reading_log,
-    id
-) {
+get_book_history <- function(books, reading_log, id) {
 
   get_book(books, id)
 
@@ -81,19 +69,19 @@ get_book_history <- function(
 
 
 # --------------------------------------------------
-# 4. Generate the book information panel
+# 4. Generate a localized book information panel
 # --------------------------------------------------
 
 book_header <- function(
     books,
     reading_log,
-    id
+    id,
+    lang = "en"
 ) {
 
-  book <- get_book(
-    books,
-    id
-  )
+  lang <- match.arg(lang, c("en", "fr"))
+
+  book <- get_book(books, id)
 
   history <- get_book_history(
     books,
@@ -101,64 +89,84 @@ book_header <- function(
     id
   )
 
-  # Format missing dates
+  # ------------------------------------------------
+  # Format metadata
+  # ------------------------------------------------
+
   display_date <- function(x) {
 
     if (is.na(x)) {
-      "Not recorded"
-    } else {
-      format(
-        x,
-        "%B %d, %Y"
-      )
+      return(m_text("not_recorded", lang))
     }
 
+    m_date(x, lang, style = "long")
   }
 
-  # Format missing page counts
-  display_pages <- function(x) {
+  display_length <- function(x) {
 
     if (is.na(x)) {
-      "Not recorded"
-    } else {
-      as.character(x)
+      return(m_text("not_recorded", lang))
     }
 
+    paste(
+      m_number(x, lang),
+      if (x == 1) "page" else "pages"
+    )
   }
 
-  # --------------------------------------------------
-  # Prepare book metadata
-  # --------------------------------------------------
+  started_label <- if (lang == "fr") {
+    "Début de lecture"
+  } else {
+    "Started"
+  }
+
+  finished_label <- if (lang == "fr") {
+    "Fin de lecture"
+  } else {
+    "Finished"
+  }
+
+  # ------------------------------------------------
+  # Prepare reading details
+  # ------------------------------------------------
 
   details <- list(
+
     list(
-      label = "Status",
-      value = book$status[[1]]
-    ),
-    list(
-      label = "Length",
-      value = paste(
-        display_pages(
-          book$total_pages[[1]]
-        ),
-        "pages"
+      label = m_text("status", lang),
+      value = m_status(
+        book$status[[1]],
+        lang
       )
     ),
+
     list(
-      label = "Started",
+      label = m_text("length", lang),
+      value = display_length(
+        book$total_pages[[1]]
+      )
+    ),
+
+    list(
+      label = started_label,
       value = display_date(
         book$date_started[[1]]
       )
     ),
+
     list(
-      label = "Finished",
+      label = finished_label,
       value = display_date(
         book$date_finished[[1]]
       )
     )
+
   )
 
-  # Include reading progress when available
+  # ------------------------------------------------
+  # Include recorded reading progress
+  # ------------------------------------------------
+
   if (nrow(history) > 0) {
 
     current_page <- dplyr::last(
@@ -169,15 +177,17 @@ book_header <- function(
       details,
       list(
         list(
-          label = "Last recorded page",
-          value = as.character(
-            current_page
+          label = m_text("last_page", lang),
+          value = m_number(
+            current_page,
+            lang
           )
         )
       )
     )
 
     if (
+      !is.na(current_page) &&
       !is.na(book$total_pages[[1]]) &&
       book$total_pages[[1]] > 0
     ) {
@@ -192,11 +202,8 @@ book_header <- function(
         details,
         list(
           list(
-            label = "Reading progress",
-            value = paste0(
-              progress,
-              "%"
-            )
+            label = m_text("progress", lang),
+            value = m_percent(progress, lang)
           )
         )
       )
@@ -204,11 +211,10 @@ book_header <- function(
     }
   }
 
-  # --------------------------------------------------
-  # Generate the book cover
-  # --------------------------------------------------
+  # ------------------------------------------------
+  # Resolve book cover
+  # ------------------------------------------------
 
-  # Retrieve the optional local-cover path
   local_cover <- if (
     "cover_file" %in% names(book)
   ) {
@@ -217,42 +223,19 @@ book_header <- function(
     NA_character_
   }
 
-  # Prefer local covers to Open Library
-  cover_url <- if (
-    !is.na(local_cover) &&
-    nzchar(local_cover)
-  ) {
+  cover_url <- m_cover_url(
+    cover_id = book$cover_id[[1]],
+    cover_file = local_cover,
+    prefix = "../",
+    size = "L"
+  )
 
-    # Individual book pages live under books/,
-    # so go up one directory to reach images/.
-    paste0(
-      "../",
-      local_cover
-    )
-
-  } else if (
-    !is.na(book$cover_id[[1]])
-  ) {
-
-    paste0(
-      "https://covers.openlibrary.org/b/id/",
-      book$cover_id[[1]],
-      "-L.jpg"
-    )
-
-  } else {
-
-    NA_character_
-
-  }
-
-  # Generate either the cover or placeholder
   cover <- if (!is.na(cover_url)) {
 
     htmltools::tags$img(
       src = cover_url,
       alt = paste(
-        "Cover of",
+        m_text("cover_of", lang),
         book$title[[1]]
       ),
       class = "book-detail-cover",
@@ -263,14 +246,14 @@ book_header <- function(
 
     htmltools::tags$div(
       class = "book-cover-placeholder",
-      "Cover unavailable"
+      m_text("cover_unavailable", lang)
     )
 
   }
 
-  # --------------------------------------------------
-  # Generate individual metadata fields
-  # --------------------------------------------------
+  # ------------------------------------------------
+  # Generate metadata fields
+  # ------------------------------------------------
 
   make_detail <- function(item) {
 
@@ -285,7 +268,6 @@ book_header <- function(
         item$value
       )
     )
-
   }
 
   detail_fields <- lapply(
@@ -293,34 +275,34 @@ book_header <- function(
     make_detail
   )
 
-  # --------------------------------------------------
-  # Generate complete book information panel
-  # --------------------------------------------------
+  # ------------------------------------------------
+  # Generate complete information panel
+  # ------------------------------------------------
 
   htmltools::tags$div(
+
     class = "book-detail",
 
-    # Left column: cover
     htmltools::tags$div(
       class = "book-detail-image",
       cover
     ),
 
-    # Right column: reading metadata
     htmltools::tags$div(
+
       class = "book-detail-info",
 
       htmltools::tags$p(
         class = "book-detail-eyebrow",
-        "READING DETAILS"
+        toupper(
+          m_text("reading_details", lang)
+        )
       ),
 
       do.call(
         htmltools::tags$dl,
         c(
-          list(
-            class = "book-detail-grid"
-          ),
+          list(class = "book-detail-grid"),
           detail_fields
         )
       )
@@ -331,14 +313,17 @@ book_header <- function(
 
 
 # --------------------------------------------------
-# 5. Generate a book's reading history table
+# 5. Generate localized reading history
 # --------------------------------------------------
 
 book_history_table <- function(
     books,
     reading_log,
-    id
+    id,
+    lang = "en"
 ) {
+
+  lang <- match.arg(lang, c("en", "fr"))
 
   history <- get_book_history(
     books,
@@ -346,7 +331,7 @@ book_history_table <- function(
     id
   )
 
-  # Mark empty histories so CSS can hide them
+  # Retain our existing empty-history CSS behavior
   if (nrow(history) == 0) {
 
     return(
@@ -358,30 +343,37 @@ book_history_table <- function(
 
   }
 
+  # Prepare localized table
   table <- history |>
-    select(
-      date,
-      pages_read,
-      page_reached
+    transmute(
+      date = m_date(
+        date,
+        lang,
+        style = "iso"
+      ),
+      pages_read = m_number(
+        pages_read,
+        lang
+      ),
+      page_reached = m_number(
+        page_reached,
+        lang
+      )
     ) |>
     knitr::kable(
       format = "html",
-      col.names = c(
-        "Date",
-        "Pages Read",
-        "Page Reached"
+      col.names = m_text(
+        c(
+          "date",
+          "pages_read",
+          "page_reached"
+        ),
+        lang
       ),
-      align = c(
-        "l",
-        "r",
-        "r"
-      )
+      align = c("l", "r", "r")
     )
 
   htmltools::HTML(
-    paste(
-      table,
-      collapse = "\n"
-    )
+    paste(table, collapse = "\n")
   )
 }

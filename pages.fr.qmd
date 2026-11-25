@@ -1,0 +1,39 @@
+---
+title: "Carnet de lecture"
+toc: false
+---
+
+::: {.reading-log-intro}
+
+Je tiens ici le fil de mes lectures au jour le jour. On peut y faire une recherche par livre ou par date.
+
+:::
+
+```{r}
+#| include: false
+#| message: false
+#| warning: false
+
+source("R/localization_helpers.R")
+source("R/reading_helpers.R")
+source("R/page_log_helpers.R")
+
+page_log <- prepare_page_log()
+```
+
+## Historique de lecture
+
+Ce tableau rassemble mes lectures quotidiennes, tous livres confondus. Les journées sans entrée figurent également au carnet, entre la première et la dernière date consignées. Ce n'est pas parce qu'une journée est sans entrée que je n'ai rien lu ce jour-là.
+
+::: {.reading-log-page}
+
+```{r}
+#| echo: false
+
+render_page_log(
+  page_log,
+  lang = "fr"
+)
+```
+
+:::

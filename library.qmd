@@ -16,212 +16,10 @@ Browse my reading history or explore the books on my reading wishlist.
 #| message: false
 #| warning: false
 
-library(tidyverse)
-library(DT)
-library(htmltools)
+source("R/localization_helpers.R")
+source("R/library_helpers.R")
 
-# --------------------------------------------------
-# Import the book catalog
-# --------------------------------------------------
-
-books <- read_csv(
-  "data/books.csv",
-  show_col_types = FALSE
-) |>
-  mutate(
-    date_started = as.Date(date_started),
-    date_finished = as.Date(date_finished)
-  )
-
-if (!"cover_file" %in% names(books)) {
-  books$cover_file <- NA_character_
-}
-
-# --------------------------------------------------
-# Separate reading history and wishlist
-# --------------------------------------------------
-
-reading_books <- books |>
-  filter(status != "Want to Read") |>
-  mutate(
-    status_order = case_when(
-      status == "Reading" ~ 1L,
-      status == "Finished" ~ 2L,
-      TRUE ~ 3L
-    ),
-    sorting_date = if_else(
-      status == "Finished",
-      date_finished,
-      date_started
-    )
-  ) |>
-  arrange(
-    status_order,
-    desc(sorting_date),
-    title
-  )
-
-wishlist_books <- books |>
-  filter(status == "Want to Read") |>
-  arrange(title)
-
-# --------------------------------------------------
-# Generate book cells with cover thumbnails
-# --------------------------------------------------
-
-make_book_cell <- function(
-    title,
-    page,
-    cover_id,
-    cover_file
-) {
-
-  # Prefer local images, then Open Library
-  cover_url <- if (
-    !is.na(cover_file) &&
-    nzchar(cover_file)
-  ) {
-
-    cover_file
-
-  } else if (!is.na(cover_id)) {
-
-    paste0(
-      "https://covers.openlibrary.org/b/id/",
-      cover_id,
-      "-M.jpg"
-    )
-
-  } else {
-
-    NA_character_
-
-  }
-
-  # Generate the cover or placeholder
-  cover <- if (!is.na(cover_url)) {
-
-    tags$img(
-      src = cover_url,
-      alt = paste("Cover of", title),
-      class = "library-cover",
-      loading = "lazy"
-    )
-
-  } else {
-
-    tags$span(
-      class = "library-cover-fallback",
-      "No cover"
-    )
-
-  }
-
-  title_element <- tags$span(
-    class = "library-book-title",
-    title
-  )
-
-  # Link only books in the reading library
-  if (!is.na(page) && nzchar(page)) {
-
-    page_url <- str_replace(
-      page,
-      "\\.qmd$",
-      ".html"
-    )
-
-    cell <- tags$a(
-      href = page_url,
-      class = "library-book-link",
-      cover,
-      title_element
-    )
-
-  } else {
-
-    cell <- tags$div(
-      class = "library-book-link",
-      cover,
-      title_element
-    )
-
-  }
-
-  as.character(cell)
-}
-
-
-# --------------------------------------------------
-# Generate reading-status labels
-# --------------------------------------------------
-
-make_status <- function(status) {
-
-  status_class <- str_to_lower(status) |>
-    str_replace_all("[^a-z]+", "-")
-
-  as.character(
-    tags$span(
-      class = paste(
-        "library-status",
-        paste0("library-status--", status_class)
-      ),
-      status
-    )
-  )
-}
-
-# --------------------------------------------------
-# Prepare the main Reading Library table
-# --------------------------------------------------
-
-reading_table <- reading_books |>
-  mutate(
-    book_display = pmap_chr(
-      list(title, book_page, cover_id, cover_file),
-      make_book_cell
-    ),
-    status_display = map_chr(
-      status,
-      make_status
-    )
-  ) |>
-  transmute(
-    Book = book_display,
-    Author = author,
-    Pages = total_pages,
-    Status = status_display,
-    `Date Started` = replace_na(
-      as.character(date_started),
-      "—"
-    ),
-    `Date Finished` = replace_na(
-      as.character(date_finished),
-      "—"
-    )
-  )
-
-# --------------------------------------------------
-# Prepare the Want to Read table
-# --------------------------------------------------
-
-wishlist_table <- wishlist_books |>
-  mutate(
-    book_display = pmap_chr(
-      list(
-        title,
-        rep(NA_character_, n()),
-        cover_id,
-        cover_file
-      ),
-      make_book_cell
-    )
-  ) |>
-  transmute(
-    Book = book_display,
-    Author = author
-  )
+library_data <- prepare_library(lang = "en")
 ```
 
 ## Reading Library
@@ -233,31 +31,10 @@ Books I'm currently reading, have finished, or have set aside.
 ```{r}
 #| echo: false
 
-DT::datatable(
-  reading_table,
-
-  rownames = FALSE,
-
-  escape = c(2, 3, 5, 6),
-
-  class = "hover",
-
-  options = list(
-    pageLength = 10,
-    lengthChange = TRUE,
-    lengthMenu = list(
-      c(10, 15, 25, 50, 100, -1),
-      c("10", "15", "25", "50", "100", "All")
-    ),
-    order = list(),
-    autoWidth = FALSE,
-    scrollX = TRUE,
-
-    language = list(
-      search = "Search books:",
-      emptyTable = "No books recorded yet."
-    )
-  )
+render_library_table(
+  library_data$reading,
+  lang = "en",
+  type = "reading"
 )
 ```
 
@@ -272,31 +49,10 @@ Books I'd like to read in the future.
 ```{r}
 #| echo: false
 
-DT::datatable(
-  wishlist_table,
-
-  rownames = FALSE,
-
-  escape = 2,
-
-  class = "hover",
-
-  options = list(
-    pageLength = 10,
-    lengthChange = TRUE,
-    lengthMenu = list(
-      c(10, 15, 25, 50, 100, -1),
-      c("10", "15", "25", "50", "100", "All")
-    ),
-    order = list(),
-    autoWidth = FALSE,
-    scrollX = TRUE,
-
-    language = list(
-      search = "Search wishlist:",
-      emptyTable = "No books on the wishlist yet."
-    )
-  )
+render_library_table(
+  library_data$wishlist,
+  lang = "en",
+  type = "wishlist"
 )
 ```
 

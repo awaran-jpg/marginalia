@@ -50,8 +50,17 @@ book_header(
 
 ## My Reflections
 
-My reflections on the book will go here.
+```{r}
+#| echo: false
+#| results: asis
 
+source("R/reflection_helpers.R")
+
+book_reflections(
+  book_id,
+  lang = "en"
+)
+```
 
 ```{r}
 #| echo: false

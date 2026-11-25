@@ -1,0 +1,226 @@
+---
+title: "Statistiques de lecture"
+toc: false
+---
+
+::: {.stats-intro}
+
+Un portrait de mes habitudes de lecture, au fil des jours et des mois.
+
+:::
+
+```{r}
+#| include: false
+#| message: false
+#| warning: false
+
+source("R/localization_helpers.R")
+source("R/reading_helpers.R")
+source("R/statistics_helpers.R")
+
+stats <- prepare_statistics()
+
+lang <- "fr"
+```
+
+## Mes lectures en bref
+
+:::: {.stats-summary-grid}
+
+::: {.stats-summary-card}
+
+### `{r} m_number(stats$books_reading, lang)`
+
+Livres en cours
+
+:::
+
+::: {.stats-summary-card}
+
+### `{r} m_number(stats$books_finished, lang)`
+
+Livres terminés
+
+:::
+
+::: {.stats-summary-card}
+
+### `{r} m_number(stats$completed_pages, lang)`
+
+Pages des livres terminés
+
+:::
+
+::: {.stats-summary-card}
+
+### `{r} m_number(stats$pages_logged, lang)`
+
+Pages consignées au carnet
+
+:::
+
+::::
+
+## Habitudes de lecture
+
+:::: {.stats-average-grid}
+
+::: {.stats-average-card}
+
+### `{r} m_number(stats$reading_days, lang)`
+
+Journées de lecture consignées
+
+:::
+
+::: {.stats-average-card}
+
+### `{r} m_number(stats$average_daily, lang)`
+
+Moyenne de pages par jour
+
+:::
+
+::: {.stats-average-card}
+
+### `{r} m_number(stats$average_reading_day, lang)`
+
+Moyenne de pages par jour de lecture
+
+:::
+
+::::
+
+::: {.stats-note}
+
+Les moyennes quotidiennes sont calculées de la première à la dernière date consignée au carnet. Les journées sans entrée comptent pour zéro dans ces calculs, même si l'absence d'une entrée ne veut pas nécessairement dire que je n'ai rien lu cette journée-là.
+
+Le nombre de pages des livres terminés et le nombre de pages consignées au carnet constituent deux mesures distinctes qu'il ne faut pas additionner.
+
+:::
+
+## Lectures récentes
+
+Le nombre de pages consignées chaque jour au cours des 30 derniers jours de l'historique disponible.
+
+::: {.stats-chart .stats-chart--light}
+
+```{r}
+#| echo: false
+#| warning: false
+#| results: asis
+#| fig-width: 8.5
+#| fig-height: 3.3
+#| fig-align: center
+#| fig-alt: "Nombre de pages consignées chaque jour au cours de la période de lecture récente."
+
+show_stats_plot(
+  plot_daily_reading(stats, lang, dark = FALSE),
+  lang
+)
+```
+
+:::
+
+::: {.stats-chart .stats-chart--dark}
+
+```{r}
+#| echo: false
+#| warning: false
+#| results: asis
+#| fig-width: 8.5
+#| fig-height: 3.3
+#| fig-align: center
+#| fig-alt: "Nombre de pages consignées chaque jour au cours de la période de lecture récente."
+
+show_stats_plot(
+  plot_daily_reading(stats, lang, dark = TRUE),
+  lang
+)
+```
+
+:::
+
+## Lectures par mois
+
+Le nombre total de pages consignées au carnet chaque mois, pour les douze derniers mois de l'historique disponible, au maximum.
+
+::: {.stats-chart .stats-chart--light}
+
+```{r}
+#| echo: false
+#| warning: false
+#| results: asis
+#| fig-width: 8.5
+#| fig-height: 3.3
+#| fig-align: center
+#| fig-alt: "Nombre total de pages consignées au carnet chaque mois."
+
+show_stats_plot(
+  plot_monthly_reading(stats, lang, dark = FALSE),
+  lang
+)
+```
+
+:::
+
+::: {.stats-chart .stats-chart--dark}
+
+```{r}
+#| echo: false
+#| warning: false
+#| results: asis
+#| fig-width: 8.5
+#| fig-height: 3.3
+#| fig-align: center
+#| fig-alt: "Nombre total de pages consignées au carnet chaque mois."
+
+show_stats_plot(
+  plot_monthly_reading(stats, lang, dark = TRUE),
+  lang
+)
+```
+
+:::
+
+## Livres terminés par mois
+
+Le nombre de livres que j'ai terminés chaque mois, selon les dates de fin de lecture inscrites dans la bibliothèque.
+
+::: {.stats-chart .stats-chart--light}
+
+```{r}
+#| echo: false
+#| warning: false
+#| results: asis
+#| fig-width: 8.5
+#| fig-height: 3.3
+#| fig-align: center
+#| fig-alt: "Nombre de livres terminés chaque mois."
+
+show_stats_plot(
+  plot_monthly_completions(stats, lang, dark = FALSE),
+  lang
+)
+```
+
+:::
+
+::: {.stats-chart .stats-chart--dark}
+
+```{r}
+#| echo: false
+#| warning: false
+#| results: asis
+#| fig-width: 8.5
+#| fig-height: 3.3
+#| fig-align: center
+#| fig-alt: "Nombre de livres terminés chaque mois."
+
+show_stats_plot(
+  plot_monthly_completions(stats, lang, dark = TRUE),
+  lang
+)
+```
+
+:::

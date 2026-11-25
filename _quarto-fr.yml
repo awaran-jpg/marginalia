@@ -1,0 +1,11 @@
+website:
+  navbar:
+    left:
+      - href: index.qmd
+        text: Accueil
+      - href: library.qmd
+        text: Bibliothèque
+      - href: pages.qmd
+        text: Carnet de lecture
+      - href: statistics.qmd
+        text: Statistiques
