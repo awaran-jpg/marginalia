@@ -11,14 +11,14 @@
     "href": "statistics.html#reading-overview",
     "title": "Reading Statistics",
     "section": "Reading Overview",
-    "text": "Reading Overview\n\n\n1\nCurrently reading\n\n\n3\nBooks completed\n\n\n909\nPages in completed books\n\n\n130\nPages logged by date"
+    "text": "Reading Overview\n\n\n2\nCurrently reading\n\n\n3\nBooks completed\n\n\n909\nPages in completed books\n\n\n255\nPages logged by date"
   },
   {
     "objectID": "statistics.html#reading-habits",
     "href": "statistics.html#reading-habits",
     "title": "Reading Statistics",
     "section": "Reading Habits",
-    "text": "Reading Habits\n\n\n4\nDays with logged reading\n\n\n26\nAvg. pages per calendar day\n\n\n32.5\nAvg. pages per reading day\n\n\n\nDaily averages are calculated from the first to the latest recorded reading date. Dates without entries are treated as zero for these calculations, although an unlogged day does not necessarily mean no reading occurred.\nCompleted-book page counts and daily page logs are separate measures and should not be added together."
+    "text": "Reading Habits\n\n\n5\nDays with logged reading\n\n\n28.3\nAvg. pages per calendar day\n\n\n51\nAvg. pages per reading day\n\n\n\nDaily averages are calculated from the first to the latest recorded reading date. Dates without entries are treated as zero for these calculations, although an unlogged day does not necessarily mean no reading occurred.\nCompleted-book page counts and daily page logs are separate measures and should not be added together."
   },
   {
     "objectID": "statistics.html#recent-reading-activity",
@@ -42,6 +42,20 @@
     "text": "Books Completed by Month\nNumber of books finished in each month, based on the completion dates recorded in the Library."
   },
   {
+    "objectID": "pages.fr.html",
+    "href": "pages.fr.html",
+    "title": "Carnet de lecture",
+    "section": "",
+    "text": "Je tiens ici le fil de mes lectures au jour le jour. On peut y faire une recherche par livre ou par date."
+  },
+  {
+    "objectID": "pages.fr.html#historique-de-lecture",
+    "href": "pages.fr.html#historique-de-lecture",
+    "title": "Carnet de lecture",
+    "section": "Historique de lecture",
+    "text": "Historique de lecture\nCe tableau rassemble mes lectures quotidiennes, tous livres confondus. Les journées sans entrée figurent également au carnet, entre la première et la dernière date consignées. Ce n’est pas parce qu’une journée est sans entrée que je n’ai rien lu ce jour-là."
+  },
+  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "Marginalia",
@@ -53,14 +67,14 @@
     "href": "index.html#reading-at-a-glance",
     "title": "Marginalia",
     "section": "Reading at a Glance",
-    "text": "Reading at a Glance\n\n\n1\nCurrently reading\n\n\n3\nBooks completed\n\n\n130\nPages logged"
+    "text": "Reading at a Glance\n\n\n2\nCurrently reading\n\n\n3\nBooks completed\n\n\n255\nPages logged"
   },
   {
     "objectID": "index.html#currently-reading",
     "href": "index.html#currently-reading",
     "title": "Marginalia",
     "section": "Currently Reading",
-    "text": "Currently Reading\n\n\n\n\n\n\n\n\n\n\nCURRENTLY READING\n\nL'avalée des avalés\n\nRéjean Ducharme\n\n\n\n\nPage 130 of 343 · 37.9%"
+    "text": "Currently Reading\n\n\n\n\n\n\n\n\n\n\nCURRENTLY READING\n\nBrooklyn\n\nColm Tóibín\n\n\n\n\nPage 125 of 262 · 47.7%\n\n\n\n\n\n\n\n\n\n\nCURRENTLY READING\n\nL'avalée des avalés\n\nRéjean Ducharme\n\n\n\n\nPage 130 of 343 · 37.9%"
   },
   {
     "objectID": "index.html#recently-completed",
@@ -91,6 +105,48 @@
     "text": "Reading History"
   },
   {
+    "objectID": "books/B012.fr.html",
+    "href": "books/B012.fr.html",
+    "title": "Berlin Alexanderplatz",
+    "section": "",
+    "text": "RENSEIGNEMENTS SUR LA LECTURE\n\n\nStatut\nÀ lire\n\n\nNombre de pages\nNon consigné\n\n\nDébut de lecture\nNon consigné\n\n\nFin de lecture\nNon consigné"
+  },
+  {
+    "objectID": "books/B012.fr.html#mes-réflexions",
+    "href": "books/B012.fr.html#mes-réflexions",
+    "title": "Berlin Alexanderplatz",
+    "section": "Mes réflexions",
+    "text": "Mes réflexions\nMes réflexions suivront."
+  },
+  {
+    "objectID": "books/B012.fr.html#reading-history",
+    "href": "books/B012.fr.html#reading-history",
+    "title": "Berlin Alexanderplatz",
+    "section": "Historique de lecture",
+    "text": "Historique de lecture"
+  },
+  {
+    "objectID": "books/B004.fr.html",
+    "href": "books/B004.fr.html",
+    "title": "The Argumentative Indian: Writings on Indian History, Culture and Identity",
+    "section": "",
+    "text": "RENSEIGNEMENTS SUR LA LECTURE\n\n\nStatut\nTerminé\n\n\nNombre de pages\n432 pages\n\n\nDébut de lecture\n26 septembre 2026\n\n\nFin de lecture\n28 octobre 2026"
+  },
+  {
+    "objectID": "books/B004.fr.html#mes-réflexions",
+    "href": "books/B004.fr.html#mes-réflexions",
+    "title": "The Argumentative Indian: Writings on Indian History, Culture and Identity",
+    "section": "Mes réflexions",
+    "text": "Mes réflexions\nMes réflexions suivront."
+  },
+  {
+    "objectID": "books/B004.fr.html#reading-history",
+    "href": "books/B004.fr.html#reading-history",
+    "title": "The Argumentative Indian: Writings on Indian History, Culture and Identity",
+    "section": "Historique de lecture",
+    "text": "Historique de lecture"
+  },
+  {
     "objectID": "books/volkswagen-blues.html",
     "href": "books/volkswagen-blues.html",
     "title": "Volkswagen Blues",
@@ -105,128 +161,107 @@
     "text": "My Reflections\nMy reflections are forthcoming."
   },
   {
-    "objectID": "books/B010.html",
-    "href": "books/B010.html",
-    "title": "Cry, the Beloved Country",
+    "objectID": "books/B003.fr.html",
+    "href": "books/B003.fr.html",
+    "title": "Silence",
     "section": "",
-    "text": "READING DETAILS\n\n\nStatus\nWant to Read\n\n\nLength\nNot recorded\n\n\nStarted\nNot recorded\n\n\nFinished\nNot recorded"
+    "text": "RENSEIGNEMENTS SUR LA LECTURE\n\n\nStatut\nTerminé\n\n\nNombre de pages\n256 pages\n\n\nDébut de lecture\n12 septembre 2026\n\n\nFin de lecture\n25 septembre 2026"
   },
   {
-    "objectID": "books/B010.html#my-reflections",
-    "href": "books/B010.html#my-reflections",
-    "title": "Cry, the Beloved Country",
+    "objectID": "books/B003.fr.html#mes-réflexions",
+    "href": "books/B003.fr.html#mes-réflexions",
+    "title": "Silence",
+    "section": "Mes réflexions",
+    "text": "Mes réflexions\nMes réflexions suivront."
+  },
+  {
+    "objectID": "books/B003.fr.html#reading-history",
+    "href": "books/B003.fr.html#reading-history",
+    "title": "Silence",
+    "section": "Historique de lecture",
+    "text": "Historique de lecture"
+  },
+  {
+    "objectID": "books/lavalee-des-avales.fr.html",
+    "href": "books/lavalee-des-avales.fr.html",
+    "title": "L’avalée des avalés",
+    "section": "",
+    "text": "RENSEIGNEMENTS SUR LA LECTURE\n\n\nStatut\nEn cours\n\n\nNombre de pages\n343 pages\n\n\nDébut de lecture\n19 novembre 2026\n\n\nFin de lecture\nNon consigné\n\n\nDernière page consignée\n130\n\n\nProgression de la lecture\n37,9 %"
+  },
+  {
+    "objectID": "books/lavalee-des-avales.fr.html#mes-réflexions",
+    "href": "books/lavalee-des-avales.fr.html#mes-réflexions",
+    "title": "L’avalée des avalés",
+    "section": "Mes réflexions",
+    "text": "Mes réflexions\nMes réflexions suivront."
+  },
+  {
+    "objectID": "books/lavalee-des-avales.fr.html#reading-history",
+    "href": "books/lavalee-des-avales.fr.html#reading-history",
+    "title": "L’avalée des avalés",
+    "section": "Historique de lecture",
+    "text": "Historique de lecture\n\n\n\n\n\nDate\nPages lues\nPage atteinte\n\n\n\n\n2026-11-19\n34\n34\n\n\n2026-11-21\n32\n66\n\n\n2026-11-22\n44\n110\n\n\n2026-11-23\n20\n130"
+  },
+  {
+    "objectID": "books/B003.html",
+    "href": "books/B003.html",
+    "title": "Silence",
+    "section": "",
+    "text": "READING DETAILS\n\n\nStatus\nFinished\n\n\nLength\n256 pages\n\n\nStarted\nSeptember 12, 2026\n\n\nFinished\nSeptember 25, 2026"
+  },
+  {
+    "objectID": "books/B003.html#my-reflections",
+    "href": "books/B003.html#my-reflections",
+    "title": "Silence",
     "section": "My Reflections",
     "text": "My Reflections\nMy reflections are forthcoming."
   },
   {
-    "objectID": "books/B010.html#reading-history",
-    "href": "books/B010.html#reading-history",
-    "title": "Cry, the Beloved Country",
+    "objectID": "books/B003.html#reading-history",
+    "href": "books/B003.html#reading-history",
+    "title": "Silence",
     "section": "Reading History",
     "text": "Reading History"
   },
   {
-    "objectID": "books/B005.html",
-    "href": "books/B005.html",
-    "title": "The Gay Place",
+    "objectID": "books/B009.fr.html",
+    "href": "books/B009.fr.html",
+    "title": "The Cold Millions",
     "section": "",
-    "text": "READING DETAILS\n\n\nStatus\nWant to Read\n\n\nLength\nNot recorded\n\n\nStarted\nNot recorded\n\n\nFinished\nNot recorded"
+    "text": "RENSEIGNEMENTS SUR LA LECTURE\n\n\nStatut\nÀ lire\n\n\nNombre de pages\nNon consigné\n\n\nDébut de lecture\nNon consigné\n\n\nFin de lecture\nNon consigné"
   },
   {
-    "objectID": "books/B005.html#my-reflections",
-    "href": "books/B005.html#my-reflections",
-    "title": "The Gay Place",
+    "objectID": "books/B009.fr.html#mes-réflexions",
+    "href": "books/B009.fr.html#mes-réflexions",
+    "title": "The Cold Millions",
+    "section": "Mes réflexions",
+    "text": "Mes réflexions\nMes réflexions suivront."
+  },
+  {
+    "objectID": "books/B009.fr.html#reading-history",
+    "href": "books/B009.fr.html#reading-history",
+    "title": "The Cold Millions",
+    "section": "Historique de lecture",
+    "text": "Historique de lecture"
+  },
+  {
+    "objectID": "books/B004.html",
+    "href": "books/B004.html",
+    "title": "The Argumentative Indian: Writings on Indian History, Culture and Identity",
+    "section": "",
+    "text": "READING DETAILS\n\n\nStatus\nFinished\n\n\nLength\n432 pages\n\n\nStarted\nSeptember 26, 2026\n\n\nFinished\nOctober 28, 2026"
+  },
+  {
+    "objectID": "books/B004.html#my-reflections",
+    "href": "books/B004.html#my-reflections",
+    "title": "The Argumentative Indian: Writings on Indian History, Culture and Identity",
     "section": "My Reflections",
     "text": "My Reflections\nMy reflections are forthcoming."
   },
   {
-    "objectID": "books/B005.html#reading-history",
-    "href": "books/B005.html#reading-history",
-    "title": "The Gay Place",
-    "section": "Reading History",
-    "text": "Reading History"
-  },
-  {
-    "objectID": "books/B007.html",
-    "href": "books/B007.html",
-    "title": "Brooklyn",
-    "section": "",
-    "text": "READING DETAILS\n\n\nStatus\nWant to Read\n\n\nLength\nNot recorded\n\n\nStarted\nNot recorded\n\n\nFinished\nNot recorded"
-  },
-  {
-    "objectID": "books/B007.html#my-reflections",
-    "href": "books/B007.html#my-reflections",
-    "title": "Brooklyn",
-    "section": "My Reflections",
-    "text": "My Reflections\nMy reflections are forthcoming."
-  },
-  {
-    "objectID": "books/B007.html#reading-history",
-    "href": "books/B007.html#reading-history",
-    "title": "Brooklyn",
-    "section": "Reading History",
-    "text": "Reading History"
-  },
-  {
-    "objectID": "books/B006.html",
-    "href": "books/B006.html",
-    "title": "What We Talk About When We Talk About Love",
-    "section": "",
-    "text": "READING DETAILS\n\n\nStatus\nWant to Read\n\n\nLength\nNot recorded\n\n\nStarted\nNot recorded\n\n\nFinished\nNot recorded"
-  },
-  {
-    "objectID": "books/B006.html#my-reflections",
-    "href": "books/B006.html#my-reflections",
-    "title": "What We Talk About When We Talk About Love",
-    "section": "My Reflections",
-    "text": "My Reflections\nMy reflections are forthcoming."
-  },
-  {
-    "objectID": "books/B006.html#reading-history",
-    "href": "books/B006.html#reading-history",
-    "title": "What We Talk About When We Talk About Love",
-    "section": "Reading History",
-    "text": "Reading History"
-  },
-  {
-    "objectID": "library.html",
-    "href": "library.html",
-    "title": "Library",
-    "section": "",
-    "text": "A collection of books I’ve read, am reading, and hope to read.\nBrowse my reading history or explore the books on my reading wishlist."
-  },
-  {
-    "objectID": "library.html#reading-library",
-    "href": "library.html#reading-library",
-    "title": "Library",
-    "section": "Reading Library",
-    "text": "Reading Library\nBooks I’m currently reading, have finished, or have set aside."
-  },
-  {
-    "objectID": "library.html#want-to-read",
-    "href": "library.html#want-to-read",
-    "title": "Library",
-    "section": "Want to Read",
-    "text": "Want to Read\nBooks I’d like to read in the future."
-  },
-  {
-    "objectID": "books/B012.html",
-    "href": "books/B012.html",
-    "title": "Berlin Alexanderplatz",
-    "section": "",
-    "text": "READING DETAILS\n\n\nStatus\nWant to Read\n\n\nLength\nNot recorded\n\n\nStarted\nNot recorded\n\n\nFinished\nNot recorded"
-  },
-  {
-    "objectID": "books/B012.html#my-reflections",
-    "href": "books/B012.html#my-reflections",
-    "title": "Berlin Alexanderplatz",
-    "section": "My Reflections",
-    "text": "My Reflections\nMy reflections are forthcoming."
-  },
-  {
-    "objectID": "books/B012.html#reading-history",
-    "href": "books/B012.html#reading-history",
-    "title": "Berlin Alexanderplatz",
+    "objectID": "books/B004.html#reading-history",
+    "href": "books/B004.html#reading-history",
+    "title": "The Argumentative Indian: Writings on Indian History, Culture and Identity",
     "section": "Reading History",
     "text": "Reading History"
   },
@@ -252,46 +287,305 @@
     "text": "Reading History"
   },
   {
-    "objectID": "books/B004.html",
-    "href": "books/B004.html",
-    "title": "The Argumentative Indian: Writings on Indian History, Culture and Identity",
+    "objectID": "books/B007.html",
+    "href": "books/B007.html",
+    "title": "Brooklyn",
     "section": "",
-    "text": "READING DETAILS\n\n\nStatus\nFinished\n\n\nLength\n432 pages\n\n\nStarted\nSeptember 26, 2026\n\n\nFinished\nOctober 28, 2026"
+    "text": "READING DETAILS\n\n\nStatus\nReading\n\n\nLength\n262 pages\n\n\nStarted\nNovember 27, 2026\n\n\nFinished\nNot recorded\n\n\nLast recorded page\n125\n\n\nReading progress\n47.7%"
   },
   {
-    "objectID": "books/B004.html#my-reflections",
-    "href": "books/B004.html#my-reflections",
-    "title": "The Argumentative Indian: Writings on Indian History, Culture and Identity",
+    "objectID": "books/B007.html#my-reflections",
+    "href": "books/B007.html#my-reflections",
+    "title": "Brooklyn",
     "section": "My Reflections",
     "text": "My Reflections\nMy reflections are forthcoming."
   },
   {
-    "objectID": "books/B004.html#reading-history",
-    "href": "books/B004.html#reading-history",
-    "title": "The Argumentative Indian: Writings on Indian History, Culture and Identity",
+    "objectID": "books/B007.html#reading-history",
+    "href": "books/B007.html#reading-history",
+    "title": "Brooklyn",
     "section": "Reading History",
-    "text": "Reading History"
+    "text": "Reading History\n\n\n\n\n\nDate\nPages Read\nPage Reached\n\n\n\n\n2026-11-27\n125\n125"
   },
   {
-    "objectID": "books/B003.html",
-    "href": "books/B003.html",
-    "title": "Silence",
+    "objectID": "books/B006.html",
+    "href": "books/B006.html",
+    "title": "What We Talk About When We Talk About Love",
     "section": "",
-    "text": "READING DETAILS\n\n\nStatus\nFinished\n\n\nLength\n256 pages\n\n\nStarted\nSeptember 12, 2026\n\n\nFinished\nSeptember 25, 2026"
+    "text": "READING DETAILS\n\n\nStatus\nWant to Read\n\n\nLength\nNot recorded\n\n\nStarted\nNot recorded\n\n\nFinished\nNot recorded"
   },
   {
-    "objectID": "books/B003.html#my-reflections",
-    "href": "books/B003.html#my-reflections",
-    "title": "Silence",
+    "objectID": "books/B006.html#my-reflections",
+    "href": "books/B006.html#my-reflections",
+    "title": "What We Talk About When We Talk About Love",
     "section": "My Reflections",
     "text": "My Reflections\nMy reflections are forthcoming."
   },
   {
-    "objectID": "books/B003.html#reading-history",
-    "href": "books/B003.html#reading-history",
-    "title": "Silence",
+    "objectID": "books/B006.html#reading-history",
+    "href": "books/B006.html#reading-history",
+    "title": "What We Talk About When We Talk About Love",
     "section": "Reading History",
     "text": "Reading History"
+  },
+  {
+    "objectID": "index.fr.html",
+    "href": "index.fr.html",
+    "title": "Marginalia",
+    "section": "",
+    "text": "J’y rassemble mes lectures, mes impressions au fil des pages et les livres que j’ai le goût de lire prochainement."
+  },
+  {
+    "objectID": "index.fr.html#mes-lectures-en-bref",
+    "href": "index.fr.html#mes-lectures-en-bref",
+    "title": "Marginalia",
+    "section": "Mes lectures en bref",
+    "text": "Mes lectures en bref\n\n\n2\nLivres en cours\n\n\n3\nLivres terminés\n\n\n255\nPages consignées"
+  },
+  {
+    "objectID": "index.fr.html#en-cours-de-lecture",
+    "href": "index.fr.html#en-cours-de-lecture",
+    "title": "Marginalia",
+    "section": "En cours de lecture",
+    "text": "En cours de lecture\n\n\n\n\n\n\n\n\n\n\nEN COURS DE LECTURE\n\nBrooklyn\n\nColm Tóibín\n\n\n\n\nPage 125 sur 262 · 47,7 %\n\n\n\n\n\n\n\n\n\n\nEN COURS DE LECTURE\n\nL'avalée des avalés\n\nRéjean Ducharme\n\n\n\n\nPage 130 sur 343 · 37,9 %"
+  },
+  {
+    "objectID": "index.fr.html#dernières-lectures",
+    "href": "index.fr.html#dernières-lectures",
+    "title": "Marginalia",
+    "section": "Dernières lectures",
+    "text": "Dernières lectures\n\n\n\n\n\n\n\n\n\n\nLECTURE TERMINÉE\n\nVolkswagen Blues\n\nJacques Poulin\nLecture terminée le 18 novembre 2026\n\n\n\n\n\n\n\n\n\nLECTURE TERMINÉE\n\nThe Argumentative Indian: Writings on Indian History, Culture and Identity\n\nAmartya Sen\nLecture terminée le 28 octobre 2026\n\n\n\n\n\n\n\n\n\nLECTURE TERMINÉE\n\nSilence\n\nShūsaku Endō\nLecture terminée le 25 septembre 2026\n\n\n\n\n\n\nVoir toute la bibliothèque"
+  },
+  {
+    "objectID": "library.html",
+    "href": "library.html",
+    "title": "Library",
+    "section": "",
+    "text": "A collection of books I’ve read, am reading, and hope to read.\nBrowse my reading history or explore the books on my reading wishlist."
+  },
+  {
+    "objectID": "library.html#reading-library",
+    "href": "library.html#reading-library",
+    "title": "Library",
+    "section": "Reading Library",
+    "text": "Reading Library\nBooks I’m currently reading, have finished, or have set aside."
+  },
+  {
+    "objectID": "library.html#want-to-read",
+    "href": "library.html#want-to-read",
+    "title": "Library",
+    "section": "Want to Read",
+    "text": "Want to Read\nBooks I’d like to read in the future."
+  },
+  {
+    "objectID": "library.fr.html",
+    "href": "library.fr.html",
+    "title": "Bibliothèque",
+    "section": "",
+    "text": "Les livres que j’ai lus, ceux que je lis en ce moment et ceux que j’ai le goût de découvrir.\nOn y retrouve mes lectures passées et présentes, ainsi que les ouvrages que je compte lire éventuellement."
+  },
+  {
+    "objectID": "library.fr.html#mes-lectures",
+    "href": "library.fr.html#mes-lectures",
+    "title": "Bibliothèque",
+    "section": "Mes lectures",
+    "text": "Mes lectures\nLes livres que je suis en train de lire, que j’ai terminés ou que j’ai mis de côté."
+  },
+  {
+    "objectID": "library.fr.html#à-lire",
+    "href": "library.fr.html#à-lire",
+    "title": "Bibliothèque",
+    "section": "À lire",
+    "text": "À lire\nLes livres que j’ai le goût de lire un de ces jours."
+  },
+  {
+    "objectID": "books/B012.html",
+    "href": "books/B012.html",
+    "title": "Berlin Alexanderplatz",
+    "section": "",
+    "text": "READING DETAILS\n\n\nStatus\nWant to Read\n\n\nLength\nNot recorded\n\n\nStarted\nNot recorded\n\n\nFinished\nNot recorded"
+  },
+  {
+    "objectID": "books/B012.html#my-reflections",
+    "href": "books/B012.html#my-reflections",
+    "title": "Berlin Alexanderplatz",
+    "section": "My Reflections",
+    "text": "My Reflections\nMy reflections are forthcoming."
+  },
+  {
+    "objectID": "books/B012.html#reading-history",
+    "href": "books/B012.html#reading-history",
+    "title": "Berlin Alexanderplatz",
+    "section": "Reading History",
+    "text": "Reading History"
+  },
+  {
+    "objectID": "books/B007.fr.html",
+    "href": "books/B007.fr.html",
+    "title": "Brooklyn",
+    "section": "",
+    "text": "RENSEIGNEMENTS SUR LA LECTURE\n\n\nStatut\nEn cours\n\n\nNombre de pages\n262 pages\n\n\nDébut de lecture\n27 novembre 2026\n\n\nFin de lecture\nNon consigné\n\n\nDernière page consignée\n125\n\n\nProgression de la lecture\n47,7 %"
+  },
+  {
+    "objectID": "books/B007.fr.html#mes-réflexions",
+    "href": "books/B007.fr.html#mes-réflexions",
+    "title": "Brooklyn",
+    "section": "Mes réflexions",
+    "text": "Mes réflexions\nMes réflexions suivront."
+  },
+  {
+    "objectID": "books/B007.fr.html#reading-history",
+    "href": "books/B007.fr.html#reading-history",
+    "title": "Brooklyn",
+    "section": "Historique de lecture",
+    "text": "Historique de lecture\n\n\n\n\n\nDate\nPages lues\nPage atteinte\n\n\n\n\n2026-11-27\n125\n125"
+  },
+  {
+    "objectID": "books/B005.html",
+    "href": "books/B005.html",
+    "title": "The Gay Place",
+    "section": "",
+    "text": "READING DETAILS\n\n\nStatus\nWant to Read\n\n\nLength\nNot recorded\n\n\nStarted\nNot recorded\n\n\nFinished\nNot recorded"
+  },
+  {
+    "objectID": "books/B005.html#my-reflections",
+    "href": "books/B005.html#my-reflections",
+    "title": "The Gay Place",
+    "section": "My Reflections",
+    "text": "My Reflections\nMy reflections are forthcoming."
+  },
+  {
+    "objectID": "books/B005.html#reading-history",
+    "href": "books/B005.html#reading-history",
+    "title": "The Gay Place",
+    "section": "Reading History",
+    "text": "Reading History"
+  },
+  {
+    "objectID": "books/B010.html",
+    "href": "books/B010.html",
+    "title": "Cry, the Beloved Country",
+    "section": "",
+    "text": "READING DETAILS\n\n\nStatus\nWant to Read\n\n\nLength\nNot recorded\n\n\nStarted\nNot recorded\n\n\nFinished\nNot recorded"
+  },
+  {
+    "objectID": "books/B010.html#my-reflections",
+    "href": "books/B010.html#my-reflections",
+    "title": "Cry, the Beloved Country",
+    "section": "My Reflections",
+    "text": "My Reflections\nMy reflections are forthcoming."
+  },
+  {
+    "objectID": "books/B010.html#reading-history",
+    "href": "books/B010.html#reading-history",
+    "title": "Cry, the Beloved Country",
+    "section": "Reading History",
+    "text": "Reading History"
+  },
+  {
+    "objectID": "books/B005.fr.html",
+    "href": "books/B005.fr.html",
+    "title": "The Gay Place",
+    "section": "",
+    "text": "RENSEIGNEMENTS SUR LA LECTURE\n\n\nStatut\nÀ lire\n\n\nNombre de pages\nNon consigné\n\n\nDébut de lecture\nNon consigné\n\n\nFin de lecture\nNon consigné"
+  },
+  {
+    "objectID": "books/B005.fr.html#mes-réflexions",
+    "href": "books/B005.fr.html#mes-réflexions",
+    "title": "The Gay Place",
+    "section": "Mes réflexions",
+    "text": "Mes réflexions\nMes réflexions suivront."
+  },
+  {
+    "objectID": "books/B005.fr.html#reading-history",
+    "href": "books/B005.fr.html#reading-history",
+    "title": "The Gay Place",
+    "section": "Historique de lecture",
+    "text": "Historique de lecture"
+  },
+  {
+    "objectID": "books/volkswagen-blues.fr.html",
+    "href": "books/volkswagen-blues.fr.html",
+    "title": "Volkswagen Blues",
+    "section": "",
+    "text": "RENSEIGNEMENTS SUR LA LECTURE\n\n\nStatut\nTerminé\n\n\nNombre de pages\n221 pages\n\n\nDébut de lecture\n30 octobre 2026\n\n\nFin de lecture\n18 novembre 2026"
+  },
+  {
+    "objectID": "books/volkswagen-blues.fr.html#mes-réflexions",
+    "href": "books/volkswagen-blues.fr.html#mes-réflexions",
+    "title": "Volkswagen Blues",
+    "section": "Mes réflexions",
+    "text": "Mes réflexions\nMes réflexions suivront."
+  },
+  {
+    "objectID": "books/volkswagen-blues.fr.html#reading-history",
+    "href": "books/volkswagen-blues.fr.html#reading-history",
+    "title": "Volkswagen Blues",
+    "section": "Historique de lecture",
+    "text": "Historique de lecture"
+  },
+  {
+    "objectID": "books/B011.fr.html",
+    "href": "books/B011.fr.html",
+    "title": "Annihilation",
+    "section": "",
+    "text": "RENSEIGNEMENTS SUR LA LECTURE\n\n\nStatut\nÀ lire\n\n\nNombre de pages\nNon consigné\n\n\nDébut de lecture\nNon consigné\n\n\nFin de lecture\nNon consigné"
+  },
+  {
+    "objectID": "books/B011.fr.html#mes-réflexions",
+    "href": "books/B011.fr.html#mes-réflexions",
+    "title": "Annihilation",
+    "section": "Mes réflexions",
+    "text": "Mes réflexions\nMes réflexions suivront."
+  },
+  {
+    "objectID": "books/B011.fr.html#reading-history",
+    "href": "books/B011.fr.html#reading-history",
+    "title": "Annihilation",
+    "section": "Historique de lecture",
+    "text": "Historique de lecture"
+  },
+  {
+    "objectID": "books/B006.fr.html",
+    "href": "books/B006.fr.html",
+    "title": "What We Talk About When We Talk About Love",
+    "section": "",
+    "text": "RENSEIGNEMENTS SUR LA LECTURE\n\n\nStatut\nÀ lire\n\n\nNombre de pages\nNon consigné\n\n\nDébut de lecture\nNon consigné\n\n\nFin de lecture\nNon consigné"
+  },
+  {
+    "objectID": "books/B006.fr.html#mes-réflexions",
+    "href": "books/B006.fr.html#mes-réflexions",
+    "title": "What We Talk About When We Talk About Love",
+    "section": "Mes réflexions",
+    "text": "Mes réflexions\nMes réflexions suivront."
+  },
+  {
+    "objectID": "books/B006.fr.html#reading-history",
+    "href": "books/B006.fr.html#reading-history",
+    "title": "What We Talk About When We Talk About Love",
+    "section": "Historique de lecture",
+    "text": "Historique de lecture"
+  },
+  {
+    "objectID": "books/B008.fr.html",
+    "href": "books/B008.fr.html",
+    "title": "The Sailor Who Fell from Grace with the Sea",
+    "section": "",
+    "text": "RENSEIGNEMENTS SUR LA LECTURE\n\n\nStatut\nÀ lire\n\n\nNombre de pages\nNon consigné\n\n\nDébut de lecture\nNon consigné\n\n\nFin de lecture\nNon consigné"
+  },
+  {
+    "objectID": "books/B008.fr.html#mes-réflexions",
+    "href": "books/B008.fr.html#mes-réflexions",
+    "title": "The Sailor Who Fell from Grace with the Sea",
+    "section": "Mes réflexions",
+    "text": "Mes réflexions\nMes réflexions suivront."
+  },
+  {
+    "objectID": "books/B008.fr.html#reading-history",
+    "href": "books/B008.fr.html#reading-history",
+    "title": "The Sailor Who Fell from Grace with the Sea",
+    "section": "Historique de lecture",
+    "text": "Historique de lecture"
   },
   {
     "objectID": "books/lavalee-des-avales.html",
@@ -315,6 +609,27 @@
     "text": "Reading History\nThe following table records my reading progress through this book.\n\n\n\n\n\nDate\nPages Read\nPage Reached\n\n\n\n\n2026-11-19\n34\n34\n\n\n2026-11-21\n32\n66\n\n\n2026-11-22\n44\n110\n\n\n2026-11-23\n20\n130"
   },
   {
+    "objectID": "books/B010.fr.html",
+    "href": "books/B010.fr.html",
+    "title": "Cry, the Beloved Country",
+    "section": "",
+    "text": "RENSEIGNEMENTS SUR LA LECTURE\n\n\nStatut\nÀ lire\n\n\nNombre de pages\nNon consigné\n\n\nDébut de lecture\nNon consigné\n\n\nFin de lecture\nNon consigné"
+  },
+  {
+    "objectID": "books/B010.fr.html#mes-réflexions",
+    "href": "books/B010.fr.html#mes-réflexions",
+    "title": "Cry, the Beloved Country",
+    "section": "Mes réflexions",
+    "text": "Mes réflexions\nMes réflexions suivront."
+  },
+  {
+    "objectID": "books/B010.fr.html#reading-history",
+    "href": "books/B010.fr.html#reading-history",
+    "title": "Cry, the Beloved Country",
+    "section": "Historique de lecture",
+    "text": "Historique de lecture"
+  },
+  {
     "objectID": "books/B008.html",
     "href": "books/B008.html",
     "title": "The Sailor Who Fell from Grace with the Sea",
@@ -334,6 +649,48 @@
     "title": "The Sailor Who Fell from Grace with the Sea",
     "section": "Reading History",
     "text": "Reading History"
+  },
+  {
+    "objectID": "statistics.fr.html",
+    "href": "statistics.fr.html",
+    "title": "Statistiques de lecture",
+    "section": "",
+    "text": "Un portrait de mes habitudes de lecture, au fil des jours et des mois."
+  },
+  {
+    "objectID": "statistics.fr.html#mes-lectures-en-bref",
+    "href": "statistics.fr.html#mes-lectures-en-bref",
+    "title": "Statistiques de lecture",
+    "section": "Mes lectures en bref",
+    "text": "Mes lectures en bref\n\n\n2\nLivres en cours\n\n\n3\nLivres terminés\n\n\n909\nPages des livres terminés\n\n\n255\nPages consignées au carnet"
+  },
+  {
+    "objectID": "statistics.fr.html#habitudes-de-lecture",
+    "href": "statistics.fr.html#habitudes-de-lecture",
+    "title": "Statistiques de lecture",
+    "section": "Habitudes de lecture",
+    "text": "Habitudes de lecture\n\n\n5\nJournées de lecture consignées\n\n\n28,3\nMoyenne de pages par jour\n\n\n51\nMoyenne de pages par jour de lecture\n\n\n\nLes moyennes quotidiennes sont calculées de la première à la dernière date consignée au carnet. Les journées sans entrée comptent pour zéro dans ces calculs, même si l’absence d’une entrée ne veut pas nécessairement dire que je n’ai rien lu cette journée-là.\nLe nombre de pages des livres terminés et le nombre de pages consignées au carnet constituent deux mesures distinctes qu’il ne faut pas additionner."
+  },
+  {
+    "objectID": "statistics.fr.html#lectures-récentes",
+    "href": "statistics.fr.html#lectures-récentes",
+    "title": "Statistiques de lecture",
+    "section": "Lectures récentes",
+    "text": "Lectures récentes\nLe nombre de pages consignées chaque jour au cours des 30 derniers jours de l’historique disponible."
+  },
+  {
+    "objectID": "statistics.fr.html#lectures-par-mois",
+    "href": "statistics.fr.html#lectures-par-mois",
+    "title": "Statistiques de lecture",
+    "section": "Lectures par mois",
+    "text": "Lectures par mois\nLe nombre total de pages consignées au carnet chaque mois, pour les douze derniers mois de l’historique disponible, au maximum."
+  },
+  {
+    "objectID": "statistics.fr.html#livres-terminés-par-mois",
+    "href": "statistics.fr.html#livres-terminés-par-mois",
+    "title": "Statistiques de lecture",
+    "section": "Livres terminés par mois",
+    "text": "Livres terminés par mois\nLe nombre de livres que j’ai terminés chaque mois, selon les dates de fin de lecture inscrites dans la bibliothèque."
   },
   {
     "objectID": "pages.html",
