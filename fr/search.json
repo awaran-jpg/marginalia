@@ -11,14 +11,14 @@
     "href": "statistics.html#mes-lectures-en-bref",
     "title": "Statistiques de lecture",
     "section": "Mes lectures en bref",
-    "text": "Mes lectures en bref\n\n\n1\nLivres en cours\n\n\n3\nLivres terminés\n\n\n909\nPages des livres terminés\n\n\n130\nPages consignées au carnet"
+    "text": "Mes lectures en bref\n\n\n2\nLivres en cours\n\n\n3\nLivres terminés\n\n\n909\nPages des livres terminés\n\n\n255\nPages consignées au carnet"
   },
   {
     "objectID": "statistics.html#habitudes-de-lecture",
     "href": "statistics.html#habitudes-de-lecture",
     "title": "Statistiques de lecture",
     "section": "Habitudes de lecture",
-    "text": "Habitudes de lecture\n\n\n4\nJournées de lecture consignées\n\n\n26\nMoyenne de pages par jour\n\n\n32,5\nMoyenne de pages par jour de lecture\n\n\n\nLes moyennes quotidiennes sont calculées de la première à la dernière date consignée au carnet. Les journées sans entrée comptent pour zéro dans ces calculs, même si l’absence d’une entrée ne veut pas nécessairement dire que je n’ai rien lu cette journée-là.\nLe nombre de pages des livres terminés et le nombre de pages consignées au carnet constituent deux mesures distinctes qu’il ne faut pas additionner."
+    "text": "Habitudes de lecture\n\n\n5\nJournées de lecture consignées\n\n\n28,3\nMoyenne de pages par jour\n\n\n51\nMoyenne de pages par jour de lecture\n\n\n\nLes moyennes quotidiennes sont calculées de la première à la dernière date consignée au carnet. Les journées sans entrée comptent pour zéro dans ces calculs, même si l’absence d’une entrée ne veut pas nécessairement dire que je n’ai rien lu cette journée-là.\nLe nombre de pages des livres terminés et le nombre de pages consignées au carnet constituent deux mesures distinctes qu’il ne faut pas additionner."
   },
   {
     "objectID": "statistics.html#lectures-récentes",
@@ -53,14 +53,14 @@
     "href": "index.html#mes-lectures-en-bref",
     "title": "Marginalia",
     "section": "Mes lectures en bref",
-    "text": "Mes lectures en bref\n\n\n1\nLivre en cours\n\n\n3\nLivres terminés\n\n\n130\nPages consignées"
+    "text": "Mes lectures en bref\n\n\n2\nLivres en cours\n\n\n3\nLivres terminés\n\n\n255\nPages consignées"
   },
   {
     "objectID": "index.html#en-cours-de-lecture",
     "href": "index.html#en-cours-de-lecture",
     "title": "Marginalia",
     "section": "En cours de lecture",
-    "text": "En cours de lecture\n\n\n\n\n\n\n\n\n\n\nEN COURS DE LECTURE\n\nL'avalée des avalés\n\nRéjean Ducharme\n\n\n\n\nPage 130 sur 343 · 37,9 %"
+    "text": "En cours de lecture\n\n\n\n\n\n\n\n\n\n\nEN COURS DE LECTURE\n\nBrooklyn\n\nColm Tóibín\n\n\n\n\nPage 125 sur 262 · 47,7 %\n\n\n\n\n\n\n\n\n\n\nEN COURS DE LECTURE\n\nL'avalée des avalés\n\nRéjean Ducharme\n\n\n\n\nPage 130 sur 343 · 37,9 %"
   },
   {
     "objectID": "index.html#dernières-lectures",
@@ -158,7 +158,7 @@
     "href": "books/B007.html",
     "title": "Brooklyn",
     "section": "",
-    "text": "RENSEIGNEMENTS SUR LA LECTURE\n\n\nStatut\nÀ lire\n\n\nNombre de pages\nNon consigné\n\n\nDébut de lecture\nNon consigné\n\n\nFin de lecture\nNon consigné"
+    "text": "RENSEIGNEMENTS SUR LA LECTURE\n\n\nStatut\nEn cours\n\n\nNombre de pages\n262 pages\n\n\nDébut de lecture\n27 novembre 2026\n\n\nFin de lecture\nNon consigné\n\n\nDernière page consignée\n125\n\n\nProgression de la lecture\n47,7 %"
   },
   {
     "objectID": "books/B007.html#mes-réflexions",
@@ -172,7 +172,7 @@
     "href": "books/B007.html#reading-history",
     "title": "Brooklyn",
     "section": "Historique de lecture",
-    "text": "Historique de lecture"
+    "text": "Historique de lecture\n\n\n\n\n\nDate\nPages lues\nPage atteinte\n\n\n\n\n2026-11-27\n125\n125"
   },
   {
     "objectID": "books/B006.html",
